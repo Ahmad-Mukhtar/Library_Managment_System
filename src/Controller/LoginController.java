@@ -1,6 +1,5 @@
 package Controller;
 
-import Classes.Login;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
