@@ -12,7 +12,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/Views/Login.fxml"));
         primaryStage.setTitle("Log In");
         primaryStage.initStyle(StageStyle.UNDECORATED);
-        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.setScene(new Scene(root, 600, 420));
         primaryStage.show();
     }
 
