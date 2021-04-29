@@ -1,16 +1,29 @@
 package Controller;
 
+import Classes.User;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
+
+import java.awt.*;
+import java.sql.SQLException;
+import java.util.concurrent.TimeUnit;
 
 public class LoginController
 {
+    //Fields ids
     @FXML
     private TextField Userfield;
 
@@ -34,16 +47,27 @@ public class LoginController
 
     @FXML private Label NotRegisteredLabel;
 
+    @FXML private BorderPane LoginFrame;
 
-    public void onLoginClick()
-    {
-        System.out.println(Userfield.getText());
-        System.out.println(Passwordfield.getText());
-        //Errorlabel.setVisible(true);
+
+    //When User Clicks Login Click Validate the fields
+    public void onLoginClick() throws SQLException {
+
+        Errorlabel.setVisible(false);
 
         if(Userfield.getPromptText().equals("Username"))
         {
-            System.out.println("User");
+            User user=new User();
+
+            if(user.validateLogin(Userfield.getText(),Passwordfield.getText()))
+            {
+                playTransition(true);
+            }
+            else
+            {
+                playTransition(false);
+
+            }
         }
         else if (Userfield.getPromptText().equals("AdminUsername"))
         {
@@ -55,7 +79,8 @@ public class LoginController
 
     }
 
-    public void playTransition()
+    //Play Loading Transition
+    public void playTransition(Boolean isValid)
     {
         double DefaultCircle1value=circle1.getLayoutX();
 
@@ -117,16 +142,70 @@ public class LoginController
 
             circle3.setVisible(false);
 
-            System.out.println("Finished");
+            if (isValid)
+            {
+
+                Stage stage=(Stage) LoginFrame.getScene().getWindow();
+
+                stage.close();
+
+                Parent root=null;
+                try
+                {
+                    root= FXMLLoader.load(getClass().getResource("/Views/UserPanel.fxml"));
+
+                    Stage stage1=new Stage();
+
+                    stage1.initStyle(StageStyle.UNDECORATED);
+
+                    stage1.setScene(new Scene(root, 1366, 768));
+
+                    stage1.show();
+                }
+                catch (Exception exception)
+                {
+                    System.out.println(exception.toString());
+                }
+
+            }
+            else
+            {
+                Loadinglabel.setVisible(false);
+
+                Errorlabel.setVisible(true);
+            }
+
         });
 
     }
-
+    //when User clicks Register
     public void onRegisterClick()
     {
-        System.out.println("Welcome To Registration");
+
+        Stage stage=(Stage) LoginFrame.getScene().getWindow();
+
+        stage.close();
+
+        Parent root=null;
+        try
+        {
+            root= FXMLLoader.load(getClass().getResource("/Views/Register.fxml"));
+
+            Stage stage1=new Stage();
+
+            stage1.initStyle(StageStyle.UNDECORATED);
+
+            stage1.setScene(new Scene(root, 700, 500));
+
+            stage1.show();
+        }
+        catch (Exception exception)
+        {
+            System.out.println(exception.toString());
+        }
     }
 
+    //Check if its user or admin who has clicked and call below functions accordingly
     public void onLoginAsAdminClick()
     {
         if (Loginadmin.getText().equals("Login As User"))
@@ -140,6 +219,8 @@ public class LoginController
 
 
     }
+
+    //When user clicks as admin login Change the prompt text and remove Register Option
 
     public void setLoginadmin() {
         Userfield.clear();
@@ -159,6 +240,7 @@ public class LoginController
         Loginadmin.setLayoutY(Loginadmin.getLayoutY()-40);
     }
 
+    //Opposite of setloginadmin click
     public void setLoginUser()
     {
         Userfield.clear();

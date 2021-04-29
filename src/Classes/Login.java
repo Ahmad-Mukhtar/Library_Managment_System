@@ -1,6 +1,8 @@
 package Classes;
 
+import java.sql.SQLException;
+
 public interface  Login
 {
-    boolean validateLogin();
+    boolean validateLogin(String Username,String Password) throws SQLException;
 }

@@ -6,7 +6,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LoginController">
+<BorderPane fx:id="LoginFrame" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LoginController">
    <left>
       <AnchorPane prefHeight="400.0" prefWidth="263.0" BorderPane.alignment="CENTER">
          <ImageView fitHeight="427.0" fitWidth="280.0" layoutX="-5.0" layoutY="-3.0" pickOnBounds="true">
@@ -24,21 +24,21 @@
          </Label>
          <TextField fx:id="Userfield" layoutX="84.0" layoutY="200.0" prefHeight="30.0" prefWidth="163.0" promptText="Username" style="-fx-background-radius: 20px;" />
          <PasswordField fx:id="Passwordfield" layoutX="84.0" layoutY="245.0" prefHeight="30.0" prefWidth="165.0" promptText="Password" style="-fx-background-radius: 20px;" />
-         <Button fx:id="LoginButton" layoutX="84.0" layoutY="293.0" mnemonicParsing="false" onAction="#onLoginClick" prefHeight="30.0" prefWidth="165.0" style="-fx-background-color: #1E90FF; -fx-background-radius: 20px;" text="Login" textFill="WHITE">
+         <Button layoutX="84.0" layoutY="293.0" mnemonicParsing="false" onAction="#onLoginClick" prefHeight="30.0" prefWidth="165.0" style="-fx-background-color: #1E90FF; -fx-background-radius: 20px;" text="Login" textFill="WHITE">
             <font>
                <Font name="Calibri Bold" size="15.0" />
             </font>
          </Button>
          <ImageView fitHeight="74.0" fitWidth="78.0" layoutX="123.0" layoutY="87.0" pickOnBounds="true">
-            <Image url="@../Images/bicon.jpg"/>
+            <Image url="@../Images/bicon.jpg" />
          </ImageView>
          <Label fx:id="NotRegisteredLabel" layoutX="94.0" layoutY="370.0" text="Not Registered?" textFill="WHITE">
             <font>
                <Font size="10.0" />
             </font></Label>
-         <Label fx:id="Errorlabel" layoutX="127.0" layoutY="337.0" text="Invalid Login" textFill="RED" visible="false">
+         <Label fx:id="Errorlabel" layoutX="110.0" layoutY="340.0" text="Invalid Credentials" textFill="RED" visible="false">
             <font>
-               <Font size="14.0" />
+               <Font name="System Bold" size="14.0" />
             </font>
          </Label>
          <Hyperlink fx:id="Registerlink" layoutX="164.0" layoutY="367.0" onAction="#onRegisterClick" text="Create an Account" textFill="DODGERBLUE">
