@@ -9,10 +9,11 @@ import javafx.stage.StageStyle;
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("/Views/Login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/Views/UserPanel.fxml"));
         primaryStage.setTitle("Log In");
         primaryStage.initStyle(StageStyle.UNDECORATED);
-        primaryStage.setScene(new Scene(root, 600, 420));
+       // primaryStage.setScene(new Scene(root, 600, 420));
+        primaryStage.setScene(new Scene(root, 1366, 810));
         primaryStage.show();
     }
 

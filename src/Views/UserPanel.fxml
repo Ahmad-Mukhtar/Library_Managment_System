@@ -1,8 +1,207 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-
-<AnchorPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UserController">
-
+<AnchorPane prefHeight="810.0" prefWidth="1366.0" style="-fx-background-color: #8b4513;;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UserController">
+   <ScrollPane hbarPolicy="NEVER" layoutX="276.0" layoutY="65.0" prefHeight="745.0" prefWidth="1090.0">
+      <Pane fx:id="Scrollpane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="742.0" prefWidth="1184.0" styleClass="backimage" stylesheets="@../styles.css">
+         <GridPane fx:id="Gridpane" layoutY="72.0" prefHeight="670.0" prefWidth="1088.0">
+            <columnConstraints>
+               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+               <RowConstraints maxHeight="250.0" minHeight="10.0" prefHeight="250.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="250.0" minHeight="10.0" prefHeight="250.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+         </GridPane>
+      </Pane>
+   </ScrollPane>
+   <Label layoutX="107.0" layoutY="28.0" text="User Panel" textFill="WHITE">
+      <font>
+         <Font name="Calibri Bold" size="18.0" />
+      </font>
+   </Label>
+   <ImageView fitHeight="65.0" fitWidth="72.0" layoutX="35.0" layoutY="18.0" pickOnBounds="true">
+      <image>
+         <Image url="@../Images/circle-cropped.png" />
+      </image>
+   </ImageView>
+   <Label layoutX="21.0" layoutY="133.0" text="Menus" textFill="#f0f0f0">
+      <font>
+         <Font name="Calibri Bold" size="18.0" />
+      </font>
+   </Label>
+   <Button fx:id="Viewbooksbutton" layoutY="200.0" mnemonicParsing="false" onMouseEntered="#setButtonstyle" onMouseExited="#revertButtonStyle" prefHeight="33.0" prefWidth="266.0" style="-fx-background-color: #8b4513;" text="View Books" textFill="WHITE">
+      <font>
+         <Font name="Calibri Bold" size="18.0" />
+      </font>
+      <graphic>
+         <FontAwesomeIcon fill="#ededed" glyphName="BOOK" />
+      </graphic>
+   </Button>
+   <Button fx:id="Viewissuedbutton" layoutY="351.0" mnemonicParsing="false" onMouseEntered="#setButtonstyle" onMouseExited="#revertButtonStyle" prefHeight="33.0" prefWidth="266.0" style="-fx-background-color: #8b4513;;" text="View Issued Books" textFill="#f8f8f8">
+      <font>
+         <Font name="Calibri Bold" size="18.0" />
+      </font>
+      <graphic>
+         <FontAwesomeIcon fill="WHITE" glyphName="BOOKMARK" />
+      </graphic>
+   </Button>
+   <Button fx:id="IssuebooksButton" layoutY="300.0" mnemonicParsing="false" onMouseEntered="#setButtonstyle" onMouseExited="#revertButtonStyle" prefHeight="33.0" prefWidth="266.0" style="-fx-background-color: #8b4513;;" text="Issue Books" textFill="#f8f8f8">
+      <font>
+         <Font name="Calibri Bold" size="18.0" />
+      </font>
+      <graphic>
+         <FontAwesomeIcon fill="WHITE" glyphName="SEARCH_PLUS" />
+      </graphic>
+   </Button>
+   <Button fx:id="Editprofilebutton" layoutY="249.0" mnemonicParsing="false" onMouseEntered="#setButtonstyle" onMouseExited="#revertButtonStyle" prefHeight="33.0" prefWidth="266.0" style="-fx-background-color: #8b4513;;" text="Edit Profile" textFill="#f8f8f8">
+      <font>
+         <Font name="Calibri Bold" size="18.0" />
+      </font>
+      <graphic>
+         <FontAwesomeIcon fill="WHITE" glyphName="PENCIL_SQUARE" />
+      </graphic>
+   </Button>
+   <Button fx:id="Historybutton" layoutY="606.0" mnemonicParsing="false" onMouseEntered="#setButtonstyle" onMouseExited="#revertButtonStyle" prefHeight="33.0" prefWidth="266.0" style="-fx-background-color: #8b4513;;" text="History" textFill="#f8f8f8">
+      <font>
+         <Font name="Calibri Bold" size="18.0" />
+      </font>
+      <graphic>
+         <FontAwesomeIcon fill="WHITE" glyphName="HISTORY" />
+      </graphic>
+   </Button>
+   <Button fx:id="Returnbookbutton" layoutY="555.0" mnemonicParsing="false" onMouseEntered="#setButtonstyle" onMouseExited="#revertButtonStyle" prefHeight="33.0" prefWidth="266.0" style="-fx-background-color: #8b4513;;" text="Return Book" textFill="#f8f8f8">
+      <font>
+         <Font name="Calibri Bold" size="18.0" />
+      </font>
+      <graphic>
+         <FontAwesomeIcon fill="WHITE" glyphName="MAIL_REPLY" />
+      </graphic>
+   </Button>
+   <Button fx:id="Renewbookbutton" layoutY="504.0" mnemonicParsing="false" onMouseEntered="#setButtonstyle" onMouseExited="#revertButtonStyle" prefHeight="33.0" prefWidth="266.0" style="-fx-background-color: #8b4513;;" text="Renew Book" textFill="#f8f8f8">
+      <font>
+         <Font name="Calibri Bold" size="18.0" />
+      </font>
+      <graphic>
+         <FontAwesomeIcon fill="WHITE" glyphName="REFRESH" />
+      </graphic>
+   </Button>
+   <Button fx:id="Penaltybutton" layoutY="708.0" mnemonicParsing="false" onMouseEntered="#setButtonstyle" onMouseExited="#revertButtonStyle" prefHeight="33.0" prefWidth="266.0" style="-fx-background-color: #8b4513;;" text="Penalty" textFill="#f8f8f8">
+      <font>
+         <Font name="Calibri Bold" size="18.0" />
+      </font>
+      <graphic>
+         <FontAwesomeIcon fill="WHITE" glyphName="WARNING" />
+      </graphic>
+   </Button>
+   <Button fx:id="Favouritesbutton" layoutY="657.0" mnemonicParsing="false" onMouseEntered="#setButtonstyle" onMouseExited="#revertButtonStyle" prefHeight="33.0" prefWidth="266.0" style="-fx-background-color: #8b4513;;" text="Favourites" textFill="#f8f8f8">
+      <font>
+         <Font name="Calibri Bold" size="18.0" />
+      </font>
+      <graphic>
+         <FontAwesomeIcon fill="WHITE" glyphName="HEART" />
+      </graphic>
+   </Button>
+   <Button fx:id="Signoutbutton" layoutY="759.0" mnemonicParsing="false" onMouseEntered="#setButtonstyle" onMouseExited="#revertButtonStyle" prefHeight="33.0" prefWidth="266.0" style="-fx-background-color: #8b4513;;" text="Sign out" textFill="#f8f8f8">
+      <font>
+         <Font name="Calibri Bold" size="18.0" />
+      </font>
+      <graphic>
+         <FontAwesomeIcon fill="WHITE" glyphName="SIGN_OUT" />
+      </graphic>
+   </Button>
+   <MenuButton fx:id="Reservebookbutton" alignment="CENTER" contentDisplay="RIGHT" layoutY="453.0" mnemonicParsing="false" onMouseEntered="#setButtonstyle" onMouseExited="#revertButtonStyle" popupSide="RIGHT" prefHeight="34.0" prefWidth="270.0" style="-fx-background-color: #8b4513;;" text="Reserve Book" textFill="#eaeaea">
+     <items>
+       <MenuItem mnemonicParsing="false" text="View Reserved Books" />
+       <MenuItem mnemonicParsing="false" text="Reserve A Book" />
+     </items>
+      <font>
+         <Font name="Calibri Bold" size="18.0" />
+      </font>
+   </MenuButton>
+   <MenuButton fx:id="Sortbutton" alignment="CENTER" contentDisplay="RIGHT" layoutY="402.0" mnemonicParsing="false" onMouseEntered="#setButtonstyle" onMouseExited="#revertButtonStyle" popupSide="RIGHT" prefHeight="34.0" prefWidth="270.0" style="-fx-background-color: #8b4513; -fx-cursor: hand;" text="Sort" textFill="#eaeaea">
+      <items>
+         <MenuItem mnemonicParsing="false" text="Sort By Ascending Order">
+           </MenuItem>
+         <MenuItem mnemonicParsing="false" text="Sort By Descending Order" />
+      </items>
+      <font>
+         <Font name="Calibri Bold" size="18.0" />
+      </font>
+   </MenuButton>
+   <Line endX="100.0" layoutX="135.0" layoutY="171.0" startX="-100.0" stroke="WHITE" />
+   <ImageView fx:id="closeIcon" fitHeight="20.0" fitWidth="22.0" layoutX="1340.0" layoutY="7.0" onMouseClicked="#mouseonclose" onMouseEntered="#setCloseIconStyle" onMouseExited="#revertCloseIconStyle" pickOnBounds="true">
+      <Image url="@../Images/clicon.png" />
+   </ImageView>
+   <HBox alignment="CENTER" layoutX="373.0" layoutY="8.0" prefHeight="51.0" prefWidth="711.0" style="-fx-background-color: #ffffff;">
+      <TextField fx:id="SearchField" onKeyPressed="#OnSearch" prefHeight="59.0" prefWidth="712.0" promptText="Search..." style="-fx-background-insets: 0; -fx-background-color: none;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+   </HBox>
+   <MenuButton layoutX="275.0" layoutY="8.1" mnemonicParsing="false" prefHeight="50.3" prefWidth="102.0" style="-fx-background-color: #ffffff; -fx-cursor: Hand;" text="Category">
+      <items>
+         <CustomMenuItem mnemonicParsing="false" text="Unspecified Action">
+           <content>
+             <CheckBox selected="true" text="All" />
+           </content>
+         </CustomMenuItem>
+         <CustomMenuItem mnemonicParsing="false" text="Unspecified Action">
+            <content>
+               <CheckBox text="Action" />
+            </content>
+         </CustomMenuItem>
+         <CustomMenuItem mnemonicParsing="false" text="Unspecified Action">
+            <content>
+               <CheckBox text="Adventure" />
+            </content>
+         </CustomMenuItem>
+         <CustomMenuItem mnemonicParsing="false" text="Unspecified Action">
+            <content>
+               <CheckBox text="Drama" />
+            </content>
+         </CustomMenuItem>
+         <CustomMenuItem mnemonicParsing="false" text="Unspecified Action">
+            <content>
+               <CheckBox text="Fantasy" />
+            </content>
+         </CustomMenuItem>
+         <CustomMenuItem mnemonicParsing="false" text="Unspecified Action">
+            <content>
+               <CheckBox text="Horror" />
+            </content>
+         </CustomMenuItem>
+         <CustomMenuItem mnemonicParsing="false" text="Unspecified Action">
+            <content>
+               <CheckBox text="Fiction" />
+            </content>
+         </CustomMenuItem>
+      </items>
+   </MenuButton>
+   <Button fx:id="Searchbutton" layoutX="1084.0" layoutY="7.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="66.0" style="-fx-background-color: #762b00; -fx-cursor: Hand;" text="Search" textFill="WHITE">
+      <font>
+         <Font name="Calibri Bold" size="14.0" />
+      </font>
+   </Button>
+   <Line endX="127.07986450195312" endY="33.34606170654297" layoutX="206.0" layoutY="50.0" rotate="90.0" startX="-17.879093170166016" startY="32.279388427734375" stroke="#f5f5f5" />
+   <FontAwesomeIcon fill="WHITE" glyphName="BELL" layoutX="1265.0" layoutY="37.0" size="20" />
+   <FontAwesomeIcon fill="WHITE" glyphName="QUESTION_CIRCLE" layoutX="1305.0" layoutY="40.0" onMouseClicked="#onHelpclicked" size="26" text="" />
+   <Label fx:id="NotifcationLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="1277.0" layoutY="31.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="15.0" style="-fx-background-radius: 100%; -fx-background-color: #F02E54; -fx-cursor: Hand;" text="1" textFill="#f0f0f0">
+      <font>
+         <Font name="System Bold" size="10.0" />
+      </font>
+   </Label>
+   <FontAwesomeIcon fill="#f2f2f2" glyphName="SORT" layoutX="90.0" layoutY="428.0" size="20" />
+   <FontAwesomeIcon fill="#f2f2f2" glyphName="CART_PLUS" layoutX="40.0" layoutY="480.0" size="25" />
 </AnchorPane>

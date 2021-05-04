@@ -1,0 +1,5 @@
+.backimage
+{
+    -fx-background-image: url("Images/bgimage.jpg");
+    -fx-background-size: 100%;
+}
