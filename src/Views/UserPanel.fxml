@@ -9,8 +9,8 @@
 
 <AnchorPane prefHeight="810.0" prefWidth="1366.0" style="-fx-background-color: #8b4513;;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UserController">
    <ScrollPane hbarPolicy="NEVER" layoutX="276.0" layoutY="65.0" prefHeight="745.0" prefWidth="1090.0">
-      <Pane fx:id="Scrollpane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="742.0" prefWidth="1184.0" styleClass="backimage" stylesheets="@../styles.css">
-         <GridPane fx:id="Gridpane" layoutY="72.0" prefHeight="670.0" prefWidth="1088.0">
+      <Pane fx:id="Scrollpane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="743.0" prefWidth="1184.0" styleClass="backimage" stylesheets="@../styles.css">
+         <GridPane fx:id="Gridpane" layoutX="-2.0" layoutY="72.0" prefHeight="670.0" prefWidth="1090.0">
             <columnConstraints>
                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -197,7 +197,7 @@
    <Line endX="127.07986450195312" endY="33.34606170654297" layoutX="206.0" layoutY="50.0" rotate="90.0" startX="-17.879093170166016" startY="32.279388427734375" stroke="#f5f5f5" />
    <FontAwesomeIcon fill="WHITE" glyphName="BELL" layoutX="1265.0" layoutY="37.0" size="20" />
    <FontAwesomeIcon fill="WHITE" glyphName="QUESTION_CIRCLE" layoutX="1305.0" layoutY="40.0" onMouseClicked="#onHelpclicked" size="26" text="" />
-   <Label fx:id="NotifcationLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="1277.0" layoutY="31.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="15.0" style="-fx-background-radius: 100%; -fx-background-color: #F02E54; -fx-cursor: Hand;" text="1" textFill="#f0f0f0">
+   <Label fx:id="NotifcationLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="1277.0" layoutY="31.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="15.0" style="-fx-background-radius: 100%; -fx-background-color: #F02E54; -fx-cursor: Hand;" text="0" textFill="#f0f0f0">
       <font>
          <Font name="System Bold" size="10.0" />
       </font>

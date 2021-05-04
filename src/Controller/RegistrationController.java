@@ -6,10 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
@@ -61,13 +58,19 @@ public class RegistrationController {
 
 
         if(Firstname.getText().isEmpty()||Lastname.getText().isEmpty()||Username.getText().isEmpty()||Email.getText().isEmpty()||Password.getText().isEmpty()||Dob.getValue()==null||!Male.isSelected()&&!Female.isSelected()) {
-            JOptionPane.showMessageDialog(null, "All Fields Are Required");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information");
+            alert.setHeaderText("All Fields Are Required");
+            alert.showAndWait();
         }
         else
         {
             if (!validateEmail(Email.getText()))
             {
-                JOptionPane.showMessageDialog(null, "Invalid Email");
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setHeaderText("Invalid Email");
+                alert.showAndWait();
             }
             else
             {
@@ -77,7 +80,10 @@ public class RegistrationController {
                }
                else
                {
-                   JOptionPane.showMessageDialog(null,"Username Already Taken");
+                   Alert alert = new Alert(Alert.AlertType.ERROR);
+                   alert.setTitle("Error");
+                   alert.setHeaderText("Username Already Taken");
+                   alert.showAndWait();
                }
             }
 
@@ -119,6 +125,7 @@ public class RegistrationController {
 
     }
 
+    //Play loading Transition and validate Registration
     public void playTransition() {
         double DefaultCircle1value = circle1.getLayoutX();
 
@@ -239,6 +246,7 @@ public class RegistrationController {
 
     }
 
+    //On click Already a user to go to Login Screen
     public void alreadyAUser()
     {
 
@@ -265,7 +273,7 @@ public class RegistrationController {
         }
 
     }
-
+    //Register A User By validating the information
     public Boolean registerUser() throws SQLException {
         DatabaseConnection databaseConnection=null;
         try {

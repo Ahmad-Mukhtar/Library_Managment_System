@@ -8,13 +8,18 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -105,8 +110,13 @@ public class UserController  implements Initializable
     @FXML
     private void onHelpclicked()
     {
-        JOptionPane.showMessageDialog(null,"Please Refer to Mannual For Help");
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Help");
+        alert.setHeaderText("Please Refer to Mannual For Help");
+
+        alert.showAndWait();
     }
+
 
     //Sets Side Bar Buttons Style etc On Hovering Over
     @FXML
@@ -233,7 +243,14 @@ public class UserController  implements Initializable
 
                 Gridpane.setVgap(40);
                 btn.setAccessibleText(String.valueOf(i));
+                btn.setFont(Searchbutton.getFont());
+                btn.setStyle("-fx-background-color: #762b00;-fx-cursor:Hand;");
+                btn.setTextFill(Color.WHITE);
                 btn1.setAccessibleText("View"+ i);
+                btn1.setAccessibleText(String.valueOf(i));
+                btn1.setFont(Searchbutton.getFont());
+                btn1.setStyle("-fx-background-color: #762b00;-fx-cursor:Hand;");
+                btn1.setTextFill(Color.WHITE);
 
                 btn.setOnAction(e -> {
                     System.out.println(btn.getAccessibleText());
@@ -245,22 +262,17 @@ public class UserController  implements Initializable
                     if (i % 5 == 0) {
                         ci = 0;
                         ri++;
-
+                        if(i>9) {
+                            Scrollpane.setPrefHeight(Scrollpane.getPrefHeight() + 190);
+                            Gridpane.setPrefHeight(Gridpane.getPrefHeight() + 190);
+                            Gridpane.addRow(Gridpane.getRowCount());
+                            Gridpane.getRowConstraints().add(new RowConstraints());
+                            Gridpane.getRowConstraints().get(Gridpane.getRowCount() - 1).setPrefHeight(250);
+                        }
                     }
                 }
 
 
-                if(i>9) {
-                   if(i%5==0)
-                    {
-                        Scrollpane.setPrefHeight(Scrollpane.getPrefHeight() + 190);
-                        Gridpane.setPrefHeight(Gridpane.getPrefHeight() + 190);
-                        Gridpane.addRow(Gridpane.getRowCount());
-                        Gridpane.getRowConstraints().add(new RowConstraints());
-                        Gridpane.getRowConstraints().get(Gridpane.getRowCount()-1).setPrefHeight(250);
-                    }
-
-                }
 
 
                 Gridpane.add(demoimj, ci, ri);
