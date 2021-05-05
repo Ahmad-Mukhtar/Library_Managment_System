@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -23,6 +24,9 @@
                <RowConstraints maxHeight="250.0" minHeight="10.0" prefHeight="250.0" vgrow="SOMETIMES" />
             </rowConstraints>
          </GridPane>
+
+
+         
       </Pane>
    </ScrollPane>
    <Label layoutX="107.0" layoutY="28.0" text="User Panel" textFill="WHITE">
@@ -40,7 +44,7 @@
          <Font name="Calibri Bold" size="18.0" />
       </font>
    </Label>
-   <Button fx:id="Viewbooksbutton" layoutY="200.0" mnemonicParsing="false" onMouseEntered="#setButtonstyle" onMouseExited="#revertButtonStyle" prefHeight="33.0" prefWidth="266.0" style="-fx-background-color: #8b4513;" text="View Books" textFill="WHITE">
+   <Button fx:id="Viewbooksbutton" layoutY="200.0" mnemonicParsing="false" onAction="#openBookswindow" onMouseEntered="#setButtonstyle" onMouseExited="#revertButtonStyle" prefHeight="33.0" prefWidth="266.0" style="-fx-background-color: #8b4513;" text="View Books" textFill="WHITE">
       <font>
          <Font name="Calibri Bold" size="18.0" />
       </font>
@@ -48,7 +52,7 @@
          <FontAwesomeIcon fill="#ededed" glyphName="BOOK" />
       </graphic>
    </Button>
-   <Button fx:id="Viewissuedbutton" layoutY="351.0" mnemonicParsing="false" onMouseEntered="#setButtonstyle" onMouseExited="#revertButtonStyle" prefHeight="33.0" prefWidth="266.0" style="-fx-background-color: #8b4513;;" text="View Issued Books" textFill="#f8f8f8">
+   <Button fx:id="Viewissuedbutton" layoutY="351.0" mnemonicParsing="false" onAction="#openViewissuedbooksWindow" onMouseEntered="#setButtonstyle" onMouseExited="#revertButtonStyle" prefHeight="33.0" prefWidth="266.0" style="-fx-background-color: #8b4513;;" text="View Issued Books" textFill="#f8f8f8">
       <font>
          <Font name="Calibri Bold" size="18.0" />
       </font>
@@ -56,7 +60,7 @@
          <FontAwesomeIcon fill="WHITE" glyphName="BOOKMARK" />
       </graphic>
    </Button>
-   <Button fx:id="IssuebooksButton" layoutY="300.0" mnemonicParsing="false" onMouseEntered="#setButtonstyle" onMouseExited="#revertButtonStyle" prefHeight="33.0" prefWidth="266.0" style="-fx-background-color: #8b4513;;" text="Issue Books" textFill="#f8f8f8">
+   <Button fx:id="IssuebooksButton" layoutY="300.0" mnemonicParsing="false" onAction="#openIssuebookswindow" onMouseEntered="#setButtonstyle" onMouseExited="#revertButtonStyle" prefHeight="33.0" prefWidth="266.0" style="-fx-background-color: #8b4513;;" text="Issue Books" textFill="#f8f8f8">
       <font>
          <Font name="Calibri Bold" size="18.0" />
       </font>
@@ -64,7 +68,7 @@
          <FontAwesomeIcon fill="WHITE" glyphName="SEARCH_PLUS" />
       </graphic>
    </Button>
-   <Button fx:id="Editprofilebutton" layoutY="249.0" mnemonicParsing="false" onMouseEntered="#setButtonstyle" onMouseExited="#revertButtonStyle" prefHeight="33.0" prefWidth="266.0" style="-fx-background-color: #8b4513;;" text="Edit Profile" textFill="#f8f8f8">
+   <Button fx:id="Editprofilebutton" layoutY="249.0" mnemonicParsing="false" onAction="#openEditWindow" onMouseEntered="#setButtonstyle" onMouseExited="#revertButtonStyle" prefHeight="33.0" prefWidth="266.0" style="-fx-background-color: #8b4513;;" text="Edit Profile" textFill="#f8f8f8">
       <font>
          <Font name="Calibri Bold" size="18.0" />
       </font>
@@ -72,7 +76,7 @@
          <FontAwesomeIcon fill="WHITE" glyphName="PENCIL_SQUARE" />
       </graphic>
    </Button>
-   <Button fx:id="Historybutton" layoutY="606.0" mnemonicParsing="false" onMouseEntered="#setButtonstyle" onMouseExited="#revertButtonStyle" prefHeight="33.0" prefWidth="266.0" style="-fx-background-color: #8b4513;;" text="History" textFill="#f8f8f8">
+   <Button fx:id="Historybutton" layoutY="606.0" mnemonicParsing="false" onAction="#openHistoryWindow" onMouseEntered="#setButtonstyle" onMouseExited="#revertButtonStyle" prefHeight="33.0" prefWidth="266.0" style="-fx-background-color: #8b4513;;" text="History" textFill="#f8f8f8">
       <font>
          <Font name="Calibri Bold" size="18.0" />
       </font>
@@ -80,7 +84,7 @@
          <FontAwesomeIcon fill="WHITE" glyphName="HISTORY" />
       </graphic>
    </Button>
-   <Button fx:id="Returnbookbutton" layoutY="555.0" mnemonicParsing="false" onMouseEntered="#setButtonstyle" onMouseExited="#revertButtonStyle" prefHeight="33.0" prefWidth="266.0" style="-fx-background-color: #8b4513;;" text="Return Book" textFill="#f8f8f8">
+   <Button fx:id="Returnbookbutton" layoutY="555.0" mnemonicParsing="false" onAction="#openReturntWindow" onMouseEntered="#setButtonstyle" onMouseExited="#revertButtonStyle" prefHeight="33.0" prefWidth="266.0" style="-fx-background-color: #8b4513;;" text="Return Book" textFill="#f8f8f8">
       <font>
          <Font name="Calibri Bold" size="18.0" />
       </font>
@@ -88,7 +92,7 @@
          <FontAwesomeIcon fill="WHITE" glyphName="MAIL_REPLY" />
       </graphic>
    </Button>
-   <Button fx:id="Renewbookbutton" layoutY="504.0" mnemonicParsing="false" onMouseEntered="#setButtonstyle" onMouseExited="#revertButtonStyle" prefHeight="33.0" prefWidth="266.0" style="-fx-background-color: #8b4513;;" text="Renew Book" textFill="#f8f8f8">
+   <Button fx:id="Renewbookbutton" layoutY="504.0" mnemonicParsing="false" onAction="#openRenewbookWindow" onMouseEntered="#setButtonstyle" onMouseExited="#revertButtonStyle" prefHeight="33.0" prefWidth="266.0" style="-fx-background-color: #8b4513;;" text="Renew Book" textFill="#f8f8f8">
       <font>
          <Font name="Calibri Bold" size="18.0" />
       </font>
@@ -96,7 +100,7 @@
          <FontAwesomeIcon fill="WHITE" glyphName="REFRESH" />
       </graphic>
    </Button>
-   <Button fx:id="Penaltybutton" layoutY="708.0" mnemonicParsing="false" onMouseEntered="#setButtonstyle" onMouseExited="#revertButtonStyle" prefHeight="33.0" prefWidth="266.0" style="-fx-background-color: #8b4513;;" text="Penalty" textFill="#f8f8f8">
+   <Button fx:id="Penaltybutton" layoutY="708.0" mnemonicParsing="false" onAction="#openPenaltyWindow" onMouseEntered="#setButtonstyle" onMouseExited="#revertButtonStyle" prefHeight="33.0" prefWidth="266.0" style="-fx-background-color: #8b4513;;" text="Penalty" textFill="#f8f8f8">
       <font>
          <Font name="Calibri Bold" size="18.0" />
       </font>
@@ -104,7 +108,7 @@
          <FontAwesomeIcon fill="WHITE" glyphName="WARNING" />
       </graphic>
    </Button>
-   <Button fx:id="Favouritesbutton" layoutY="657.0" mnemonicParsing="false" onMouseEntered="#setButtonstyle" onMouseExited="#revertButtonStyle" prefHeight="33.0" prefWidth="266.0" style="-fx-background-color: #8b4513;;" text="Favourites" textFill="#f8f8f8">
+   <Button fx:id="Favouritesbutton" layoutY="657.0" mnemonicParsing="false" onAction="#openFavouritesWindow" onMouseEntered="#setButtonstyle" onMouseExited="#revertButtonStyle" prefHeight="33.0" prefWidth="266.0" style="-fx-background-color: #8b4513;;" text="Favourites" textFill="#f8f8f8">
       <font>
          <Font name="Calibri Bold" size="18.0" />
       </font>
@@ -195,13 +199,116 @@
       </font>
    </Button>
    <Line endX="127.07986450195312" endY="33.34606170654297" layoutX="206.0" layoutY="50.0" rotate="90.0" startX="-17.879093170166016" startY="32.279388427734375" stroke="#f5f5f5" />
-   <FontAwesomeIcon fill="WHITE" glyphName="BELL" layoutX="1265.0" layoutY="37.0" size="20" />
-   <FontAwesomeIcon fill="WHITE" glyphName="QUESTION_CIRCLE" layoutX="1305.0" layoutY="40.0" onMouseClicked="#onHelpclicked" size="26" text="" />
-   <Label fx:id="NotifcationLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="1277.0" layoutY="31.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="15.0" style="-fx-background-radius: 100%; -fx-background-color: #F02E54; -fx-cursor: Hand;" text="0" textFill="#f0f0f0">
+   <FontAwesomeIcon fill="WHITE" glyphName="BELL" layoutX="1269.0" layoutY="38.0" onMouseClicked="#onNoificationsclick" size="20">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor></FontAwesomeIcon>
+   <FontAwesomeIcon fill="WHITE" glyphName="QUESTION_CIRCLE" layoutX="1305.0" layoutY="40.0" onMouseClicked="#onHelpclicked" size="26" text="">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor></FontAwesomeIcon>
+   <Label fx:id="NotifcationLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="1281.0" layoutY="31.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="15.0" style="-fx-background-radius: 100%; -fx-background-color: #F02E54;" stylesheets="@../styles.css" text="0" textFill="#f0f0f0">
       <font>
          <Font name="System Bold" size="10.0" />
       </font>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
    </Label>
    <FontAwesomeIcon fill="#f2f2f2" glyphName="SORT" layoutX="90.0" layoutY="428.0" size="20" />
    <FontAwesomeIcon fill="#f2f2f2" glyphName="CART_PLUS" layoutX="40.0" layoutY="480.0" size="25" />
+   <AnchorPane fx:id="Editprofilepane" layoutX="277.0" layoutY="66.0" prefHeight="746.0" prefWidth="1090.0" styleClass="backimage" stylesheets="@../styles.css" visible="false">
+      <children>
+         <AnchorPane layoutX="155.0" layoutY="105.0" prefHeight="536.0" prefWidth="785.0" style="-fx-background-color: #8b4513;">
+            <children>
+               <ImageView fitHeight="88.0" fitWidth="102.0" layoutX="342.0" layoutY="63.0" pickOnBounds="true">
+                  <image>
+                     <Image url="@../Images/profileimj.png" />
+                  </image>
+               </ImageView>
+               <Label layoutX="328.0" layoutY="14.0" text="Edit Profile" textFill="#fafafa">
+                  <font>
+                     <Font name="Constantia Bold" size="24.0" />
+                  </font>
+               </Label>
+               <Label layoutX="75.0" layoutY="256.0" text="Password" textFill="#fafafa">
+                  <font>
+                     <Font name="Constantia Bold" size="18.0" />
+                  </font>
+               </Label>
+               <Label layoutX="510.0" layoutY="170.0" text="Last Name" textFill="#fafafa">
+                  <font>
+                     <Font name="Constantia Bold" size="18.0" />
+                  </font>
+               </Label>
+               <Label layoutX="75.0" layoutY="334.0" text="Date of Birth" textFill="#fafafa">
+                  <font>
+                     <Font name="Constantia Bold" size="18.0" />
+                  </font>
+               </Label>
+               <Label layoutX="508.0" layoutY="256.0" text="Email" textFill="#fafafa">
+                  <font>
+                     <Font name="Constantia Bold" size="18.0" />
+                  </font>
+               </Label>
+               <TextField layoutX="75.0" layoutY="201.0" prefHeight="34.0" prefWidth="255.0" promptText="First Name" />
+               <TextField layoutX="510.0" layoutY="201.0" prefHeight="34.0" prefWidth="255.0" promptText="Last Name" />
+               <PasswordField layoutX="75.0" layoutY="279.0" prefHeight="34.0" prefWidth="255.0" promptText="Password" />
+               <TextField layoutX="510.0" layoutY="279.0" prefHeight="34.0" prefWidth="255.0" promptText="Email" />
+               <DatePicker layoutX="70.0" layoutY="363.0" prefHeight="34.0" prefWidth="255.0" promptText="Date Of Birth" />
+               <Button layoutX="301.0" layoutY="476.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="210.0" style="-fx-background-color: #007bff;" text="Update" textFill="WHITE">
+                  <font>
+                     <Font name="System Bold" size="14.0" />
+                  </font>
+               </Button>
+               <Label layoutX="75.0" layoutY="170.0" text="First Name" textFill="#fafafa">
+                  <font>
+                     <Font name="Constantia Bold" size="18.0" />
+                  </font>
+               </Label>
+            </children></AnchorPane>
+      </children></AnchorPane>
+   <AnchorPane fx:id="Issuebooksepane" layoutX="277.0" layoutY="66.0" prefHeight="746.0" prefWidth="1090.0" styleClass="backimage" stylesheets="@../styles.css" visible="false">
+      <children>
+         <AnchorPane layoutX="194.0" layoutY="155.0" prefHeight="436.0" prefWidth="685.0" style="-fx-background-color: #8b4513;">
+            <children>
+               <ImageView fitHeight="95.0" fitWidth="102.0" layoutX="302.0" layoutY="76.0" pickOnBounds="true">
+                  <image>
+                     <Image url="@../Images/books.png" />
+                  </image>
+               </ImageView>
+               <TextField fx:id="Bookidfield" layoutX="71.0" layoutY="244.0" onMouseClicked="#restrictNumeric" prefHeight="34.0" prefWidth="255.0" promptText="Book ID" />
+               <Label layoutX="255.0" layoutY="14.0" text="Book Issuing" textFill="#fafafa">
+                  <font>
+                     <Font name="Constantia Bold" size="36.0" />
+                  </font>
+               </Label>
+               <Button layoutX="248.0" layoutY="351.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="210.0" style="-fx-background-color: #007bff;" text="Issue Book" textFill="WHITE">
+                  <font>
+                     <Font name="System Bold" size="14.0" />
+                  </font>
+               </Button>
+               <Label layoutX="71.0" layoutY="218.0" text="Book ID" textFill="#fafafa">
+                  <font>
+                     <Font name="Constantia Bold" size="18.0" />
+                  </font>
+               </Label>
+            </children></AnchorPane>
+      </children></AnchorPane>
+   <AnchorPane fx:id="Viewsissuedbookspane" layoutX="277.0" layoutY="66.0" prefHeight="746.0" prefWidth="1090.0" style="-fx-background-color: #0601FB;" visible="false" />
+   <AnchorPane fx:id="Renewbookpane" layoutX="277.0" layoutY="66.0" prefHeight="746.0" prefWidth="1090.0" style="-fx-background-color: #EDFB01;" visible="false" />
+   <AnchorPane fx:id="Returnbookpane" layoutX="277.0" layoutY="66.0" prefHeight="746.0" prefWidth="1090.0" style="-fx-background-color: #06FB01;" visible="false" />
+   <AnchorPane fx:id="Historypane" layoutX="277.0" layoutY="66.0" prefHeight="746.0" prefWidth="1090.0" style="-fx-background-color: #848484;" visible="false" />
+   <AnchorPane fx:id="Favouritespane" layoutX="277.0" layoutY="66.0" prefHeight="746.0" prefWidth="1090.0" style="-fx-background-color: #FF33EC;" visible="false" />
+   <AnchorPane fx:id="Penaltypane" layoutX="277.0" layoutY="66.0" prefHeight="746.0" prefWidth="1090.0" style="-fx-background-color: #FF3333;" visible="false" />
+   <MenuButton fx:id="Notificationslist" layoutX="1295.0" layoutY="40.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="0.1" prefWidth="0.1" style="-fx-background-color: #fff;" stylesheets="@../styles.css" textFill="WHITE" visible="false">
+     <items>
+       <MenuItem mnemonicParsing="false" text="Your Book has been Issued By Admin" />
+     </items>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </MenuButton>
+
+   
 </AnchorPane>

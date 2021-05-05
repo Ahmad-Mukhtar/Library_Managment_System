@@ -1,6 +1,10 @@
 package Controller;
 
+import com.sun.javafx.beans.event.AbstractNotifyListener;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import javafx.beans.Observable;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
@@ -10,6 +14,7 @@ import javafx.scene.control.*;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -85,6 +90,35 @@ public class UserController  implements Initializable
     @FXML
     private FontAwesomeIcon Helpicon;
 
+    @FXML
+    private AnchorPane Editprofilepane;
+    @FXML
+    private AnchorPane Issuebooksepane;
+
+    @FXML
+    private AnchorPane Viewsissuedbookspane;
+
+    @FXML
+    private AnchorPane Renewbookpane;
+
+    @FXML
+    private AnchorPane Returnbookpane;
+
+    @FXML
+    private AnchorPane Historypane;
+
+    @FXML
+    private AnchorPane Favouritespane;
+
+    @FXML
+    private AnchorPane Penaltypane;
+
+    @FXML
+    private MenuButton Notificationslist;
+
+    @FXML
+    private TextField Bookidfield;
+
 
 
 
@@ -95,6 +129,170 @@ public class UserController  implements Initializable
 
     }
 
+    @FXML
+    private void openEditWindow()
+    {
+        disableAllpanes();
+        Editprofilepane.setVisible(true);
+    }
+
+    @FXML
+    private void openViewissuedbooksWindow()
+    {
+        disableAllpanes();
+        Viewsissuedbookspane.setVisible(true);
+    }
+    @FXML
+    private void restrictNumeric()
+    {
+        Bookidfield.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    Bookidfield.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+    }
+    @FXML
+    private void onNoificationsclick()
+    {
+        NotifcationLabel.setVisible(false);
+       // Notificationslist.setVisible(true);
+       // Notificationslist.getItems().add(new MenuItem("Demo"));
+        Notificationslist.fire();
+    }
+    @FXML
+    private void openRenewbookWindow()
+    {
+        disableAllpanes();
+        Renewbookpane.setVisible(true);
+    }
+    @FXML
+    private void openReturntWindow()
+    {
+        disableAllpanes();
+        Returnbookpane.setVisible(true);
+    }
+    @FXML
+    private void openHistoryWindow()
+    {
+        disableAllpanes();
+        Historypane.setVisible(true);
+    }
+    @FXML
+    private void openFavouritesWindow()
+    {
+        disableAllpanes();
+        Favouritespane.setVisible(true);
+    }
+
+
+    @FXML
+    private void openPenaltyWindow()
+    {
+        disableAllpanes();
+        Penaltypane.setVisible(true);
+    }
+
+    @FXML
+    private void openBookswindow()
+    {
+        disableAllpanes();
+        Scrollpane.setVisible(true);
+        showBooks();
+    }
+    @FXML
+    private void openIssuebookswindow()
+    {
+        disableAllpanes();
+        Issuebooksepane.setVisible(true);
+    }
+    private void showBooks()
+    {
+        try {
+            int i=0;
+            int ri=0;
+            int ci=0;
+            while(i<7) {
+                File F=new File("src/Images/1.jpg");
+                FileInputStream input = new FileInputStream(F);
+                Image imj = new Image(input);
+                ImageView demoimj = new ImageView(imj);
+                demoimj.setPreserveRatio(false);
+                demoimj.setFitWidth(130);
+                demoimj.setFitHeight(178);
+                Button btn = new Button("Issue Book"+i);
+                Button btn1 = new Button("View Details"+i);
+                GridPane.setHalignment(demoimj, HPos.CENTER);
+                GridPane.setHalignment(btn, HPos.CENTER);
+                GridPane.setHalignment(btn1, HPos.CENTER);
+                GridPane.setMargin(demoimj, new Insets(-50, 0, 0, 0));
+                GridPane.setMargin(btn, new Insets(170, 0, 0, 0));
+                GridPane.setMargin(btn1, new Insets(255, 0, 0, 0));
+
+                Gridpane.setVgap(40);
+                btn.setAccessibleText(String.valueOf(i));
+                btn.setFont(Searchbutton.getFont());
+                btn.setStyle("-fx-background-color: #762b00;-fx-cursor:Hand;");
+                btn.setTextFill(Color.WHITE);
+                btn1.setAccessibleText("View"+ i);
+                btn1.setAccessibleText(String.valueOf(i));
+                btn1.setFont(Searchbutton.getFont());
+                btn1.setStyle("-fx-background-color: #762b00;-fx-cursor:Hand;");
+                btn1.setTextFill(Color.WHITE);
+
+                btn.setOnAction(e -> {
+                    System.out.println(btn.getAccessibleText());
+                });
+                btn1.setOnAction(event -> {
+                    System.out.println(btn1.getAccessibleText());
+                });
+                if(i!=0) {
+                    if (i % 5 == 0) {
+                        ci = 0;
+                        ri++;
+                        if(i>9) {
+                            Scrollpane.setPrefHeight(Scrollpane.getPrefHeight() + 190);
+                            Gridpane.setPrefHeight(Gridpane.getPrefHeight() + 190);
+                            Gridpane.addRow(Gridpane.getRowCount());
+                            Gridpane.getRowConstraints().add(new RowConstraints());
+                            Gridpane.getRowConstraints().get(Gridpane.getRowCount() - 1).setPrefHeight(250);
+                        }
+                    }
+                }
+
+
+
+
+                Gridpane.add(demoimj, ci, ri);
+                Gridpane.add(btn, ci, ri);
+                Gridpane.add(btn1,ci,ri);
+                i++;
+                ci++;
+            }
+
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void disableAllpanes()
+    {
+        Scrollpane.setVisible(false);
+        Editprofilepane.setVisible(false);
+        Issuebooksepane.setVisible(false);
+        Viewsissuedbookspane.setVisible(false);
+         Renewbookpane.setVisible(false);
+         Returnbookpane.setVisible(false);
+        Historypane.setVisible(false);
+        Favouritespane.setVisible(false);
+        Penaltypane.setVisible(false);
+    }
     //If user Presses Enter On Search Field
     @FXML
     private void OnSearch(KeyEvent keyEvent)
@@ -111,7 +309,9 @@ public class UserController  implements Initializable
     private void onHelpclicked()
     {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
         alert.setTitle("Help");
+
         alert.setHeaderText("Please Refer to Mannual For Help");
 
         alert.showAndWait();
@@ -220,74 +420,8 @@ public class UserController  implements Initializable
     //Load Books From Database and Display them
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        try {
-            int i=0;
-            int ri=0;
-            int ci=0;
-            while(i<7) {
-                File F=new File("src/Images/1.jpg");
-                FileInputStream input = new FileInputStream(F);
-                Image imj = new Image(input);
-                ImageView demoimj = new ImageView(imj);
-                demoimj.setPreserveRatio(false);
-                demoimj.setFitWidth(130);
-                demoimj.setFitHeight(178);
-                Button btn = new Button("Issue Book"+i);
-                Button btn1 = new Button("View Details"+i);
-                GridPane.setHalignment(demoimj, HPos.CENTER);
-                GridPane.setHalignment(btn, HPos.CENTER);
-                GridPane.setHalignment(btn1, HPos.CENTER);
-                GridPane.setMargin(demoimj, new Insets(-50, 0, 0, 0));
-                GridPane.setMargin(btn, new Insets(170, 0, 0, 0));
-                GridPane.setMargin(btn1, new Insets(255, 0, 0, 0));
 
-                Gridpane.setVgap(40);
-                btn.setAccessibleText(String.valueOf(i));
-                btn.setFont(Searchbutton.getFont());
-                btn.setStyle("-fx-background-color: #762b00;-fx-cursor:Hand;");
-                btn.setTextFill(Color.WHITE);
-                btn1.setAccessibleText("View"+ i);
-                btn1.setAccessibleText(String.valueOf(i));
-                btn1.setFont(Searchbutton.getFont());
-                btn1.setStyle("-fx-background-color: #762b00;-fx-cursor:Hand;");
-                btn1.setTextFill(Color.WHITE);
-
-                btn.setOnAction(e -> {
-                    System.out.println(btn.getAccessibleText());
-                });
-                btn1.setOnAction(event -> {
-                    System.out.println(btn1.getAccessibleText());
-                });
-                if(i!=0) {
-                    if (i % 5 == 0) {
-                        ci = 0;
-                        ri++;
-                        if(i>9) {
-                            Scrollpane.setPrefHeight(Scrollpane.getPrefHeight() + 190);
-                            Gridpane.setPrefHeight(Gridpane.getPrefHeight() + 190);
-                            Gridpane.addRow(Gridpane.getRowCount());
-                            Gridpane.getRowConstraints().add(new RowConstraints());
-                            Gridpane.getRowConstraints().get(Gridpane.getRowCount() - 1).setPrefHeight(250);
-                        }
-                    }
-                }
-
-
-
-
-                Gridpane.add(demoimj, ci, ri);
-                Gridpane.add(btn, ci, ri);
-                Gridpane.add(btn1,ci,ri);
-                i++;
-                ci++;
-            }
-
-
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
+        showBooks();
 
     }
 
