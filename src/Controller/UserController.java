@@ -1,15 +1,19 @@
 package Controller;
 
+import Classes.User;
 import com.sun.javafx.beans.event.AbstractNotifyListener;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 
 import javafx.scene.control.Button;
@@ -21,9 +25,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
-
-import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
@@ -119,6 +123,14 @@ public class UserController  implements Initializable
     @FXML
     private TextField Bookidfield;
 
+    @FXML
+    private Label PenlaltyLabel;
+
+    @FXML
+    private AnchorPane UserpanelPane;
+
+    private User user;
+
 
 
 
@@ -126,6 +138,7 @@ public class UserController  implements Initializable
     {
         //TODO
         //Issue Book
+
 
     }
 
@@ -155,6 +168,44 @@ public class UserController  implements Initializable
             }
         });
     }
+
+
+    @FXML
+    private void penaltyPrice(int Price)
+    {
+
+        PenlaltyLabel.setStyle("-fx-text-fill: #721c24;-fx-background-color: #f8d7da;");
+
+        PenlaltyLabel.setText("Please Pay Your Fine of RS "+Price);
+    }
+    //Sign Out User
+    @FXML
+    private void signOut()
+    {
+        Stage stage=(Stage) UserpanelPane.getScene().getWindow();
+
+        stage.close();
+
+        Parent root=null;
+        try
+        {
+            root= FXMLLoader.load(getClass().getResource("/Views/Login.fxml"));
+
+            Stage stage1=new Stage();
+
+            stage1.initStyle(StageStyle.UNDECORATED);
+
+            stage1.setScene(new Scene(root, 600, 420));
+
+            stage1.show();
+        }
+        catch (Exception exception)
+        {
+            System.out.println(exception.toString());
+        }
+    }
+
+    //Display Notifications if any
     @FXML
     private void onNoificationsclick()
     {

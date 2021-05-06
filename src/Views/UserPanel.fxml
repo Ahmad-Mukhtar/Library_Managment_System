@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="810.0" prefWidth="1366.0" style="-fx-background-color: #8b4513;;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UserController">
+<AnchorPane fx:id="UserpanelPane" prefHeight="810.0" prefWidth="1366.0" style="-fx-background-color: #8b4513;;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UserController">
    <ScrollPane hbarPolicy="NEVER" layoutX="276.0" layoutY="65.0" prefHeight="745.0" prefWidth="1090.0">
       <Pane fx:id="Scrollpane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="743.0" prefWidth="1184.0" styleClass="backimage" stylesheets="@../styles.css">
          <GridPane fx:id="Gridpane" layoutX="-2.0" layoutY="72.0" prefHeight="670.0" prefWidth="1090.0">
@@ -116,7 +116,7 @@
          <FontAwesomeIcon fill="WHITE" glyphName="HEART" />
       </graphic>
    </Button>
-   <Button fx:id="Signoutbutton" layoutY="759.0" mnemonicParsing="false" onMouseEntered="#setButtonstyle" onMouseExited="#revertButtonStyle" prefHeight="33.0" prefWidth="266.0" style="-fx-background-color: #8b4513;;" text="Sign out" textFill="#f8f8f8">
+   <Button fx:id="Signoutbutton" layoutY="759.0" mnemonicParsing="false" onAction="#signOut" onMouseEntered="#setButtonstyle" onMouseExited="#revertButtonStyle" prefHeight="33.0" prefWidth="266.0" style="-fx-background-color: #8b4513;;" text="Sign out" textFill="#f8f8f8">
       <font>
          <Font name="Calibri Bold" size="18.0" />
       </font>
@@ -296,11 +296,86 @@
             </children></AnchorPane>
       </children></AnchorPane>
    <AnchorPane fx:id="Viewsissuedbookspane" layoutX="277.0" layoutY="66.0" prefHeight="746.0" prefWidth="1090.0" style="-fx-background-color: #0601FB;" visible="false" />
-   <AnchorPane fx:id="Renewbookpane" layoutX="277.0" layoutY="66.0" prefHeight="746.0" prefWidth="1090.0" style="-fx-background-color: #EDFB01;" visible="false" />
-   <AnchorPane fx:id="Returnbookpane" layoutX="277.0" layoutY="66.0" prefHeight="746.0" prefWidth="1090.0" style="-fx-background-color: #06FB01;" visible="false" />
+   <AnchorPane fx:id="Renewbookpane" layoutX="277.0" layoutY="66.0" prefHeight="746.0" prefWidth="1090.0" styleClass="backimage" stylesheets="@../styles.css" visible="false">
+      <children>
+         <AnchorPane layoutX="194.0" layoutY="155.0" prefHeight="436.0" prefWidth="685.0" style="-fx-background-color: #8b4513;">
+            <children>
+               <Label layoutX="248.0" layoutY="14.0" text="Renew Book" textFill="#fafafa">
+                  <font>
+                     <Font name="Constantia Bold" size="36.0" />
+                  </font>
+               </Label>
+               <ImageView fitHeight="95.0" fitWidth="102.0" layoutX="302.0" layoutY="76.0" pickOnBounds="true">
+                  <image>
+                     <Image url="@../Images/renimj.jpg" />
+                  </image>
+               </ImageView>
+               <Label layoutX="71.0" layoutY="218.0" text="Book ID" textFill="#fafafa">
+                  <font>
+                     <Font name="Constantia Bold" size="18.0" />
+                  </font>
+               </Label>
+               <TextField fx:id="Bookidfield1" layoutX="71.0" layoutY="244.0" onMouseClicked="#restrictNumeric" prefHeight="34.0" prefWidth="255.0" promptText="Book ID" />
+               <Button layoutX="248.0" layoutY="359.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="210.0" style="-fx-background-color: #28a745;" text="Renew Book" textFill="WHITE">
+                  <font>
+                     <Font name="System Bold" size="14.0" />
+                  </font>
+               </Button>
+            </children>
+         </AnchorPane>
+      </children></AnchorPane>
+   <AnchorPane fx:id="Returnbookpane" layoutX="277.0" layoutY="66.0" prefHeight="746.0" prefWidth="1090.0" styleClass="backimage" stylesheets="@../styles.css" visible="false">
+      <children>
+         <AnchorPane layoutX="194.0" layoutY="155.0" prefHeight="436.0" prefWidth="685.0" style="-fx-background-color: #8b4513;">
+            <children>
+               <Label layoutX="248.0" layoutY="14.0" text="Return Book" textFill="#fafafa">
+                  <font>
+                     <Font name="Constantia Bold" size="36.0" />
+                  </font>
+               </Label>
+               <ImageView fitHeight="95.0" fitWidth="102.0" layoutX="302.0" layoutY="76.0" pickOnBounds="true">
+                  <image>
+                     <Image url="@../Images/digital-inventory.png" />
+                  </image>
+               </ImageView>
+               <Label layoutX="71.0" layoutY="218.0" text="Book ID" textFill="#fafafa">
+                  <font>
+                     <Font name="Constantia Bold" size="18.0" />
+                  </font>
+               </Label>
+               <TextField fx:id="Bookidfield11" layoutX="71.0" layoutY="244.0" onMouseClicked="#restrictNumeric" prefHeight="34.0" prefWidth="255.0" promptText="Book ID" />
+               <Button layoutX="248.0" layoutY="359.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="210.0" style="-fx-background-color: #007bff;" text="Return Book" textFill="WHITE">
+                  <font>
+                     <Font name="System Bold" size="14.0" />
+                  </font>
+               </Button>
+            </children>
+         </AnchorPane>
+      </children></AnchorPane>
    <AnchorPane fx:id="Historypane" layoutX="277.0" layoutY="66.0" prefHeight="746.0" prefWidth="1090.0" style="-fx-background-color: #848484;" visible="false" />
    <AnchorPane fx:id="Favouritespane" layoutX="277.0" layoutY="66.0" prefHeight="746.0" prefWidth="1090.0" style="-fx-background-color: #FF33EC;" visible="false" />
-   <AnchorPane fx:id="Penaltypane" layoutX="277.0" layoutY="66.0" prefHeight="746.0" prefWidth="1090.0" style="-fx-background-color: #FF3333;" visible="false" />
+   <AnchorPane fx:id="Penaltypane" layoutX="277.0" layoutY="66.0" prefHeight="746.0" prefWidth="1090.0" styleClass="backimage" stylesheets="@../styles.css" visible="false">
+      <children>
+         <AnchorPane layoutX="194.0" layoutY="155.0" prefHeight="436.0" prefWidth="685.0" style="-fx-background-color: #8b4513;">
+            <children>
+               <ImageView fitHeight="95.0" fitWidth="102.0" layoutX="302.0" layoutY="76.0" pickOnBounds="true">
+                  <image>
+                     <Image url="@../Images/defaulters-list.png" />
+                  </image>
+               </ImageView>
+               <Label layoutX="288.0" layoutY="14.0" text="Penalty" textFill="#fafafa">
+                  <font>
+                     <Font name="Constantia Bold" size="36.0" />
+                  </font>
+               </Label>
+               <Label fx:id="PenlaltyLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="149.0" layoutY="231.0" prefHeight="43.0" prefWidth="393.0" style="-fx-background-color: #d4edda;" text="You Have No Fine To Pay" textFill="#155724">
+                  <font>
+                     <Font name="Constantia" size="18.0" />
+                  </font>
+               </Label>
+            </children>
+         </AnchorPane>
+      </children></AnchorPane>
    <MenuButton fx:id="Notificationslist" layoutX="1295.0" layoutY="40.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="0.1" prefWidth="0.1" style="-fx-background-color: #fff;" stylesheets="@../styles.css" textFill="WHITE" visible="false">
      <items>
        <MenuItem mnemonicParsing="false" text="Your Book has been Issued By Admin" />
