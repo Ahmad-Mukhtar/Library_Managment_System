@@ -29,7 +29,7 @@
          
       </Pane>
    </ScrollPane>
-   <Label layoutX="107.0" layoutY="28.0" text="User Panel" textFill="WHITE">
+   <Label fx:id="UserpanelLabel" layoutX="107.0" layoutY="28.0" text="User Panel" textFill="WHITE">
       <font>
          <Font name="Calibri Bold" size="18.0" />
       </font>
@@ -135,9 +135,9 @@
    </MenuButton>
    <MenuButton fx:id="Sortbutton" alignment="CENTER" contentDisplay="RIGHT" layoutY="402.0" mnemonicParsing="false" onMouseEntered="#setButtonstyle" onMouseExited="#revertButtonStyle" popupSide="RIGHT" prefHeight="34.0" prefWidth="270.0" style="-fx-background-color: #8b4513; -fx-cursor: hand;" text="Sort" textFill="#eaeaea">
       <items>
-         <MenuItem mnemonicParsing="false" text="Sort By Ascending Order">
+         <MenuItem mnemonicParsing="false" onAction="#sortByAsc" text="Sort By Ascending Order">
            </MenuItem>
-         <MenuItem mnemonicParsing="false" text="Sort By Descending Order" />
+         <MenuItem mnemonicParsing="false" onAction="#sortByDesc" text="Sort By Descending Order" />
       </items>
       <font>
          <Font name="Calibri Bold" size="18.0" />
@@ -295,7 +295,26 @@
                </Label>
             </children></AnchorPane>
       </children></AnchorPane>
-   <AnchorPane fx:id="Viewsissuedbookspane" layoutX="277.0" layoutY="66.0" prefHeight="746.0" prefWidth="1090.0" style="-fx-background-color: #0601FB;" visible="false" />
+   <AnchorPane fx:id="Viewsissuedbookspane" layoutX="277.0" layoutY="66.0" prefHeight="746.0" prefWidth="1090.0" styleClass="backimage" stylesheets="@../styles.css" visible="false">
+      <children>
+         <Pane layoutX="194.0" layoutY="155.0" prefHeight="436.0" prefWidth="685.0" style="-fx-background-color: #8b4513;">
+            <children>
+               <GridPane fx:id="ViewIssuedGridpane" alignment="CENTER" layoutY="106.0" prefHeight="280.0" prefWidth="672.0">
+                 <columnConstraints>
+                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                 </columnConstraints>
+                 <rowConstraints>
+                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                 </rowConstraints>
+               </GridPane>
+               <Label layoutX="230.0" layoutY="14.0" text="Issued Books" textFill="#fafafa">
+                  <font>
+                     <Font name="Constantia Bold" size="36.0" />
+                  </font>
+               </Label>
+            </children>
+         </Pane>
+      </children></AnchorPane>
    <AnchorPane fx:id="Renewbookpane" layoutX="277.0" layoutY="66.0" prefHeight="746.0" prefWidth="1090.0" styleClass="backimage" stylesheets="@../styles.css" visible="false">
       <children>
          <AnchorPane layoutX="194.0" layoutY="155.0" prefHeight="436.0" prefWidth="685.0" style="-fx-background-color: #8b4513;">
