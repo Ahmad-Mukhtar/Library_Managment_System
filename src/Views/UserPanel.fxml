@@ -9,7 +9,7 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane fx:id="UserpanelPane" prefHeight="810.0" prefWidth="1366.0" style="-fx-background-color: #8b4513;;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UserController">
-   <ScrollPane hbarPolicy="NEVER" layoutX="276.0" layoutY="65.0" prefHeight="745.0" prefWidth="1090.0">
+   <ScrollPane hbarPolicy="NEVER" layoutX="276.0" layoutY="65.0" prefHeight="745.0" prefWidth="1090.0" visible="false">
       <Pane fx:id="Scrollpane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="743.0" prefWidth="1184.0" styleClass="backimage" stylesheets="@../styles.css">
          <GridPane fx:id="Gridpane" layoutX="-2.0" layoutY="72.0" prefHeight="670.0" prefWidth="1090.0">
             <columnConstraints>
@@ -44,7 +44,7 @@
          <Font name="Calibri Bold" size="18.0" />
       </font>
    </Label>
-   <Button fx:id="Viewbooksbutton" layoutY="200.0" mnemonicParsing="false" onAction="#openBookswindow" onMouseEntered="#setButtonstyle" onMouseExited="#revertButtonStyle" prefHeight="33.0" prefWidth="266.0" style="-fx-background-color: #8b4513;" text="View Books" textFill="WHITE">
+   <Button fx:id="Viewbooksbutton" layoutY="200.0" mnemonicParsing="false" onAction="#showBooks" onMouseEntered="#setButtonstyle" onMouseExited="#revertButtonStyle" prefHeight="33.0" prefWidth="266.0" style="-fx-background-color: #8b4513;" text="View Books" textFill="WHITE">
       <font>
          <Font name="Calibri Bold" size="18.0" />
       </font>
@@ -126,8 +126,8 @@
    </Button>
    <MenuButton fx:id="Reservebookbutton" alignment="CENTER" contentDisplay="RIGHT" layoutY="453.0" mnemonicParsing="false" onMouseEntered="#setButtonstyle" onMouseExited="#revertButtonStyle" popupSide="RIGHT" prefHeight="34.0" prefWidth="270.0" style="-fx-background-color: #8b4513;;" text="Reserve Book" textFill="#eaeaea">
      <items>
-       <MenuItem mnemonicParsing="false" text="View Reserved Books" />
-       <MenuItem mnemonicParsing="false" text="Reserve A Book" />
+       <MenuItem mnemonicParsing="false" onAction="#openViewreservedbookswindow" text="View Reserved Books" />
+       <MenuItem mnemonicParsing="false" onAction="#openReservebookwindow" text="Reserve A Book" />
      </items>
       <font>
          <Font name="Calibri Bold" size="18.0" />
@@ -371,8 +371,6 @@
             </children>
          </AnchorPane>
       </children></AnchorPane>
-   <AnchorPane fx:id="Historypane" layoutX="277.0" layoutY="66.0" prefHeight="746.0" prefWidth="1090.0" style="-fx-background-color: #848484;" visible="false" />
-   <AnchorPane fx:id="Favouritespane" layoutX="277.0" layoutY="66.0" prefHeight="746.0" prefWidth="1090.0" style="-fx-background-color: #FF33EC;" visible="false" />
    <AnchorPane fx:id="Penaltypane" layoutX="277.0" layoutY="66.0" prefHeight="746.0" prefWidth="1090.0" styleClass="backimage" stylesheets="@../styles.css" visible="false">
       <children>
          <AnchorPane layoutX="194.0" layoutY="155.0" prefHeight="436.0" prefWidth="685.0" style="-fx-background-color: #8b4513;">
@@ -403,6 +401,56 @@
          <Cursor fx:constant="HAND" />
       </cursor>
    </MenuButton>
+   <AnchorPane fx:id="ReserveBookspane" layoutX="277.0" layoutY="66.0" prefHeight="746.0" prefWidth="1090.0" styleClass="backimage" stylesheets="@../styles.css" visible="false">
+      <children>
+         <AnchorPane layoutX="194.0" layoutY="155.0" prefHeight="436.0" prefWidth="685.0" style="-fx-background-color: #8b4513;">
+            <children>
+               <ImageView fitHeight="95.0" fitWidth="102.0" layoutX="302.0" layoutY="76.0" pickOnBounds="true">
+                  <image>
+                     <Image url="@../Images/library.png" />
+                  </image>
+               </ImageView>
+               <TextField fx:id="Bookidfield2" layoutX="71.0" layoutY="244.0" onMouseClicked="#restrictNumeric" prefHeight="34.0" prefWidth="255.0" promptText="Book ID" />
+               <Label layoutX="237.0" layoutY="14.0" text="Reserve Book" textFill="#fafafa">
+                  <font>
+                     <Font name="Constantia Bold" size="36.0" />
+                  </font>
+               </Label>
+               <Button layoutX="248.0" layoutY="351.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="210.0" style="-fx-background-color: #007bff;" text="Reserve Book" textFill="WHITE">
+                  <font>
+                     <Font name="System Bold" size="14.0" />
+                  </font>
+               </Button>
+               <Label layoutX="71.0" layoutY="218.0" text="Book ID" textFill="#fafafa">
+                  <font>
+                     <Font name="Constantia Bold" size="18.0" />
+                  </font>
+               </Label>
+            </children>
+         </AnchorPane>
+      </children>
+   </AnchorPane>
+   <AnchorPane fx:id="Viewsreservededbookspane" layoutX="287.0" layoutY="76.0" prefHeight="746.0" prefWidth="1090.0" styleClass="backimage" stylesheets="@../styles.css" visible="false">
+      <children>
+         <Pane layoutX="194.0" layoutY="155.0" prefHeight="436.0" prefWidth="685.0" style="-fx-background-color: #8b4513;">
+            <children>
+               <GridPane fx:id="ViewreserveGridpane" alignment="CENTER" layoutY="106.0" prefHeight="280.0" prefWidth="672.0">
+                  <columnConstraints>
+                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  </columnConstraints>
+                  <rowConstraints>
+                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  </rowConstraints>
+               </GridPane>
+               <Label layoutX="207.0" layoutY="14.0" text="Reserved Books" textFill="#fafafa">
+                  <font>
+                     <Font name="Constantia Bold" size="36.0" />
+                  </font>
+               </Label>
+            </children>
+         </Pane>
+      </children>
+   </AnchorPane>
 
    
 </AnchorPane>
