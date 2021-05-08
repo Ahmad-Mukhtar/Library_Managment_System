@@ -79,6 +79,9 @@ public class AdminController implements Initializable {
     private Label AdminpanelLabel;
 
     @FXML
+    private AnchorPane NotFoundPane;
+
+    @FXML
     private MenuButton Categorybutton;
 
     private Admin admin;
@@ -131,6 +134,7 @@ public class AdminController implements Initializable {
     {
         String Searchvalue=SearchField.getText();
         System.out.println(Searchvalue);
+        getBooksfromdatabase(true,false);
     }
     //Sign Out User
     @FXML
@@ -187,6 +191,8 @@ public class AdminController implements Initializable {
             if(Search)
             {
                 System.out.println("Search");
+                disableAllpanes();
+                NotFoundPane.setVisible(true);
 
             }
             else if (Filter)
@@ -260,6 +266,7 @@ public class AdminController implements Initializable {
             //TODO
         Scrollpane.setVisible(false);
         Editprofilepane.setVisible(false);
+        NotFoundPane.setVisible(false);
 
     }
 
