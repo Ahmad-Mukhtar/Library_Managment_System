@@ -135,6 +135,9 @@ public class UserController  implements Initializable {
     @FXML
     private MenuButton Categorybutton;
 
+    @FXML
+    private AnchorPane NotFoundPane;
+
     private User user;
 
     private ScrollPane DynamicscrollPane;
@@ -174,7 +177,7 @@ public class UserController  implements Initializable {
     private void sortByAsc()
     {
         disableAllpanes();
-         DynamicscrollPane=createScrollpane(true,false,false,false);
+         DynamicscrollPane=createScrollpane(true,false,false,false,false,false);
         DynamicscrollPane.setVisible(true);
         UserpanelPane.getChildren().add(DynamicscrollPane);
     }
@@ -183,7 +186,7 @@ public class UserController  implements Initializable {
     private void sortByDesc()
     {
         disableAllpanes();
-        DynamicscrollPane=createScrollpane(true,false,false,false);
+        DynamicscrollPane=createScrollpane(true,false,false,false,false,false);
         DynamicscrollPane.setVisible(true);
         UserpanelPane.getChildren().add(DynamicscrollPane);
     }
@@ -196,7 +199,7 @@ public class UserController  implements Initializable {
     }
 
     //Create a Scroll pane for displaying books for various sections
-    private ScrollPane createScrollpane(Boolean sort,Boolean Favorites,Boolean History,Boolean allbooks)
+    private ScrollPane createScrollpane(Boolean sort,Boolean Favorites,Boolean History,Boolean allbooks,Boolean Filter,Boolean Search)
     {
         //TODO add parameters for list of books
         ScrollPane scrollPane=new ScrollPane();
@@ -250,6 +253,14 @@ public class UserController  implements Initializable {
 
                 if(sort||allbooks)
                 {
+                    if(Search)
+                    {
+                        return null;
+                    }
+                    else if (Filter)
+                    {
+                        System.out.println("Filter");
+                    }
                     Button btn = new Button("Issue Book"+i);
                     Button btn1 = new Button("View Details"+i);
                     GridPane.setHalignment(demoimj, HPos.CENTER);
@@ -448,6 +459,17 @@ public class UserController  implements Initializable {
     {
         String Searchvalue=SearchField.getText();
         System.out.println(Searchvalue);
+        disableAllpanes();
+        DynamicscrollPane=createScrollpane(true,false,false,false,false,true);
+        if (DynamicscrollPane==null)
+        {
+            NotFoundPane.setVisible(true);
+        }
+        else {
+            DynamicscrollPane.setVisible(true);
+            UserpanelPane.getChildren().add(DynamicscrollPane);
+        }
+
     }
     //Sign Out User
     @FXML
@@ -509,7 +531,7 @@ public class UserController  implements Initializable {
     private void openHistoryWindow()
     {
         disableAllpanes();
-        DynamicscrollPane=createScrollpane(false,false,true,false);
+        DynamicscrollPane=createScrollpane(false,false,true,false,false,false);
         DynamicscrollPane.setVisible(true);
         UserpanelPane.getChildren().add(DynamicscrollPane);
     }
@@ -518,7 +540,7 @@ public class UserController  implements Initializable {
     private void openFavouritesWindow()
     {
         disableAllpanes();
-        DynamicscrollPane=createScrollpane(false,true,false,false);
+        DynamicscrollPane=createScrollpane(false,true,false,false,false,false);
         DynamicscrollPane.setVisible(true);
         UserpanelPane.getChildren().add(DynamicscrollPane);
 
@@ -542,7 +564,7 @@ public class UserController  implements Initializable {
     private void showBooks()
     {
         disableAllpanes();
-        DynamicscrollPane=createScrollpane(false,false,false,true);
+        DynamicscrollPane=createScrollpane(false,false,false,true,false,false);
         DynamicscrollPane.setVisible(true);
         UserpanelPane.getChildren().add(DynamicscrollPane);
 
@@ -569,6 +591,7 @@ public class UserController  implements Initializable {
          Returnbookpane.setVisible(false);
         Penaltypane.setVisible(false);
         ReserveBookspane.setVisible(false);
+        NotFoundPane.setVisible(false);
         if(DynamicscrollPane!=null) {
             DynamicscrollPane.setVisible(false);
         }

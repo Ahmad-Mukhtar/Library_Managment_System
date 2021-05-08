@@ -424,5 +424,17 @@
       </children>
    </AnchorPane>
 
-   
+   <AnchorPane fx:id="NotFoundPane" layoutX="276.0" layoutY="65.0" prefHeight="745.0" prefWidth="1090.0" styleClass="backimage" stylesheets="@../styles.css" visible="false">
+      <children>
+         <Pane layoutX="276.0" layoutY="285.0" prefHeight="174.0" prefWidth="503.0" style="-fx-background-color: #762b00;">
+            <children>
+               <Label layoutX="89.0" layoutY="60.0" style="-fx-background-color: #f8d7da;" text="No Books Found" textFill="#721c24">
+                  <font>
+                     <Font name="Calibri Bold" size="48.0" />
+                  </font>
+               </Label>
+            </children>
+         </Pane>
+      </children>
+   </AnchorPane>
 </AnchorPane>
