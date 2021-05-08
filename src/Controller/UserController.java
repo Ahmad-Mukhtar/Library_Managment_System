@@ -1,11 +1,11 @@
 package Controller;
 
 import Classes.User;
-import com.sun.javafx.beans.event.AbstractNotifyListener;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -18,7 +18,6 @@ import javafx.scene.control.*;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -29,24 +28,22 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class UserController  implements Initializable
-{
+public class UserController  implements Initializable {
 
     @FXML
     private ImageView closeIcon;
     @FXML
     private TextField SearchField;
-   @FXML
-   private GridPane Gridpane;
-   @FXML
-   private Pane Scrollpane;
+    @FXML
+    private GridPane Gridpane;
+    @FXML
+    private Pane Scrollpane;
 
     @FXML
     private Button Viewbooksbutton;
@@ -92,9 +89,6 @@ public class UserController  implements Initializable
     private Label NotifcationLabel;
 
     @FXML
-    private FontAwesomeIcon Helpicon;
-
-    @FXML
     private AnchorPane Editprofilepane;
     @FXML
     private AnchorPane Issuebooksepane;
@@ -138,20 +132,42 @@ public class UserController  implements Initializable
     @FXML
     private Label UserpanelLabel;
 
+    @FXML
+    private MenuButton Categorybutton;
 
     private User user;
 
     private ScrollPane DynamicscrollPane;
 
 
-
-    public void onisue()
-    {
+    public void onisue() {
         //TODO
         //Issue Book
 
 
     }
+    //TODO Handle Filtering
+    EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+        public void handle(ActionEvent e)
+        {
+            String Filtervalue = "";
+            if (((CheckMenuItem) e.getSource()).isSelected()) {
+                 Filtervalue = ((CheckMenuItem) e.getSource()).getText();
+                 System.out.println(Filtervalue);
+
+            }
+            if(!Filtervalue.isEmpty()) {
+                for (int i = 0; i < Categorybutton.getItems().size(); i++) {
+
+                    if (!Categorybutton.getItems().get(i).getText().equals(Filtervalue))
+                    {
+                        CheckMenuItem checkMenuItem=(CheckMenuItem)Categorybutton.getItems().get(i);
+                        checkMenuItem.setSelected(false);
+                    }
+                }
+            }
+        }
+    };
 
     //Sort by Ascending order Window
     @FXML
@@ -425,6 +441,14 @@ public class UserController  implements Initializable
 
         PenlaltyLabel.setText("Please Pay Your Fine of RS "+Price);
     }
+
+    //TODO implement Search
+    @FXML
+    private void searchBook()
+    {
+        String Searchvalue=SearchField.getText();
+        System.out.println(Searchvalue);
+    }
     //Sign Out User
     @FXML
     private void signOut()
@@ -464,8 +488,6 @@ public class UserController  implements Initializable
     private void onNoificationsclick()
     {
         NotifcationLabel.setVisible(false);
-       // Notificationslist.setVisible(true);
-       // Notificationslist.getItems().add(new MenuItem("Demo"));
         Notificationslist.fire();
     }
     //Open Renew Books Window
@@ -526,6 +548,15 @@ public class UserController  implements Initializable
 
     }
 
+
+    private void checkCategory()
+    {
+        for (int i = 0; i <Categorybutton.getItems().size() ; i++) {
+            Categorybutton.getItems().get(i).setOnAction(event);
+        }
+
+    }
+
     //Disable all Visible Layouts
     private void disableAllpanes()
     {
@@ -544,17 +575,18 @@ public class UserController  implements Initializable
 
     }
 
+    //TODO implement Search
     //If user Presses Enter On Search Field
     @FXML
     private void OnSearch(KeyEvent keyEvent)
     {
         if(keyEvent.getCode().toString().equals("ENTER"))
         {
-            System.out.println("Enter Pressed");
+
+            System.out.println(SearchField.getText());
         }
 
     }
-
     //Onclick help icon
     @FXML
     private void onHelpclicked()
@@ -567,8 +599,6 @@ public class UserController  implements Initializable
 
         alert.showAndWait();
     }
-
-
     //Sets Side Bar Buttons Style etc On Hovering Over
     @FXML
     private void setButtonstyle() {
@@ -622,7 +652,6 @@ public class UserController  implements Initializable
         }
 
     }
-
     //Reverts Side Bar Buttons Style etc after Hovering Over
     @FXML
     private void revertButtonStyle()
@@ -653,14 +682,12 @@ public class UserController  implements Initializable
             Favouritesbutton.setStyle("-fx-background-color:  #8b4513;");
 
     }
-
     //Set style of close Button
     @FXML
     private void setCloseIconStyle()
     {
         closeIcon.setStyle("-fx-cursor: hand;-fx-scale-x: 1.2;-fx-scale-y: 1.2;-fx-scale-z: 1.2;");
     }
-
     //Revert Style of Close Button
     @FXML
     private void revertCloseIconStyle()
@@ -673,8 +700,8 @@ public class UserController  implements Initializable
     public void initialize(URL location, ResourceBundle resources) {
 
         showBooks();
+        checkCategory();
     }
-
     //OnClose button Click
     @FXML
     private void mouseonclose()

@@ -11,7 +11,7 @@
 <AnchorPane fx:id="UserpanelPane" prefHeight="810.0" prefWidth="1366.0" style="-fx-background-color: #8b4513;;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UserController">
    <ScrollPane hbarPolicy="NEVER" layoutX="276.0" layoutY="65.0" prefHeight="745.0" prefWidth="1090.0" visible="false">
       <Pane fx:id="Scrollpane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="743.0" prefWidth="1184.0" styleClass="backimage" stylesheets="@../styles.css">
-         <GridPane fx:id="Gridpane" layoutX="-2.0" layoutY="72.0" prefHeight="670.0" prefWidth="1090.0">
+         <GridPane fx:id="Gridpane" layoutX="-2.0" layoutY="100.0" prefHeight="670.0" prefWidth="1090.0">
             <columnConstraints>
                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -154,46 +154,18 @@
          </font>
       </TextField>
    </HBox>
-   <MenuButton layoutX="275.0" layoutY="8.1" mnemonicParsing="false" prefHeight="50.3" prefWidth="102.0" style="-fx-background-color: #ffffff; -fx-cursor: Hand;" text="Category">
+   <MenuButton fx:id="Categorybutton" layoutX="275.0" layoutY="8.1" mnemonicParsing="false" prefHeight="50.3" prefWidth="102.0" style="-fx-background-color: #ffffff; -fx-cursor: Hand;" text="Category">
       <items>
-         <CustomMenuItem mnemonicParsing="false" text="Unspecified Action">
-           <content>
-             <CheckBox selected="true" text="All" />
-           </content>
-         </CustomMenuItem>
-         <CustomMenuItem mnemonicParsing="false" text="Unspecified Action">
-            <content>
-               <CheckBox text="Action" />
-            </content>
-         </CustomMenuItem>
-         <CustomMenuItem mnemonicParsing="false" text="Unspecified Action">
-            <content>
-               <CheckBox text="Adventure" />
-            </content>
-         </CustomMenuItem>
-         <CustomMenuItem mnemonicParsing="false" text="Unspecified Action">
-            <content>
-               <CheckBox text="Drama" />
-            </content>
-         </CustomMenuItem>
-         <CustomMenuItem mnemonicParsing="false" text="Unspecified Action">
-            <content>
-               <CheckBox text="Fantasy" />
-            </content>
-         </CustomMenuItem>
-         <CustomMenuItem mnemonicParsing="false" text="Unspecified Action">
-            <content>
-               <CheckBox text="Horror" />
-            </content>
-         </CustomMenuItem>
-         <CustomMenuItem mnemonicParsing="false" text="Unspecified Action">
-            <content>
-               <CheckBox text="Fiction" />
-            </content>
-         </CustomMenuItem>
+         <CheckMenuItem mnemonicParsing="false" selected="true" text="All" />
+         <CheckMenuItem mnemonicParsing="false" text="Action" />
+         <CheckMenuItem mnemonicParsing="false" text="Adventure" />
+         <CheckMenuItem mnemonicParsing="false" text="Drama" />
+         <CheckMenuItem mnemonicParsing="false" text="Fantasy" />
+         <CheckMenuItem mnemonicParsing="false" text="Horror" />
+         <CheckMenuItem mnemonicParsing="false" text="Fiction" />
       </items>
    </MenuButton>
-   <Button fx:id="Searchbutton" layoutX="1084.0" layoutY="7.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="66.0" style="-fx-background-color: #762b00; -fx-cursor: Hand;" text="Search" textFill="WHITE">
+   <Button fx:id="Searchbutton" layoutX="1084.0" layoutY="7.0" mnemonicParsing="false" onAction="#searchBook" prefHeight="51.0" prefWidth="66.0" style="-fx-background-color: #762b00; -fx-cursor: Hand;" text="Search" textFill="WHITE">
       <font>
          <Font name="Calibri Bold" size="14.0" />
       </font>
