@@ -21,13 +21,17 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ResourceBundle;
 
 public class AdminController implements Initializable {
@@ -74,6 +78,11 @@ public class AdminController implements Initializable {
     @FXML
     private AnchorPane Editprofilepane;
 
+    @FXML
+    private AnchorPane AddBookPane;
+
+    @FXML
+    private AnchorPane DeleteBookPane;
 
     @FXML
     private Label AdminpanelLabel;
@@ -82,7 +91,19 @@ public class AdminController implements Initializable {
     private AnchorPane NotFoundPane;
 
     @FXML
+    private Label Filenamelabel;
+
+    @FXML
     private MenuButton Categorybutton;
+
+    @FXML
+    private Label Addbooklabel;
+
+    @FXML
+    private ImageView Addbookimage;
+
+    @FXML
+    private Button Addbookbtn;
 
     private Admin admin;
 
@@ -110,7 +131,6 @@ public class AdminController implements Initializable {
             }
         }
     };
-
 
     //Restrict text Field to numeric Only
    /*
@@ -267,6 +287,8 @@ public class AdminController implements Initializable {
         Scrollpane.setVisible(false);
         Editprofilepane.setVisible(false);
         NotFoundPane.setVisible(false);
+        AddBookPane.setVisible(false);
+        DeleteBookPane.setVisible(false);
 
     }
 
@@ -358,21 +380,57 @@ public class AdminController implements Initializable {
     }
 
     @FXML
-    private void  openAddbookswindow()
+    private void  openAddbookswindow() throws FileNotFoundException
     {
+        disableAllpanes();
+        File F = new File("src/Images/addbook.png");
+        FileInputStream input = new FileInputStream(F);
+        Image image = new Image(input);
+        Addbookimage.setImage(image);
+        Addbookbtn.setText("Add Book");
+        Addbooklabel.setText("Add Book");
+        Addbooklabel.setLayoutX(Addbooklabel.getLayoutX()+20);
+        AddBookPane.setVisible(true);
+    }
+
+    @FXML
+    private void selectFile() throws IOException {
+        FileChooser fileChooser=new FileChooser();
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("png files","*.png"),
+                new FileChooser.ExtensionFilter("jpg files","*.jpg"));
+
+        File Selectedfile=fileChooser.showOpenDialog(AdminpanelPane.getScene().getWindow());
+
+        if(Selectedfile!=null) {
+            //  String path="src/Images/";
+
+            //  Files.copy(Selectedfile.toPath(),new File(path+Selectedfile.getName()).toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+            Filenamelabel.setText(Selectedfile.getName());
+        }
+
 
     }
 
     @FXML
     private void  openDeletebooksWindow()
     {
+        disableAllpanes();
 
+        DeleteBookPane.setVisible(true);
     }
 
     @FXML
-    private void openUpdatebooksWindow()
-    {
-
+    private void openUpdatebooksWindow() throws FileNotFoundException {
+        disableAllpanes();
+        File F = new File("src/Images/upimg.png");
+        FileInputStream input = new FileInputStream(F);
+        Image image = new Image(input);
+        Addbookimage.setImage(image);
+        Addbookbtn.setText("Update Book");
+        Addbooklabel.setText("Update Book");
+        Addbooklabel.setLayoutX(Addbooklabel.getLayoutX()-20);
+        AddBookPane.setVisible(true);
     }
 
     //Load Books From Database and Display them

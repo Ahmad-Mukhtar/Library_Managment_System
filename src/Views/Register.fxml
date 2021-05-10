@@ -21,7 +21,7 @@
          <Font name="Calibri Bold" size="14.0" />
       </font>
    </Label>
-   <Hyperlink layoutX="104.0" layoutY="465.0" onAction="#alreadyAUser" text="Click Here...." textFill="DODGERBLUE">
+   <Hyperlink fx:id="Loginlink" layoutX="104.0" layoutY="465.0" onAction="#alreadyAUser" text="Click Here...." textFill="DODGERBLUE">
       <font>
          <Font name="Calibri Bold" size="14.0" />
       </font>

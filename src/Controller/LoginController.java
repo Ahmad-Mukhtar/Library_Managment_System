@@ -1,5 +1,6 @@
 package Controller;
 
+import Classes.Admin;
 import Classes.User;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
@@ -25,10 +26,8 @@ public class LoginController
     //Fields ids
     @FXML
     private TextField Userfield;
-
     @FXML
     private PasswordField Passwordfield;
-
     @FXML
     private Label Errorlabel;
 
@@ -70,24 +69,31 @@ public class LoginController
         }
         else if (Userfield.getPromptText().equals("AdminUsername"))
         {
-            System.out.println("Admin");
+            Admin admin=new Admin();
+            if(admin.validateLogin(Userfield.getText(),Passwordfield.getText()))
+            {
+                playTransition(true);
+            }
+            else
+            {
+                playTransition(false);
+
+            }
 
         }
-
-
-
     }
-
     //Play Loading Transition
     public void playTransition(Boolean isValid)
     {
+        Loginadmin.setDisable(true);
+
+        Registerlink.setDisable(true);
+
         double DefaultCircle1value=circle1.getLayoutX();
 
         double DefaultCircle2value=circle2.getLayoutX();
 
         double DefaultCircle3value=circle3.getLayoutX();
-
-
 
         circle1.setVisible(true);
 
@@ -151,18 +157,34 @@ public class LoginController
                 Parent root=null;
                 try
                 {
-                    root= FXMLLoader.load(getClass().getResource("/Views/UserPanel.fxml"));
+                    if(Userfield.getPromptText().equals("AdminUsername"))
+                    {
+                        root = FXMLLoader.load(getClass().getResource("/Views/AdminPanel.fxml"));
+                    }
+                    else {
+                        root = FXMLLoader.load(getClass().getResource("/Views/UserPanel.fxml"));
+                    }
 
                     Stage stage1=new Stage();
 
                     stage1.initStyle(StageStyle.UNDECORATED);
 
-                    stage1.setScene(new Scene(root, 1366, 768));
+                    stage1.setScene(new Scene(root, 1366, 810));
 
                     stage1.show();
                 }
                 catch (Exception exception)
                 {
+                    Loadinglabel.setVisible(false);
+
+                    Registerlink.setDisable(false);
+
+                    Loginadmin.setDisable(false);
+
+                    Errorlabel.setText(exception.toString());
+
+                    Errorlabel.setVisible(true);
+
                     System.out.println(exception.toString());
                 }
 
@@ -170,6 +192,10 @@ public class LoginController
             else
             {
                 Loadinglabel.setVisible(false);
+
+                Registerlink.setDisable(false);
+
+                Loginadmin.setDisable(false);
 
                 Errorlabel.setVisible(true);
             }
@@ -180,7 +206,6 @@ public class LoginController
     //when User clicks Register
     public void onRegisterClick()
     {
-
         Stage stage=(Stage) LoginFrame.getScene().getWindow();
 
         stage.close();
@@ -207,6 +232,10 @@ public class LoginController
     //Check if its user or admin who has clicked and call below functions accordingly
     public void onLoginAsAdminClick()
     {
+        Errorlabel.setVisible(false);
+
+        Loadinglabel.setVisible(false);
+
         if (Loginadmin.getText().equals("Login As User"))
         {
            setLoginUser();
@@ -216,12 +245,12 @@ public class LoginController
             setLoginadmin();
         }
 
-
     }
 
     //When user clicks as admin login Change the prompt text and remove Register Option
 
     public void setLoginadmin() {
+
         Userfield.clear();
 
         Userfield.setPromptText("AdminUsername");
@@ -236,7 +265,7 @@ public class LoginController
 
         Loginadmin.setLayoutX(Loginadmin.getLayoutX()+10);
 
-        Loginadmin.setLayoutY(Loginadmin.getLayoutY()-40);
+        Loginadmin.setLayoutY(Loginadmin.getLayoutY()-20);
     }
 
     //Opposite of setloginadmin click
@@ -256,6 +285,6 @@ public class LoginController
 
         Loginadmin.setLayoutX(Loginadmin.getLayoutX()-10);
 
-        Loginadmin.setLayoutY(Loginadmin.getLayoutY()+40);
+        Loginadmin.setLayoutY(Loginadmin.getLayoutY()+20);
     }
 }

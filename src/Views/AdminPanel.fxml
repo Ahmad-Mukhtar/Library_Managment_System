@@ -146,53 +146,29 @@
    </Button>
    <AnchorPane fx:id="Editprofilepane" layoutX="277.0" layoutY="66.0" prefHeight="746.0" prefWidth="1090.0" styleClass="backimage" stylesheets="@../styles.css" visible="false">
       <children>
-         <AnchorPane layoutX="155.0" layoutY="105.0" prefHeight="536.0" prefWidth="785.0" style="-fx-background-color: #8b4513;">
+         <AnchorPane layoutX="232.0" layoutY="158.0" prefHeight="430.0" prefWidth="595.0" style="-fx-background-color: #762b00;">
             <children>
-               <ImageView fitHeight="88.0" fitWidth="102.0" layoutX="342.0" layoutY="63.0" pickOnBounds="true">
+               <ImageView fitHeight="88.0" fitWidth="102.0" layoutX="262.0" layoutY="59.0" pickOnBounds="true">
                   <image>
                      <Image url="@../Images/profileimj.png" />
                   </image>
                </ImageView>
-               <Label layoutX="328.0" layoutY="14.0" text="Edit Profile" textFill="#fafafa">
+               <Label layoutX="248.0" layoutY="14.0" text="Edit Profile" textFill="#fafafa">
                   <font>
                      <Font name="Constantia Bold" size="24.0" />
                   </font>
                </Label>
-               <Label layoutX="75.0" layoutY="256.0" text="Password" textFill="#fafafa">
+               <Label layoutX="75.0" layoutY="209.0" prefHeight="15.0" prefWidth="82.0" text="Password" textFill="#fafafa">
                   <font>
                      <Font name="Constantia Bold" size="18.0" />
                   </font>
                </Label>
-               <Label layoutX="510.0" layoutY="170.0" text="Last Name" textFill="#fafafa">
-                  <font>
-                     <Font name="Constantia Bold" size="18.0" />
-                  </font>
-               </Label>
-               <Label layoutX="75.0" layoutY="334.0" text="Date of Birth" textFill="#fafafa">
-                  <font>
-                     <Font name="Constantia Bold" size="18.0" />
-                  </font>
-               </Label>
-               <Label layoutX="508.0" layoutY="256.0" text="Email" textFill="#fafafa">
-                  <font>
-                     <Font name="Constantia Bold" size="18.0" />
-                  </font>
-               </Label>
-               <TextField layoutX="75.0" layoutY="201.0" prefHeight="34.0" prefWidth="255.0" promptText="First Name" />
-               <TextField layoutX="510.0" layoutY="201.0" prefHeight="34.0" prefWidth="255.0" promptText="Last Name" />
-               <PasswordField layoutX="75.0" layoutY="279.0" prefHeight="34.0" prefWidth="255.0" promptText="Password" />
-               <TextField layoutX="510.0" layoutY="279.0" prefHeight="34.0" prefWidth="255.0" promptText="Email" />
-               <DatePicker layoutX="70.0" layoutY="363.0" prefHeight="34.0" prefWidth="255.0" promptText="Date Of Birth" />
-               <Button layoutX="301.0" layoutY="476.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="210.0" style="-fx-background-color: #007bff;" text="Update" textFill="WHITE">
+               <PasswordField layoutX="75.0" layoutY="239.0" prefHeight="34.0" prefWidth="220.0" promptText="Password" />
+               <Button layoutX="208.0" layoutY="334.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="210.0" style="-fx-background-color: #007bff;" text="Update" textFill="WHITE">
                   <font>
                      <Font name="System Bold" size="14.0" />
                   </font>
                </Button>
-               <Label layoutX="75.0" layoutY="170.0" text="First Name" textFill="#fafafa">
-                  <font>
-                     <Font name="Constantia Bold" size="18.0" />
-                  </font>
-               </Label>
             </children></AnchorPane>
       </children></AnchorPane>
    <AnchorPane fx:id="NotFoundPane" layoutX="276.0" layoutY="65.0" prefHeight="745.0" prefWidth="1090.0" styleClass="backimage" stylesheets="@../styles.css" visible="false">
@@ -206,6 +182,117 @@
                </Label>
             </children>
          </Pane>
+      </children>
+   </AnchorPane>
+   <AnchorPane fx:id="AddBookPane" layoutX="277.0" layoutY="66.0" prefHeight="746.0" prefWidth="1090.0" styleClass="backimage" stylesheets="@../styles.css" visible="false">
+      <children>
+         <AnchorPane layoutX="95.0" layoutY="20.0" prefHeight="700.0" prefWidth="900.0" style="-fx-background-color: #762b00;">
+            <children>
+               <ImageView fx:id="Addbookimage" fitHeight="78.0" fitWidth="82.0" layoutX="406.0" layoutY="62.0" pickOnBounds="true">
+                  <image>
+                     <Image url="@../Images/addbook.png" />
+                  </image>
+               </ImageView>
+               <Label fx:id="Addbooklabel" layoutX="374.0" layoutY="14.0" text="Add Book" textFill="#fafafa">
+                  <font>
+                     <Font name="Constantia Bold" size="24.0" />
+                  </font>
+               </Label>
+               <Button fx:id="Addbookbtn" layoutX="345.0" layoutY="633.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="210.0" style="-fx-background-color: #007bff;" text="Add Book" textFill="WHITE">
+                  <font>
+                     <Font name="System Bold" size="14.0" />
+                  </font>
+               </Button>
+               <Label layoutX="90.0" layoutY="184.0" text="Book ID" textFill="#f8f8f8">
+                  <font>
+                     <Font name="System Bold" size="14.0" />
+                  </font>
+               </Label>
+               <TextField layoutX="90.0" layoutY="213.0" prefHeight="30.0" prefWidth="190.0" promptText="Book ID" />
+               <Label layoutX="560.0" layoutY="184.0" text="Book Name" textFill="#f8f8f8">
+                  <font>
+                     <Font name="System Bold" size="14.0" />
+                  </font>
+               </Label>
+               <TextField layoutX="560.0" layoutY="213.0" prefHeight="30.0" prefWidth="246.0" promptText="Book Name" />
+               <Label layoutX="90.0" layoutY="278.0" text="Author Name" textFill="#f8f8f8">
+                  <font>
+                     <Font name="System Bold" size="14.0" />
+                  </font>
+               </Label>
+               <TextField layoutX="90.0" layoutY="303.0" prefHeight="30.0" prefWidth="300.0" promptText="Author Name" />
+               <TextField layoutX="560.0" layoutY="303.0" prefHeight="30.0" prefWidth="300.0" promptText="Publisher Name" />
+               <Label layoutX="560.0" layoutY="278.0" text="Publisher Name" textFill="#f8f8f8">
+                  <font>
+                     <Font name="System Bold" size="14.0" />
+                  </font>
+               </Label>
+               <Label layoutX="89.0" layoutY="358.0" text="Current Stock" textFill="#f8f8f8">
+                  <font>
+                     <Font name="System Bold" size="14.0" />
+                  </font>
+               </Label>
+               <TextField layoutX="90.0" layoutY="381.0" prefHeight="30.0" prefWidth="190.0" promptText="Current Stock" />
+               <Label layoutX="393.0" layoutY="358.0" text="Actual Stock" textFill="#f8f8f8">
+                  <font>
+                     <Font name="System Bold" size="14.0" />
+                  </font>
+               </Label>
+               <TextField layoutX="391.0" layoutY="381.0" prefHeight="30.0" prefWidth="190.0" promptText="Actual Stock" />
+               <Label layoutX="645.0" layoutY="358.0" text="Genre" textFill="#f8f8f8">
+                  <font>
+                     <Font name="System Bold" size="14.0" />
+                  </font>
+               </Label>
+               <TextField layoutX="645.0" layoutY="381.0" prefHeight="30.0" prefWidth="190.0" promptText="Genre" />
+               <TextArea layoutX="89.0" layoutY="462.0" prefHeight="78.0" prefWidth="793.0" promptText="Book Description" />
+               <Label layoutX="86.0" layoutY="435.0" text="Book Description" textFill="#f8f8f8">
+                  <font>
+                     <Font name="System Bold" size="14.0" />
+                  </font>
+               </Label>
+               <Label layoutX="90.0" layoutY="549.0" text="Upload Book Image" textFill="#f8f8f8">
+                  <font>
+                     <Font name="System Bold" size="14.0" />
+                  </font>
+               </Label>
+               <Button layoutX="91.0" layoutY="577.0" mnemonicParsing="false" onAction="#selectFile" prefHeight="30.0" prefWidth="220.0" style="-fx-background-color: #ffffff;" text="Choose File" />
+               <Label fx:id="Filenamelabel" layoutX="318.0" layoutY="582.0" text="No File Choosen" textFill="#f8f8f8">
+                  <font>
+                     <Font size="14.0" />
+                  </font>
+               </Label>
+            </children>
+         </AnchorPane>
+      </children>
+   </AnchorPane>
+   <AnchorPane fx:id="DeleteBookPane" layoutX="277.0" layoutY="66.0" prefHeight="746.0" prefWidth="1090.0" styleClass="backimage" stylesheets="@../styles.css">
+      <children>
+         <AnchorPane layoutX="232.0" layoutY="158.0" prefHeight="430.0" prefWidth="595.0" style="-fx-background-color: #762b00;">
+            <children>
+               <ImageView fitHeight="78.0" fitWidth="95.0" layoutX="269.0" layoutY="59.0" pickOnBounds="true">
+                  <image>
+                     <Image url="@../Images/delimg.png" />
+                  </image>
+               </ImageView>
+               <Label layoutX="243.0" layoutY="14.0" text="Delete Book" textFill="#fafafa">
+                  <font>
+                     <Font name="Constantia Bold" size="24.0" />
+                  </font>
+               </Label>
+               <Label layoutX="75.0" layoutY="209.0" prefHeight="15.0" prefWidth="82.0" text="Book ID" textFill="#fafafa">
+                  <font>
+                     <Font name="Constantia Bold" size="18.0" />
+                  </font>
+               </Label>
+               <Button layoutX="208.0" layoutY="334.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="210.0" style="-fx-background-color: #007bff;" text="Delete" textFill="WHITE">
+                  <font>
+                     <Font name="System Bold" size="14.0" />
+                  </font>
+               </Button>
+               <TextField layoutX="75.0" layoutY="239.0" prefHeight="34.0" prefWidth="220.0" promptText="Book ID" />
+            </children>
+         </AnchorPane>
       </children>
    </AnchorPane>
 

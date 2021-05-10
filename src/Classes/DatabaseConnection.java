@@ -16,7 +16,7 @@ public class DatabaseConnection
         try {
 
 
-            connection = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=libdemo;integratedSecurity=true");
+            connection = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=LibraryManagmentSystem;integratedSecurity=true");
 
             if (statementType) {
                 preparedStatement = connection.prepareStatement(sqlQuery);

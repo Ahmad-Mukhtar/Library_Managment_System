@@ -49,6 +49,8 @@ public class RegistrationController {
     @FXML
     Circle circle4;
     @FXML
+    Hyperlink Loginlink;
+    @FXML
     AnchorPane RegisterFrame;
 
 
@@ -127,6 +129,10 @@ public class RegistrationController {
 
     //Play loading Transition and validate Registration
     public void playTransition() {
+
+
+        Loginlink.setDisable(true);
+
         double DefaultCircle1value = circle1.getLayoutX();
 
         double DefaultCircle2value = circle2.getLayoutX();
@@ -229,11 +235,14 @@ public class RegistrationController {
                     }
                     catch (Exception exception)
                     {
+                        Loginlink.setDisable(false);
+
                         System.out.println(exception.toString());
                     }
                 }
                 else
                 {
+                    Loginlink.setDisable(false);
                     JOptionPane.showMessageDialog(null, "Some Problem Occurred While Registering");
                 }
             }

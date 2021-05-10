@@ -6,7 +6,6 @@ import java.sql.Types;
 
 public class User implements Login
 {
-
     @Override
     public boolean validateLogin(String Username, String Password) throws SQLException {
         DatabaseConnection databaseConnection=new DatabaseConnection("{call signin(?,?,?)}",false);
