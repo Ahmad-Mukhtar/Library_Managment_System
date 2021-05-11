@@ -28,11 +28,13 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 public class UserController  implements Initializable {
 
@@ -722,8 +724,38 @@ public class UserController  implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        showBooks();
-        checkCategory();
+        File myObj = new File("username.txt");
+        if (myObj.exists()) {
+            Scanner myReader = null;
+            try {
+
+                myReader = new Scanner(myObj);
+
+                String data = myReader.nextLine();
+
+                myReader.close();
+
+                user=new User();
+
+                user.setUsername(data);
+
+                myObj.delete();
+
+                showBooks();
+
+                checkCategory();
+
+            }
+            catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null,"User not Found Due to some Error");
+
+            signOut();
+        }
     }
     //OnClose button Click
     @FXML

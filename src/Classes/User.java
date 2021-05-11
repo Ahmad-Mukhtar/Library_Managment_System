@@ -6,6 +6,9 @@ import java.sql.Types;
 
 public class User implements Login
 {
+
+    private String Username;
+
     @Override
     public boolean validateLogin(String Username, String Password) throws SQLException {
         DatabaseConnection databaseConnection=new DatabaseConnection("{call signin(?,?,?)}",false);
@@ -30,4 +33,14 @@ public class User implements Login
         return Result == 1;
 
     }
+
+    public void setUsername(String username) {
+        Username = username;
+    }
+
+    public String getUsername() {
+        return Username;
+    }
+
+
 }

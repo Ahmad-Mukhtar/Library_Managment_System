@@ -118,3 +118,21 @@ begin
  set @flag=0
 end
 End
+
+create procedure adminsignin
+@usrname Varchar(20),
+@passw varchar(20),
+@flag int output
+As
+Begin
+if Exists(Select admininfo.username from admininfo where admininfo.username=@usrname and admininfo.adminpassword=@passw)
+begin
+set @flag=1
+end
+else
+begin
+ set @flag=0
+end
+End
+
+insert into admininfo  values('admin','pass1')

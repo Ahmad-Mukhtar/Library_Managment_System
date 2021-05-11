@@ -14,6 +14,10 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import javax.swing.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -218,7 +222,6 @@ public class RegistrationController {
 
 
                     JOptionPane.showMessageDialog(null, "Registered Successfully Login to Continue");
-
 
                     Parent root = null;
                     try {

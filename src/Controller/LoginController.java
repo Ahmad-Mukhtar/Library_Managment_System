@@ -17,7 +17,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
+import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.FileWriter;
 import java.sql.SQLException;
 import java.util.concurrent.TimeUnit;
 
@@ -157,21 +160,31 @@ public class LoginController
                 Parent root=null;
                 try
                 {
-                    if(Userfield.getPromptText().equals("AdminUsername"))
+                    File file=new File("username.txt");
+
+                    if (file.createNewFile()||file.exists()) {
+                        FileWriter myWriter = new FileWriter(file);
+                        myWriter.write(Userfield.getText());
+                        myWriter.close();
+
+                        if (Userfield.getPromptText().equals("AdminUsername")) {
+                            root = FXMLLoader.load(getClass().getResource("/Views/AdminPanel.fxml"));
+                        } else {
+                            root = FXMLLoader.load(getClass().getResource("/Views/UserPanel.fxml"));
+                        }
+
+                        Stage stage1 = new Stage();
+
+                        stage1.initStyle(StageStyle.UNDECORATED);
+
+                        stage1.setScene(new Scene(root, 1366, 810));
+
+                        stage1.show();
+                    }
+                    else
                     {
-                        root = FXMLLoader.load(getClass().getResource("/Views/AdminPanel.fxml"));
+                        JOptionPane.showMessageDialog(null,"Some Problem Occurred please try again");
                     }
-                    else {
-                        root = FXMLLoader.load(getClass().getResource("/Views/UserPanel.fxml"));
-                    }
-
-                    Stage stage1=new Stage();
-
-                    stage1.initStyle(StageStyle.UNDECORATED);
-
-                    stage1.setScene(new Scene(root, 1366, 810));
-
-                    stage1.show();
                 }
                 catch (Exception exception)
                 {
@@ -199,6 +212,7 @@ public class LoginController
 
                 Errorlabel.setVisible(true);
             }
+
 
         });
 
