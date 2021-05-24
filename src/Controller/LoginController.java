@@ -1,7 +1,7 @@
 package Controller;
 
-import Classes.Admin;
-import Classes.User;
+import Classes.BLL.Admin;
+import Classes.BLL.User;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +11,7 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
@@ -18,11 +19,9 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.sql.SQLException;
-import java.util.concurrent.TimeUnit;
 
 public class LoginController
 {
@@ -50,6 +49,8 @@ public class LoginController
 
     @FXML private BorderPane LoginFrame;
 
+    @FXML private AnchorPane Righpane;
+
 
     //When User Clicks Login Click Validate the fields
     public void onLoginClick() throws SQLException {
@@ -60,7 +61,7 @@ public class LoginController
         {
             User user=new User();
 
-            if(user.validateLogin(Userfield.getText(),Passwordfield.getText()))
+            if(user.Login(Userfield.getText(),Passwordfield.getText()))
             {
                 playTransition(true);
             }
@@ -73,7 +74,7 @@ public class LoginController
         else if (Userfield.getPromptText().equals("AdminUsername"))
         {
             Admin admin=new Admin();
-            if(admin.validateLogin(Userfield.getText(),Passwordfield.getText()))
+            if(admin.Login(Userfield.getText(),Passwordfield.getText()))
             {
                 playTransition(true);
             }
@@ -85,6 +86,7 @@ public class LoginController
 
         }
     }
+
     //Play Loading Transition
     public void playTransition(Boolean isValid)
     {
@@ -262,7 +264,6 @@ public class LoginController
     }
 
     //When user clicks as admin login Change the prompt text and remove Register Option
-
     public void setLoginadmin() {
 
         Userfield.clear();
@@ -280,6 +281,8 @@ public class LoginController
         Loginadmin.setLayoutX(Loginadmin.getLayoutX()+10);
 
         Loginadmin.setLayoutY(Loginadmin.getLayoutY()-20);
+
+        Righpane.setStyle("-fx-background-color:  #762b00;");
     }
 
     //Opposite of setloginadmin click
@@ -300,5 +303,8 @@ public class LoginController
         Loginadmin.setLayoutX(Loginadmin.getLayoutX()-10);
 
         Loginadmin.setLayoutY(Loginadmin.getLayoutY()+20);
+
+        Righpane.setStyle("-fx-background-color: #8b4513;");
+
     }
 }

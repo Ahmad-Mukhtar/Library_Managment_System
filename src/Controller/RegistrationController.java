@@ -1,6 +1,6 @@
 package Controller;
 
-import Classes.DatabaseConnection;
+import Classes.BLL.Register;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,13 +14,7 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import javax.swing.*;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.sql.CallableStatement;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+
 import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -57,40 +51,35 @@ public class RegistrationController {
     @FXML
     AnchorPane RegisterFrame;
 
+    private Register register;
 
-
+    public RegistrationController() throws SQLException {
+        register = new Register();
+    }
 
     public void registerButtonClick() throws SQLException {
 
 
-        if(Firstname.getText().isEmpty()||Lastname.getText().isEmpty()||Username.getText().isEmpty()||Email.getText().isEmpty()||Password.getText().isEmpty()||Dob.getValue()==null||!Male.isSelected()&&!Female.isSelected()) {
+        if (Firstname.getText().isEmpty() || Lastname.getText().isEmpty() || Username.getText().isEmpty() || Email.getText().isEmpty() || Password.getText().isEmpty() || Dob.getValue() == null || !Male.isSelected() && !Female.isSelected()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information");
             alert.setHeaderText("All Fields Are Required");
             alert.showAndWait();
-        }
-        else
-        {
-            if (!validateEmail(Email.getText()))
-            {
+        } else {
+            if (!validateEmail(Email.getText())) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Warning");
                 alert.setHeaderText("Invalid Email");
                 alert.showAndWait();
-            }
-            else
-            {
-               if(checkUsername(Username.getText()))
-               {
+            } else {
+                if (checkUsername(Username.getText())) {
                     playTransition();
-               }
-               else
-               {
-                   Alert alert = new Alert(Alert.AlertType.ERROR);
-                   alert.setTitle("Error");
-                   alert.setHeaderText("Username Already Taken");
-                   alert.showAndWait();
-               }
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText("Username Already Taken");
+                    alert.showAndWait();
+                }
             }
 
         }
@@ -98,8 +87,7 @@ public class RegistrationController {
     }
 
     //Validate EmailField
-    public Boolean validateEmail(String emailStr)
-    {
+    public Boolean validateEmail(String emailStr) {
         String regex = "^(.+)@(.+)$";
 
         Pattern pattern = Pattern.compile(regex);
@@ -112,23 +100,7 @@ public class RegistrationController {
 
     //Check if the Username is not already taken
     public Boolean checkUsername(String Username) throws SQLException {
-        DatabaseConnection databaseConnection=new DatabaseConnection("select *from Member where username=?",true);
-
-        PreparedStatement preparedStatement=databaseConnection.getPreparedStatement();
-
-        preparedStatement.setString(1,Username);
-
-        ResultSet result=preparedStatement.executeQuery();
-       while(result.next())
-       {
-           return false;
-       }
-        preparedStatement.close();
-
-        databaseConnection.closeConnection();
-
-        return true;
-
+        return register.checkusername(Username);
     }
 
     //Play loading Transition and validate Registration
@@ -235,22 +207,16 @@ public class RegistrationController {
 
                         stage1.show();
 
-                    }
-                    catch (Exception exception)
-                    {
+                    } catch (Exception exception) {
                         Loginlink.setDisable(false);
 
                         System.out.println(exception.toString());
                     }
-                }
-                else
-                {
+                } else {
                     Loginlink.setDisable(false);
                     JOptionPane.showMessageDialog(null, "Some Problem Occurred While Registering");
                 }
-            }
-            catch (SQLException exception)
-            {
+            } catch (SQLException exception) {
                 exception.printStackTrace();
             }
         });
@@ -259,78 +225,40 @@ public class RegistrationController {
     }
 
     //On click Already a user to go to Login Screen
-    public void alreadyAUser()
-    {
+    public void alreadyAUser() {
 
-        Stage stage=(Stage) RegisterFrame.getScene().getWindow();
+        Stage stage = (Stage) RegisterFrame.getScene().getWindow();
 
         stage.close();
 
-        Parent root=null;
-        try
-        {
-            root= FXMLLoader.load(getClass().getResource("/Views/Login.fxml"));
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/Views/Login.fxml"));
 
-            Stage stage1=new Stage();
+            Stage stage1 = new Stage();
 
             stage1.initStyle(StageStyle.UNDECORATED);
 
             stage1.setScene(new Scene(root, 600, 420));
 
             stage1.show();
-        }
-        catch (Exception exception)
-        {
+        } catch (Exception exception) {
             System.out.println(exception.toString());
         }
 
     }
+
     //Register A User By validating the information
     public Boolean registerUser() throws SQLException {
-        DatabaseConnection databaseConnection=null;
-        try {
 
-             databaseConnection = new DatabaseConnection("{call signup(?,?,?,?,?,?,?)}", false);
+        String Gender="Male";
 
-            CallableStatement callableStatement = databaseConnection.getCallableStatement();
-
-            callableStatement.setString(1, Password.getText());
-
-            callableStatement.setString(2, Dob.getValue().toString());
-
-            callableStatement.setString(3, Email.getText());
-
-            callableStatement.setString(4, Firstname.getText());
-
-            callableStatement.setString(5, Lastname.getText());
-
-            callableStatement.setString(6, Username.getText());
-
-            if (Male.isSelected()) {
-
-                callableStatement.setString(7, "Male");
-            }
-            else {
-                callableStatement.setString(7, "Female");
-            }
-
-            callableStatement.execute();
-
-            callableStatement.close();
-
-            return true;
-        }
-        catch (SQLException exception)
+        if (Female.isSelected())
         {
-            System.out.println(exception.toString());
-
-            return false;
-        }
-        finally {
-            if (databaseConnection!=null)
-            databaseConnection.closeConnection();
+            Gender="Female";
         }
 
+        return register.registerUser(Password.getText(),Dob.getValue().toString(),Email.getText(),Firstname.getText(),Lastname.getText(),Username.getText(),Gender);
     }
 
 }

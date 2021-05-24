@@ -16,7 +16,7 @@
       </AnchorPane>
    </left>
    <center>
-      <AnchorPane prefHeight="400.0" prefWidth="334.0" style="-fx-background-color: #8b4513;" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="Righpane" prefHeight="400.0" prefWidth="334.0" style="-fx-background-color: #8b4513;" BorderPane.alignment="CENTER">
          <Label layoutX="113.0" layoutY="21.0" text="Login" textFill="WHITE">
             <font>
                <Font name="Bookman Old Style Bold" size="37.0" />

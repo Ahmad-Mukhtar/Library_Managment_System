@@ -1,7 +1,6 @@
 package Controller;
 
-import Classes.User;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import Classes.BLL.User;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -33,6 +32,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
@@ -567,6 +567,7 @@ public class UserController  implements Initializable {
     {
         disableAllpanes();
         DynamicscrollPane=createScrollpane(false,false,false,true,false,false);
+        assert DynamicscrollPane != null;
         DynamicscrollPane.setVisible(true);
         UserpanelPane.getChildren().add(DynamicscrollPane);
 
@@ -746,7 +747,7 @@ public class UserController  implements Initializable {
                 checkCategory();
 
             }
-            catch (FileNotFoundException e) {
+            catch (FileNotFoundException | SQLException e) {
                 e.printStackTrace();
             }
         }
@@ -757,6 +758,7 @@ public class UserController  implements Initializable {
             signOut();
         }
     }
+
     //OnClose button Click
     @FXML
     private void mouseonclose()

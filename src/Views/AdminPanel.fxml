@@ -266,7 +266,7 @@
          </AnchorPane>
       </children>
    </AnchorPane>
-   <AnchorPane fx:id="DeleteBookPane" layoutX="277.0" layoutY="66.0" prefHeight="746.0" prefWidth="1090.0" styleClass="backimage" stylesheets="@../styles.css">
+   <AnchorPane fx:id="DeleteBookPane" layoutX="277.0" layoutY="66.0" prefHeight="746.0" prefWidth="1090.0" styleClass="backimage" stylesheets="@../styles.css" visible="false">
       <children>
          <AnchorPane layoutX="232.0" layoutY="158.0" prefHeight="430.0" prefWidth="595.0" style="-fx-background-color: #762b00;">
             <children>
