@@ -1,6 +1,6 @@
 package Controller;
 
-import Classes.BLL.Register;
+import Classes.BLL.BLLClasses.Register;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

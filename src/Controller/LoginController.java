@@ -1,7 +1,7 @@
 package Controller;
 
-import Classes.BLL.Admin;
-import Classes.BLL.User;
+import Classes.BLL.BLLClasses.Admin;
+import Classes.BLL.BLLClasses.User;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -162,18 +162,9 @@ public class LoginController
                 Parent root=null;
                 try
                 {
-                    File file=new File("username.txt");
+                    if (Userfield.getPromptText().equals("AdminUsername")) {
 
-                    if (file.createNewFile()||file.exists()) {
-                        FileWriter myWriter = new FileWriter(file);
-                        myWriter.write(Userfield.getText());
-                        myWriter.close();
-
-                        if (Userfield.getPromptText().equals("AdminUsername")) {
-                            root = FXMLLoader.load(getClass().getResource("/Views/AdminPanel.fxml"));
-                        } else {
-                            root = FXMLLoader.load(getClass().getResource("/Views/UserPanel.fxml"));
-                        }
+                        root = FXMLLoader.load(getClass().getResource("/Views/AdminPanel.fxml"));
 
                         Stage stage1 = new Stage();
 
@@ -183,10 +174,34 @@ public class LoginController
 
                         stage1.show();
                     }
-                    else
-                    {
-                        JOptionPane.showMessageDialog(null,"Some Problem Occurred please try again");
+
+                    else {
+                        File file = new File("username.txt");
+
+                        if (file.createNewFile() || file.exists()) {
+                            FileWriter myWriter = new FileWriter(file);
+
+                            myWriter.write(Userfield.getText());
+
+                            myWriter.close();
+
+                            root = FXMLLoader.load(getClass().getResource("/Views/UserPanel.fxml"));
+
+                            Stage stage1 = new Stage();
+
+                            stage1.initStyle(StageStyle.UNDECORATED);
+
+                            stage1.setScene(new Scene(root, 1366, 810));
+
+                            stage1.show();
+                        }
+                        else
+                        {
+                            JOptionPane.showMessageDialog(null,"Some Problem Occurred please try again");
+                        }
+
                     }
+
                 }
                 catch (Exception exception)
                 {

@@ -1,4 +1,4 @@
-package Classes.BLL;
+package Classes.BLL.Interfaces;
 
 import java.sql.SQLException;
 

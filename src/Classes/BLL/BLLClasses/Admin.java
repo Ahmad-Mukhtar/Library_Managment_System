@@ -1,10 +1,8 @@
-package Classes.BLL;
+package Classes.BLL.BLLClasses;
 
-import Classes.DAL.DAL;
+import Classes.BLL.Interfaces.Login;
 
-import java.sql.CallableStatement;
 import java.sql.SQLException;
-import java.sql.Types;
 
 public class Admin
 {

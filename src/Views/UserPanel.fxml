@@ -159,10 +159,11 @@
          <CheckMenuItem mnemonicParsing="false" selected="true" text="All" />
          <CheckMenuItem mnemonicParsing="false" text="Action" />
          <CheckMenuItem mnemonicParsing="false" text="Adventure" />
+         <CheckMenuItem mnemonicParsing="false" text="Comedy" />
          <CheckMenuItem mnemonicParsing="false" text="Drama" />
          <CheckMenuItem mnemonicParsing="false" text="Fantasy" />
-         <CheckMenuItem mnemonicParsing="false" text="Horror" />
          <CheckMenuItem mnemonicParsing="false" text="Fiction" />
+         <CheckMenuItem mnemonicParsing="false" text="Horror" />
       </items>
    </MenuButton>
    <Button fx:id="Searchbutton" layoutX="1084.0" layoutY="7.0" mnemonicParsing="false" onAction="#searchBook" prefHeight="51.0" prefWidth="66.0" style="-fx-background-color: #762b00; -fx-cursor: Hand;" text="Search" textFill="WHITE">
@@ -171,7 +172,7 @@
       </font>
    </Button>
    <Line endX="127.07986450195312" endY="33.34606170654297" layoutX="206.0" layoutY="50.0" rotate="90.0" startX="-17.879093170166016" startY="32.279388427734375" stroke="#f5f5f5" />
-   <FontAwesomeIcon fill="WHITE" glyphName="BELL" layoutX="1269.0" layoutY="38.0" onMouseClicked="#onNoificationsclick" size="20">
+   <FontAwesomeIcon fill="WHITE" glyphName="BELL" layoutX="1269.0" layoutY="38.0" size="20">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor></FontAwesomeIcon>
@@ -223,12 +224,12 @@
                      <Font name="Constantia Bold" size="18.0" />
                   </font>
                </Label>
-               <TextField layoutX="75.0" layoutY="201.0" prefHeight="34.0" prefWidth="255.0" promptText="First Name" />
-               <TextField layoutX="510.0" layoutY="201.0" prefHeight="34.0" prefWidth="255.0" promptText="Last Name" />
-               <PasswordField layoutX="75.0" layoutY="279.0" prefHeight="34.0" prefWidth="255.0" promptText="Password" />
-               <TextField layoutX="510.0" layoutY="279.0" prefHeight="34.0" prefWidth="255.0" promptText="Email" />
-               <DatePicker layoutX="70.0" layoutY="363.0" prefHeight="34.0" prefWidth="255.0" promptText="Date Of Birth" />
-               <Button layoutX="301.0" layoutY="476.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="210.0" style="-fx-background-color: #007bff;" text="Update" textFill="WHITE">
+               <TextField fx:id="EditFirstname" layoutX="75.0" layoutY="201.0" prefHeight="34.0" prefWidth="255.0" promptText="First Name" />
+               <TextField fx:id="EditLastname" layoutX="510.0" layoutY="201.0" prefHeight="34.0" prefWidth="255.0" promptText="Last Name" />
+               <PasswordField fx:id="EditPassword" layoutX="75.0" layoutY="279.0" prefHeight="34.0" prefWidth="255.0" promptText="Password" />
+               <TextField fx:id="EditEmail" layoutX="510.0" layoutY="279.0" prefHeight="34.0" prefWidth="255.0" promptText="Email" />
+               <DatePicker fx:id="EditDob" layoutX="70.0" layoutY="363.0" prefHeight="34.0" prefWidth="255.0" promptText="Date Of Birth" />
+               <Button layoutX="301.0" layoutY="476.0" mnemonicParsing="false" onAction="#updateProfile" prefHeight="34.0" prefWidth="210.0" style="-fx-background-color: #007bff; -fx-cursor: hand;" text="Update" textFill="WHITE">
                   <font>
                      <Font name="System Bold" size="14.0" />
                   </font>
@@ -366,9 +367,6 @@
          </AnchorPane>
       </children></AnchorPane>
    <MenuButton fx:id="Notificationslist" layoutX="1295.0" layoutY="40.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="0.1" prefWidth="0.1" style="-fx-background-color: #fff;" stylesheets="@../styles.css" textFill="WHITE" visible="false">
-     <items>
-       <MenuItem mnemonicParsing="false" text="Your Book has been Issued By Admin" />
-     </items>
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>

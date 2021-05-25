@@ -24,7 +24,7 @@
          </Label>
          <TextField fx:id="Userfield" layoutX="84.0" layoutY="200.0" prefHeight="30.0" prefWidth="163.0" promptText="Username" style="-fx-background-radius: 20px;" />
          <PasswordField fx:id="Passwordfield" layoutX="84.0" layoutY="245.0" prefHeight="30.0" prefWidth="165.0" promptText="Password" style="-fx-background-radius: 20px;" />
-         <Button layoutX="84.0" layoutY="293.0" mnemonicParsing="false" onAction="#onLoginClick" prefHeight="30.0" prefWidth="165.0" style="-fx-background-color: #1E90FF; -fx-background-radius: 20px;" text="Login" textFill="WHITE">
+         <Button layoutX="84.0" layoutY="293.0" mnemonicParsing="false" onAction="#onLoginClick" prefHeight="30.0" prefWidth="165.0" style="-fx-background-color: #1E90FF; -fx-background-radius: 20px; -fx-cursor: hand;" text="Login" textFill="WHITE">
             <font>
                <Font name="Calibri Bold" size="15.0" />
             </font>

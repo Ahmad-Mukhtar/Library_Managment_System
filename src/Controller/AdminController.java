@@ -1,6 +1,6 @@
 package Controller;
 
-import Classes.BLL.Admin;
+import Classes.BLL.BLLClasses.Admin;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -432,7 +432,8 @@ public class AdminController implements Initializable {
 
     //Load Books From Database and Display them
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL location, ResourceBundle resources)
+    {
         showBooks();
         checkCategory();
     }

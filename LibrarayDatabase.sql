@@ -43,7 +43,6 @@ Bookid int not null,
 Bookname varchar(20),
 BookDescription varchar(100),
 CurrentStock int,
-ActualStock int,
 Bookimagelink varchar(100),
 Authorname varchar(20),
 Publishername varchar(20),
@@ -81,12 +80,29 @@ create table Bookreservation
 
 select * from admininfo
 Select * from Member
-Select *from Bookissue
+Select * from Bookissue
 Select * from bookinfo
 Select * from History
 Select * from Favourites
 Select * from Penalty
 Select * from Bookreservation
+
+select * from bookinfo
+
+
+Insert into bookinfo(bookid,Genre,Bookname,BookDescription,CurrentStock,Bookimagelink,Authorname,Publishername)
+	values(1,'Fantasy','The Hobbit','Imaginery'	,9,'src/Images/1.jpg','Tolkien','George Allen'),
+			(2,'Action','War and Peace','Find Peace in it.'	,3,'src/Images/2.jpg','Tolstoy','C2C'),
+			(3,'Drama','Mobi','Unknown'	,4,'src/Images/3.jpg','Marley','NAZ'),
+			(4,'Drama','George 1984 ','Very Nice Book'	,6,'src/Images/4.jpg','Hitler','VIZ'),
+			(5,'Horror','Dracula','Origin of Dracula',7,'src/Images/5.jpg','baghoor','Funima'),
+			(6,'Adventure','The Hunger Games','Deadly games',8,'src/Images/6.jpg','Smith','Aniplex'),
+			(7,'Adventure','Narnia','A new World',2,'src/Images/7.jpg','Walker','Netflix'),
+			(8,'Drama','Wimpy Kid','Hilarious'	,6,'src/Images/8.jpg','Jeff','Bones'),
+			(9,'Fiction','Naruto','The story of a young ninja',5,'src/Images/9.jpg','Kishimoto','Damai')
+	
+	
+
 
 create procedure signup
 @mempass varchar(20),

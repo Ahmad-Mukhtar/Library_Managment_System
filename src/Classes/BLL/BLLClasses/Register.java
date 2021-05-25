@@ -1,10 +1,10 @@
-package Classes.BLL;
+package Classes.BLL.BLLClasses;
 
 import java.sql.SQLException;
 
 public class Register
 {
-    private IRegisterUser IRegisterUser;
+    private Classes.BLL.Interfaces.IRegisterUser IRegisterUser;
 
     public Register() throws SQLException {
         IRegisterUser =DataAccessFactory.getRegisterDal();

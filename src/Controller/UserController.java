@@ -1,6 +1,8 @@
 package Controller;
 
-import Classes.BLL.User;
+import Classes.BLL.BLLClasses.Books;
+import Classes.BLL.BLLClasses.User;
+import Classes.BLL.Interfaces.IUser;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -33,6 +35,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
@@ -58,7 +61,6 @@ public class UserController  implements Initializable {
 
     @FXML
     private Button Editprofilebutton;
-
 
     @FXML
     private Button Historybutton;
@@ -88,9 +90,6 @@ public class UserController  implements Initializable {
     private Button Searchbutton;
 
     @FXML
-    private Label NotifcationLabel;
-
-    @FXML
     private AnchorPane Editprofilepane;
     @FXML
     private AnchorPane Issuebooksepane;
@@ -109,9 +108,6 @@ public class UserController  implements Initializable {
 
     @FXML
     private AnchorPane Penaltypane;
-
-    @FXML
-    private MenuButton Notificationslist;
 
     @FXML
     private TextField Bookidfield;
@@ -138,9 +134,26 @@ public class UserController  implements Initializable {
     private MenuButton Categorybutton;
 
     @FXML
+    private TextField EditFirstname;
+
+    @FXML
+    private TextField EditLastname;
+
+    @FXML
+    private TextField EditPassword;
+
+    @FXML
+    private TextField EditEmail;
+
+    @FXML
+    private DatePicker EditDob;
+
+
+    @FXML
     private AnchorPane NotFoundPane;
 
-    private User user;
+    private IUser user;
+
 
     private ScrollPane DynamicscrollPane;
 
@@ -151,14 +164,23 @@ public class UserController  implements Initializable {
 
 
     }
-    //TODO Handle Filtering
+
     EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
         public void handle(ActionEvent e)
         {
             String Filtervalue = "";
             if (((CheckMenuItem) e.getSource()).isSelected()) {
                  Filtervalue = ((CheckMenuItem) e.getSource()).getText();
-                 System.out.println(Filtervalue);
+                 if (Filtervalue.equals("All"))
+                 {
+                     showBooks();
+                 }
+                 else {
+                     disableAllpanes();
+                     DynamicscrollPane = createScrollpane(true, false, false, user.filterbyGenre(Filtervalue));
+                     DynamicscrollPane.setVisible(true);
+                     UserpanelPane.getChildren().add(DynamicscrollPane);
+                 }
 
             }
             if(!Filtervalue.isEmpty()) {
@@ -179,7 +201,7 @@ public class UserController  implements Initializable {
     private void sortByAsc()
     {
         disableAllpanes();
-         DynamicscrollPane=createScrollpane(true,false,false,false,false,false);
+        DynamicscrollPane=createScrollpane(true,false,false,user.sortByAsc());
         DynamicscrollPane.setVisible(true);
         UserpanelPane.getChildren().add(DynamicscrollPane);
     }
@@ -188,8 +210,11 @@ public class UserController  implements Initializable {
     private void sortByDesc()
     {
         disableAllpanes();
-        DynamicscrollPane=createScrollpane(true,false,false,false,false,false);
+
+        DynamicscrollPane=createScrollpane(true,false,false, user.sortBydsc());
+
         DynamicscrollPane.setVisible(true);
+
         UserpanelPane.getChildren().add(DynamicscrollPane);
     }
     //Open Edit profile Window
@@ -197,11 +222,16 @@ public class UserController  implements Initializable {
     private void openEditWindow()
     {
         disableAllpanes();
+        EditFirstname.clear();
+        EditLastname.clear();
+        EditEmail.clear();
+        EditPassword.clear();
+        EditDob.getEditor().clear();
         Editprofilepane.setVisible(true);
     }
 
     //Create a Scroll pane for displaying books for various sections
-    private ScrollPane createScrollpane(Boolean sort,Boolean Favorites,Boolean History,Boolean allbooks,Boolean Filter,Boolean Search)
+    private ScrollPane createScrollpane(Boolean ssf,Boolean Favorites,Boolean History,ArrayList<Books> books)
     {
         //TODO add parameters for list of books
         ScrollPane scrollPane=new ScrollPane();
@@ -230,8 +260,9 @@ public class UserController  implements Initializable {
             int i=0;
             int ri=0;
             int ci=0;
-            while(i<7) {
-                File F=new File("src/Images/1.jpg");
+
+            while(i<books.size()) {
+                File F=new File(books.get(i).getBookImageLink());
                 FileInputStream input = new FileInputStream(F);
                 Image imj = new Image(input);
                 ImageView demoimj = new ImageView(imj);
@@ -253,18 +284,11 @@ public class UserController  implements Initializable {
                     }
                 }
 
-                if(sort||allbooks)
+                if(ssf)
                 {
-                    if(Search)
-                    {
-                        return null;
-                    }
-                    else if (Filter)
-                    {
-                        System.out.println("Filter");
-                    }
-                    Button btn = new Button("Issue Book"+i);
-                    Button btn1 = new Button("View Details"+i);
+
+                    Button btn = new Button("Issue Book");
+                    Button btn1 = new Button("View Details");
                     GridPane.setHalignment(demoimj, HPos.CENTER);
                     GridPane.setHalignment(btn, HPos.CENTER);
                     GridPane.setHalignment(btn1, HPos.CENTER);
@@ -272,12 +296,11 @@ public class UserController  implements Initializable {
                     GridPane.setMargin(btn, new Insets(170, 0, 0, 0));
                     GridPane.setMargin(btn1, new Insets(255, 0, 0, 0));
                     gridPane.setVgap(40);
-                    btn.setAccessibleText(String.valueOf(i));
+                    btn.setAccessibleText(String.valueOf(books.get(i).getId()));
                     btn.setFont(Searchbutton.getFont());
                     btn.setStyle("-fx-background-color: #762b00;-fx-cursor:Hand;");
                     btn.setTextFill(Color.WHITE);
-                    btn1.setAccessibleText("View"+ i);
-                    btn1.setAccessibleText(String.valueOf(i));
+                    btn1.setAccessibleText(String.valueOf(books.get(i).getId()));
                     btn1.setFont(Searchbutton.getFont());
                     btn1.setStyle("-fx-background-color: #762b00;-fx-cursor:Hand;");
                     btn1.setTextFill(Color.WHITE);
@@ -343,8 +366,6 @@ public class UserController  implements Initializable {
                 i++;
                 ci++;
             }
-
-
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -455,21 +476,23 @@ public class UserController  implements Initializable {
         PenlaltyLabel.setText("Please Pay Your Fine of RS "+Price);
     }
 
-    //TODO implement Search
+    //Search the Book
     @FXML
     private void searchBook()
     {
         String Searchvalue=SearchField.getText();
-        System.out.println(Searchvalue);
+
         disableAllpanes();
-        DynamicscrollPane=createScrollpane(true,false,false,false,false,true);
-        if (DynamicscrollPane==null)
+        if(user.searchBooks(Searchvalue).size()!=0) {
+            DynamicscrollPane = createScrollpane(true, false, false, user.searchBooks(Searchvalue));
+
+            DynamicscrollPane.setVisible(true);
+
+            UserpanelPane.getChildren().add(DynamicscrollPane);
+        }
+        else
         {
             NotFoundPane.setVisible(true);
-        }
-        else {
-            DynamicscrollPane.setVisible(true);
-            UserpanelPane.getChildren().add(DynamicscrollPane);
         }
 
     }
@@ -507,13 +530,6 @@ public class UserController  implements Initializable {
         ReserveBookspane.setVisible(true);
     }
 
-    //Display Notifications if any
-    @FXML
-    private void onNoificationsclick()
-    {
-        NotifcationLabel.setVisible(false);
-        Notificationslist.fire();
-    }
     //Open Renew Books Window
     @FXML
     private void openRenewbookWindow()
@@ -533,7 +549,7 @@ public class UserController  implements Initializable {
     private void openHistoryWindow()
     {
         disableAllpanes();
-        DynamicscrollPane=createScrollpane(false,false,true,false,false,false);
+        DynamicscrollPane=createScrollpane(false,false,true,null);
         DynamicscrollPane.setVisible(true);
         UserpanelPane.getChildren().add(DynamicscrollPane);
     }
@@ -542,7 +558,7 @@ public class UserController  implements Initializable {
     private void openFavouritesWindow()
     {
         disableAllpanes();
-        DynamicscrollPane=createScrollpane(false,true,false,false,false,false);
+        DynamicscrollPane=createScrollpane(false,true,false,null);
         DynamicscrollPane.setVisible(true);
         UserpanelPane.getChildren().add(DynamicscrollPane);
 
@@ -566,13 +582,12 @@ public class UserController  implements Initializable {
     private void showBooks()
     {
         disableAllpanes();
-        DynamicscrollPane=createScrollpane(false,false,false,true,false,false);
+        DynamicscrollPane=createScrollpane(true,false,false,user.getBooksArrayList());
         assert DynamicscrollPane != null;
         DynamicscrollPane.setVisible(true);
         UserpanelPane.getChildren().add(DynamicscrollPane);
 
     }
-
 
     private void checkCategory()
     {
@@ -601,7 +616,6 @@ public class UserController  implements Initializable {
 
     }
 
-    //TODO implement Search
     //If user Presses Enter On Search Field
     @FXML
     private void OnSearch(KeyEvent keyEvent)
@@ -609,7 +623,7 @@ public class UserController  implements Initializable {
         if(keyEvent.getCode().toString().equals("ENTER"))
         {
 
-            System.out.println(SearchField.getText());
+            searchBook();
         }
 
     }
@@ -721,11 +735,45 @@ public class UserController  implements Initializable {
         closeIcon.setStyle("-fx-scale-x: 1.0;-fx-scale-y: 1.0;-fx-scale-z: 1.0;");
     }
 
+    @FXML
+    private void updateProfile() throws SQLException {
+
+        if (EditFirstname.getText().isEmpty()&&EditLastname.getText().isEmpty()&&EditPassword.getText().isEmpty()&&EditEmail.getText().isEmpty()&&EditDob.getValue()==null)
+        {
+            JOptionPane.showMessageDialog(null,"Atleast one Field Should be Filled");
+        }
+        else {
+
+            String newDob;
+            if (EditDob.getValue()==null)
+            {
+                newDob="";
+
+            }
+            else
+            {
+                newDob=EditDob.getValue().toString();
+            }
+            Boolean result=user.updateProfile(EditFirstname.getText(),EditLastname.getText(),EditPassword.getText(),EditEmail.getText(),newDob);
+
+            if (result)
+            {
+                JOptionPane.showMessageDialog(null,"Profile Updated Successfully");
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null,"Profile Could not be Updated due to Some Error");
+
+            }
+        }
+    }
+
     //Load Books From Database and Display them
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
         File myObj = new File("username.txt");
+
         if (myObj.exists()) {
             Scanner myReader = null;
             try {
@@ -740,7 +788,11 @@ public class UserController  implements Initializable {
 
                 user.setUsername(data);
 
+                user.getAllbooks();
+
                 myObj.delete();
+
+                user.setUserinfo();
 
                 showBooks();
 
