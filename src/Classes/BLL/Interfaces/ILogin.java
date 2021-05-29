@@ -2,7 +2,7 @@ package Classes.BLL.Interfaces;
 
 import java.sql.SQLException;
 
-public interface  Login
+public interface ILogin
 {
     boolean validateLogin(String Username,String Password,String usertype) throws SQLException;
 }

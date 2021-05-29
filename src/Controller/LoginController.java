@@ -1,6 +1,7 @@
 package Controller;
 
 import Classes.BLL.BLLClasses.Admin;
+import Classes.BLL.BLLClasses.Login;
 import Classes.BLL.BLLClasses.User;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
@@ -57,11 +58,12 @@ public class LoginController
 
         Errorlabel.setVisible(false);
 
+        Login login=new Login();
+
         if(Userfield.getPromptText().equals("Username"))
         {
-            User user=new User();
 
-            if(user.Login(Userfield.getText(),Passwordfield.getText()))
+            if(login.Login(Userfield.getText(),Passwordfield.getText(),"User"))
             {
                 playTransition(true);
             }
@@ -73,8 +75,8 @@ public class LoginController
         }
         else if (Userfield.getPromptText().equals("AdminUsername"))
         {
-            Admin admin=new Admin();
-            if(admin.Login(Userfield.getText(),Passwordfield.getText()))
+
+            if(login.Login(Userfield.getText(),Passwordfield.getText(),"Admin"))
             {
                 playTransition(true);
             }
@@ -164,15 +166,30 @@ public class LoginController
                 {
                     if (Userfield.getPromptText().equals("AdminUsername")) {
 
-                        root = FXMLLoader.load(getClass().getResource("/Views/AdminPanel.fxml"));
 
-                        Stage stage1 = new Stage();
+                        File file = new File("adminname.txt");
 
-                        stage1.initStyle(StageStyle.UNDECORATED);
+                        if (file.createNewFile() || file.exists()) {
+                            FileWriter myWriter = new FileWriter(file);
 
-                        stage1.setScene(new Scene(root, 1366, 810));
+                            myWriter.write(Userfield.getText());
 
-                        stage1.show();
+                            myWriter.close();
+
+                            root = FXMLLoader.load(getClass().getResource("/Views/AdminPanel.fxml"));
+
+                            Stage stage1 = new Stage();
+
+                            stage1.initStyle(StageStyle.UNDECORATED);
+
+                            stage1.setScene(new Scene(root, 1366, 810));
+
+                            stage1.show();
+                        }
+                        else
+                        {
+                            JOptionPane.showMessageDialog(null,"Some Problem Occurred please try again");
+                        }
                     }
 
                     else {

@@ -5,5 +5,5 @@ import java.util.ArrayList;
 
 public interface IUserinfo
 {
-  ArrayList<String> setUserinfo(String username) throws SQLException;
+    ArrayList<String>setUserinfo(String Username) throws SQLException;
 }

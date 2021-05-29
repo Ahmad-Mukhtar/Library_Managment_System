@@ -129,9 +129,6 @@
       </cursor>
    </Label>
    <MenuButton fx:id="Notificationslist" layoutX="1295.0" layoutY="40.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="0.1" prefWidth="0.1" style="-fx-background-color: #fff;" stylesheets="@../styles.css" textFill="WHITE" visible="false">
-     <items>
-       <MenuItem mnemonicParsing="false" text="Your Book has been Issued By Admin" />
-     </items>
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>

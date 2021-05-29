@@ -1,19 +1,17 @@
 package Classes.BLL.BLLClasses;
 
 
-import Classes.BLL.Interfaces.IBook;
-import Classes.BLL.Interfaces.IUser;
 import Classes.BLL.Interfaces.IUserinfo;
-import Classes.BLL.Interfaces.Login;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Calendar;
 import java.util.Comparator;
+import java.util.Date;
 
 
-public class User implements IUser
+public class User
 {
     public String getFirstname() {
         return Firstname;
@@ -55,14 +53,6 @@ public class User implements IUser
         Dob = dob;
     }
 
-    public Login getLogin() {
-        return login;
-    }
-
-    public void setLogin(Login login) {
-        this.login = login;
-    }
-
     private String Username;
 
     private String Firstname;
@@ -75,36 +65,51 @@ public class User implements IUser
 
     private String Dob;
 
-    private Login login;
+    private int Noofbooksissued;
 
-    private ArrayList<Books> booksArrayList;
+    private int NoofbooksReserved;
 
-    public User() throws SQLException {
+    private UpdateProfile updateProfile;
 
-        login=DataAccessFactory.getLogindal();
-    }
+    private Books books;
 
-    public boolean Login(String Username, String Password) throws SQLException {
+    private IssueBook issueBook;
 
-        return login.validateLogin(Username,Password,"User");
+    private ReserveBook Reservebook;
 
-    }
+    private History history;
 
-    public void setUsername(String username) {
-        Username = username;
-    }
+    private Favourites favourites;
 
-    public String getUsername() {
-        return Username;
-    }
+    private Penalty penalty;
 
-    public ArrayList<Books> getBooksArrayList() {
-        return booksArrayList;
-    }
 
-    @Override
-    public void setUserinfo() throws SQLException
-    {
+    public User(String username) throws SQLException, ParseException {
+        this.Username=username;
+
+        updateProfile=new UpdateProfile();
+
+        issueBook=new IssueBook(username);
+
+        Reservebook=new ReserveBook(username);
+
+        Reservebook.autoRemoveReservedBook();
+
+        history=new History(username);
+
+        favourites=new Favourites(username);
+
+        books=new Books(username);
+
+        penalty=new Penalty(username);
+
+        int Noofdays=issueBook.getdaysafterdue();
+
+        if (Noofdays>0) {
+
+            penalty.SetPenalty(Noofdays, Username);
+        }
+
         IUserinfo userinfo=DataAccessFactory.getUserinfoDal();
 
         ArrayList<String> Userinfo=userinfo.setUserinfo(Username);
@@ -119,14 +124,38 @@ public class User implements IUser
 
         Email=Userinfo.get(4);
 
+        Noofbooksissued=Integer.parseInt(Userinfo.get(5));
+
+        NoofbooksReserved=Integer.parseInt(Userinfo.get(6));
     }
 
-    @Override
+    public void setUsername(String username) {
+        Username = username;
+    }
+
+    public String getUsername() {
+        return Username;
+    }
+
+    public ArrayList<Books> getBooksArrayList() {
+        return books.getBooksArrayList() ;
+    }
+
+    public ArrayList<ReserveBook> getReservedBooks() {
+        return Reservebook.getReservedBooks();
+    }
+
+    public ArrayList<History> getHistoryBooks() {
+        return history.getHistoryBooks();
+    }
+
+    public ArrayList<Favourites> getFavouriteBooks() { return favourites.getFavouriteBooks(); }
+
     public ArrayList<Books> sortByAsc() {
 
         ArrayList<Books> Sortbooks=new ArrayList<>();
 
-        for (Books b:booksArrayList) {
+        for (Books b:books.getBooksArrayList()) {
             Books books=new Books(b);
             Sortbooks.add(books);
         }
@@ -136,11 +165,14 @@ public class User implements IUser
         return Sortbooks;
     }
 
-    @Override
+    public ArrayList<IssueBook> getIssuedBooks() {
+        return issueBook.getIssuedBooks();
+    }
+
     public ArrayList<Books> sortBydsc() {
         ArrayList<Books> Sortbooks=new ArrayList<>();
 
-        for (Books b:booksArrayList) {
+        for (Books b:books.getBooksArrayList()) {
             Books books=new Books(b);
             Sortbooks.add(books);
         }
@@ -150,12 +182,11 @@ public class User implements IUser
         return Sortbooks;
     }
 
-    @Override
     public ArrayList<Books> searchBooks(String Searchvalue)
     {
         ArrayList<Books> SearchResults=new ArrayList<>();
 
-        for (Books b:booksArrayList) {
+        for (Books b:books.getBooksArrayList()) {
             Books books=new Books(b);
             if (books.getBookname().contains(Searchvalue))
             {
@@ -166,11 +197,10 @@ public class User implements IUser
         return SearchResults;
     }
 
-    @Override
     public ArrayList<Books> filterbyGenre(String Filtervalue) {
         ArrayList<Books> SearchResults=new ArrayList<>();
 
-        for (Books b:booksArrayList) {
+        for (Books b:books.getBooksArrayList()) {
             Books books=new Books(b);
             if (books.getGenre().equals(Filtervalue))
             {
@@ -181,7 +211,6 @@ public class User implements IUser
         return SearchResults;
     }
 
-    @Override
     public Boolean updateProfile(String FirstName, String LastName, String PassWord, String EmaiL, String DOB) throws SQLException {
 
 
@@ -209,7 +238,7 @@ public class User implements IUser
             EmaiL=Email;
         }
 
-        Boolean status=new UpdateProfile().updateProfile(FirstName,LastName,PassWord,EmaiL,DOB,Username);
+        Boolean status=updateProfile.updateProfile(FirstName,LastName,PassWord,EmaiL,DOB,Username);
 
         if (status)
         {
@@ -227,13 +256,254 @@ public class User implements IUser
         return status;
     }
 
-    @Override
-    public void getAllbooks() throws SQLException {
+    public int issueABook(int bookid) throws SQLException {
 
-        Books books=new Books();
 
-        //get books from database
-        booksArrayList=books.getallBooks();
+        if (Noofbooksissued < 3) {
+
+            if (books.checkbook(bookid)) {
+
+
+                if (books.getBookStock(bookid)) {
+                    for (IssueBook issueBook : issueBook.getIssuedBooks()) {
+                        if (issueBook.getBookid() == bookid && issueBook.getUsername().equals(Username)) {
+                            return 0;
+                        }
+                    }
+                    if (issueBook.IssueABook(bookid, Username)) {
+                        IssueBook issueBook1 = new IssueBook(bookid, Username);
+
+                        issueBook.getIssuedBooks().add(issueBook1);
+
+                        Noofbooksissued = Noofbooksissued + 1;
+
+                        if(Reservebook.checkReservedBook(bookid))
+                        {
+                            NoofbooksReserved=NoofbooksReserved-1;
+
+                            Reservebook.returnReservedBook(bookid,Username);
+                        }
+                        else {
+
+                            for (int i = 0; i < books.getBooksArrayList().size(); i++) {
+                                if (books.getBooksArrayList().get(i).getId() == bookid) {
+                                    books.getBooksArrayList().get(i).setCurrentStock(books.getBooksArrayList().get(i).getCurrentStock() - 1);
+
+                                    break;
+                                }
+                            }
+                        }
+
+                        return 1;
+
+                    } else {
+                        return 2;
+                    }
+                }
+                else if (Reservebook.checkReservedBook(bookid))
+                {
+
+                    for (IssueBook issueBook : issueBook.getIssuedBooks()) {
+                        if (issueBook.getBookid() == bookid && issueBook.getUsername().equals(Username)) {
+                            return 0;
+                        }
+                    }
+                    if (issueBook.IssueABook(bookid, Username)) {
+                        IssueBook issueBook1 = new IssueBook(bookid, Username);
+
+                        issueBook.getIssuedBooks().add(issueBook1);
+
+                        Noofbooksissued = Noofbooksissued + 1;
+
+                        NoofbooksReserved=NoofbooksReserved-1;
+
+                        Reservebook.returnReservedBook(bookid,Username);
+
+                        return 1;
+
+                    } else {
+                        return 2;
+                    }
+                }
+
+                else
+                {
+                    return 5;
+                }
+            }
+            else {
+                return 3;
+            }
+
+        }
+        else {
+            return 4;
+        }
+    }
+
+    public int reserveABook(int bookid) throws SQLException {
+        if (NoofbooksReserved < 3) {
+
+            if (books.checkbook(bookid)) {
+                if (issueBook.checkIssuedbook(bookid)) {
+                    if (books.getBookStock(bookid)) {
+                        for (ReserveBook reserveBook : Reservebook.getReservedBooks()) {
+                            if (reserveBook.getBookid() == bookid && reserveBook.getUsername().equals(Username)) {
+                                return 0;
+                            }
+                        }
+                        if (Reservebook.ReserveABook(bookid, Username)) {
+
+                            ReserveBook reserveBook = new ReserveBook(bookid, Username);
+
+                            Reservebook.getReservedBooks().add(reserveBook);
+
+                            NoofbooksReserved = NoofbooksReserved + 1;
+
+                            for (int i = 0; i <books.getBooksArrayList().size() ; i++)
+                            {
+                                if (books.getBooksArrayList().get(i).getId()==bookid)
+                                {
+                                    books.getBooksArrayList().get(i).setCurrentStock(books.getBooksArrayList().get(i).getCurrentStock()-1);
+
+                                    break;
+                                }
+                            }
+
+                            return 1;
+
+                        } else {
+                            return 2;
+                        }
+                    } else {
+                        return 5;
+                    }
+                }
+                else
+                {
+                    return 6;
+                }
+            }
+            else {
+                return 3;
+            }
+
+        }
+        else {
+            return 4;
+        }
+    }
+
+    public boolean returnABook(int bookid) throws SQLException {
+
+        if (!issueBook.checkIssuedbook(bookid)) {
+            if (issueBook.ReturnBook(bookid, Username)) {
+
+                Noofbooksissued = Noofbooksissued - 1;
+                for (int i = 0; i < issueBook.getIssuedBooks().size(); i++) {
+                    if (issueBook.getIssuedBooks().get(i).getBookid() == bookid) {
+
+                        issueBook.getIssuedBooks().remove(i);
+                        break;
+                    }
+                }
+
+                for (int i = 0; i <books.getBooksArrayList().size() ; i++)
+                {
+                    if (books.getBooksArrayList().get(i).getId()==bookid)
+                    {
+                        books.getBooksArrayList().get(i).setCurrentStock(books.getBooksArrayList().get(i).getCurrentStock()+1);
+
+                        break;
+                    }
+                }
+
+
+                for (History history : history.getHistoryBooks()) {
+                    if (history.getBookid() == bookid) {
+                        return true;
+                    }
+                }
+
+
+                history.AddtoHistory(bookid, Username);
+
+                History h = new History(bookid, Username);
+
+                history.getHistoryBooks().add(h);
+
+                return true;
+            } else {
+                return false;
+            }
+
+
+        } else {
+            return false;
+        }
+
+
+    }
+
+    public int renewBook(int Bookid) throws SQLException {
+        for (IssueBook issuedBook : issueBook.getIssuedBooks()) {
+            if (issuedBook.getBookid() == Bookid)
+            {
+                Date currentDate = new Date();
+
+                Calendar c = Calendar.getInstance();
+
+                c.add(Calendar.DATE, 15);
+
+                if(issueBook.RenewBook(Bookid,Username,currentDate.toString(),c.getTime().toString()))
+                {
+                    return 0;
+                }
+                else
+                {
+                    return 1;
+                }
+
+            }
+        }
+        return 2;
+    }
+
+    public boolean AddtoFavourites(int Bookid) throws SQLException {
+
+        return  favourites.addtoFavouries(Bookid,Username);
+    }
+
+    public boolean RemoveFromFavourites(int Bookid) throws SQLException {
+
+        return  favourites.removeFromFavourites(Bookid,Username);
+    }
+
+    public boolean checkFavouriteBook(int bookid)
+    {
+
+        return favourites.checkFavouriteBook(bookid);
+    }
+    public Books getbook(int bookid)
+    {
+        return books.getbook(bookid);
+    }
+
+    public boolean returnReserveBook(int Bookid) throws SQLException {
+        if(Reservebook.returnReservedBook(Bookid,Username))
+        {
+            NoofbooksReserved=NoofbooksReserved-1;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public int getPenaltyPrice()
+    {
+        return penalty.getPrice();
     }
 
 }

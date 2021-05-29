@@ -1,21 +1,32 @@
 package Classes.BLL.BLLClasses;
 
-import Classes.BLL.Interfaces.Login;
+import Classes.BLL.Interfaces.IAdmin;
 
 import java.sql.SQLException;
 
 public class Admin
 {
 
-    private Login login;
+    private  String Adminname;
 
-    public Admin() throws SQLException
+    private IAdmin iAdmin;
+
+
+    public Admin(String adminname) throws SQLException
     {
-        login=DataAccessFactory.getLogindal();
-    }
-    public boolean Login(String Username, String Password) throws SQLException {
+        iAdmin=DataAccessFactory.getAdmindal();
 
-        return login.validateLogin(Username, Password, "Admin");
+        this.Adminname=adminname;
     }
+
+    public String getAdminname() {
+        return Adminname;
+    }
+
+    public void setAdminname(String adminname) {
+        Adminname = adminname;
+    }
+
+
 
 }

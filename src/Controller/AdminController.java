@@ -1,6 +1,7 @@
 package Controller;
 
 import Classes.BLL.BLLClasses.Admin;
+import Classes.BLL.BLLClasses.User;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -24,12 +25,17 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
+import javax.swing.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 public class AdminController implements Initializable {
 
@@ -143,7 +149,7 @@ public class AdminController implements Initializable {
             }
         });
     }*/
-    //Calculate penalty Price and Display it
+
 
     //TODO implement Search
     @FXML
@@ -434,8 +440,39 @@ public class AdminController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        showBooks();
-        checkCategory();
+
+        File myObj = new File("adminname.txt");
+
+        if (myObj.exists()) {
+            Scanner myReader;
+            try {
+
+                myReader = new Scanner(myObj);
+
+                String data = myReader.nextLine();
+
+                myReader.close();
+
+                admin=new Admin(data);
+
+                myObj.delete();
+
+                showBooks();
+
+                checkCategory();
+
+            }
+            catch (FileNotFoundException | SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null,"Admin not Found Due to some Error");
+
+            signOut();
+        }
+
     }
     //OnClose button Click
     @FXML

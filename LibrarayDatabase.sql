@@ -18,23 +18,24 @@ Lastname varchar(20),
 Dob Date,
 gender varchar(6),
 username varchar(20) Unique,
-NoofBooksIssued int
+NoofBooksIssued int,
+NoofBooksReserved int
 primary key(memberid)
 )
 create table Penalty
 (
 penaltyprice int,
-memid int not null,
-primary key(memid),
-Foreign key (memid) References Member(memberid) on Update cascade on Delete cascade
+username varchar(20),
+primary key(username),
+Foreign key (username) References Member(username) on Update cascade on Delete cascade
 )
 create table History
 (
 Bookid int not null,
-memberid int not null,
-primary key(Bookid,memberid),
+username varchar(20),
+primary key(Bookid,username),
 Foreign key (Bookid) References Bookinfo(Bookid) on Update cascade on Delete cascade,
-Foreign key (memberid) References Member(memberid) on Update cascade on Delete cascade
+Foreign key (username) References Member(username) on Update cascade on Delete cascade
 )
 create table bookinfo
 (
@@ -48,35 +49,37 @@ Authorname varchar(20),
 Publishername varchar(20),
 Primary key(Bookid),
 )
+
 create table Bookissue
 (
-Memberid int not null,
-Issuedate date,
+username varchar(20) not null,
+Issuedate varchar(50),
 Bookid int not null,
-duedate date,
-primary key(Memberid,Bookid),
-Foreign key (Memberid) References Member(memberid) on Update cascade on Delete cascade,
+duedate varchar(50),
+primary key(username,Bookid),
+Foreign key (username) References Member(username) on Update cascade on Delete cascade,
 Foreign key (Bookid) References Bookinfo(Bookid) on Update cascade on Delete cascade
 )
 create table Favourites
 (
-Memberid  int not null,
+username varchar(20) not null,
 Bookid  int not null,
-primary key(Memberid,Bookid),
-Foreign key (Memberid) References Member(memberid) on Update cascade on Delete cascade,
+primary key(username,Bookid),
+Foreign key (username) References Member(username) on Update cascade on Delete cascade,
 Foreign key (Bookid) References Bookinfo(Bookid) on Update cascade on Delete cascade
 )
 create table Bookreservation
 (
  Bookid int  not null,
- Memberid  int not null,
- Reservationcount int,
- Reservationdate date,
- DueDate date,
- primary key(Memberid,Bookid),
- Foreign key (Memberid) References Member(memberid) on Update cascade on Delete cascade,
+ username varchar(20) not null,
+ Reservationdate varchar(50),
+ DueDate varchar(50),
+ primary key(username,Bookid),
+ Foreign key (username) References Member(username) on Update cascade on Delete cascade,
  Foreign key (Bookid) References Bookinfo(Bookid) on Update cascade on Delete cascade
  )
+ 
+ update Bookreservation set DueDate='Mon May 24 03:22:50 PKT 2021' where username='haha'
 
 select * from admininfo
 Select * from Member
@@ -87,7 +90,10 @@ Select * from Favourites
 Select * from Penalty
 Select * from Bookreservation
 
-select * from bookinfo
+Insert into History (Bookid,username) values(1,'haha')
+
+delete from History where Bookid=1
+
 
 
 Insert into bookinfo(bookid,Genre,Bookname,BookDescription,CurrentStock,Bookimagelink,Authorname,Publishername)
@@ -104,6 +110,8 @@ Insert into bookinfo(bookid,Genre,Bookname,BookDescription,CurrentStock,Bookimag
 	
 
 
+
+
 create procedure signup
 @mempass varchar(20),
 @memdob varchar(20),
@@ -114,8 +122,8 @@ create procedure signup
 @memgender varchar(6)
 As
 Begin
-Insert into Member (username,memberpassword,email,Firstname,Lastname,Dob,gender,Noofbooksissued)
-values(@memusername,@mempass,@mememail,@memfname,@memlname,@memdob,@memgender,0)
+Insert into Member (username,memberpassword,email,Firstname,Lastname,Dob,gender,Noofbooksissued,NoofBooksReserved)
+values(@memusername,@mempass,@mememail,@memfname,@memlname,@memdob,@memgender,0,0)
 End
 
 
@@ -152,3 +160,11 @@ end
 End
 
 insert into admininfo  values('admin','pass1')
+
+
+
+
+
+
+
+

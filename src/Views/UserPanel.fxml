@@ -256,7 +256,7 @@
                      <Font name="Constantia Bold" size="36.0" />
                   </font>
                </Label>
-               <Button layoutX="248.0" layoutY="351.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="210.0" style="-fx-background-color: #007bff;" text="Issue Book" textFill="WHITE">
+               <Button layoutX="248.0" layoutY="351.0" mnemonicParsing="false" onAction="#issueBook" prefHeight="34.0" prefWidth="210.0" style="-fx-background-color: #007bff; -fx-cursor: hand;" text="Issue Book" textFill="WHITE">
                   <font>
                      <Font name="System Bold" size="14.0" />
                   </font>
@@ -272,7 +272,7 @@
       <children>
          <Pane layoutX="194.0" layoutY="155.0" prefHeight="436.0" prefWidth="685.0" style="-fx-background-color: #8b4513;">
             <children>
-               <GridPane fx:id="ViewIssuedGridpane" alignment="CENTER" layoutY="106.0" prefHeight="280.0" prefWidth="672.0">
+               <GridPane fx:id="ViewIssuedGridpane" alignment="CENTER" layoutX="8.0" layoutY="101.0" prefHeight="280.0" prefWidth="670.0">
                  <columnConstraints>
                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                  </columnConstraints>
@@ -307,8 +307,8 @@
                      <Font name="Constantia Bold" size="18.0" />
                   </font>
                </Label>
-               <TextField fx:id="Bookidfield1" layoutX="71.0" layoutY="244.0" onMouseClicked="#restrictNumeric" prefHeight="34.0" prefWidth="255.0" promptText="Book ID" />
-               <Button layoutX="248.0" layoutY="359.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="210.0" style="-fx-background-color: #28a745;" text="Renew Book" textFill="WHITE">
+               <TextField fx:id="Renewfield" layoutX="71.0" layoutY="244.0" onMouseClicked="#restrictNumeric" prefHeight="34.0" prefWidth="255.0" promptText="Book ID" />
+               <Button layoutX="248.0" layoutY="359.0" mnemonicParsing="false" onAction="#renewBook" prefHeight="34.0" prefWidth="210.0" style="-fx-background-color: #28a745; -fx-cursor: hand;" text="Renew Book" textFill="WHITE">
                   <font>
                      <Font name="System Bold" size="14.0" />
                   </font>
@@ -335,8 +335,8 @@
                      <Font name="Constantia Bold" size="18.0" />
                   </font>
                </Label>
-               <TextField fx:id="Bookidfield11" layoutX="71.0" layoutY="244.0" onMouseClicked="#restrictNumeric" prefHeight="34.0" prefWidth="255.0" promptText="Book ID" />
-               <Button layoutX="248.0" layoutY="359.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="210.0" style="-fx-background-color: #007bff;" text="Return Book" textFill="WHITE">
+               <TextField fx:id="ReturnField" layoutX="71.0" layoutY="244.0" onMouseClicked="#restrictNumeric" prefHeight="34.0" prefWidth="255.0" promptText="Book ID" />
+               <Button layoutX="248.0" layoutY="359.0" mnemonicParsing="false" onAction="#ReturnBook" prefHeight="34.0" prefWidth="210.0" style="-fx-background-color: #007bff; -fx-cursor: hand;" text="Return Book" textFill="WHITE">
                   <font>
                      <Font name="System Bold" size="14.0" />
                   </font>
@@ -380,13 +380,13 @@
                      <Image url="@../Images/library.png" />
                   </image>
                </ImageView>
-               <TextField fx:id="Bookidfield2" layoutX="71.0" layoutY="244.0" onMouseClicked="#restrictNumeric" prefHeight="34.0" prefWidth="255.0" promptText="Book ID" />
+               <TextField fx:id="Reservefield" layoutX="71.0" layoutY="244.0" onMouseClicked="#restrictNumeric" prefHeight="34.0" prefWidth="255.0" promptText="Book ID" />
                <Label layoutX="237.0" layoutY="14.0" text="Reserve Book" textFill="#fafafa">
                   <font>
                      <Font name="Constantia Bold" size="36.0" />
                   </font>
                </Label>
-               <Button layoutX="248.0" layoutY="351.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="210.0" style="-fx-background-color: #007bff;" text="Reserve Book" textFill="WHITE">
+               <Button layoutX="248.0" layoutY="351.0" mnemonicParsing="false" onAction="#reserveBook" prefHeight="34.0" prefWidth="210.0" style="-fx-background-color: #007bff;" text="Reserve Book" textFill="WHITE">
                   <font>
                      <Font name="System Bold" size="14.0" />
                   </font>
@@ -433,6 +433,93 @@
                </Label>
             </children>
          </Pane>
+      </children>
+   </AnchorPane>
+   <AnchorPane fx:id="issuebooksonbtn" layoutX="277.0" layoutY="66.0" prefHeight="746.0" prefWidth="1090.0" styleClass="backimage" stylesheets="@../styles.css" visible="false">
+      <children>
+         <AnchorPane layoutX="167.0" layoutY="113.0" prefHeight="520.0" prefWidth="729.0" style="-fx-background-color: #8b4513;">
+            <children>
+               <TextField fx:id="Issueidfeild" layoutX="48.0" layoutY="340.0" onMouseClicked="#restrictNumeric" prefHeight="34.0" prefWidth="255.0" promptText="Book ID" />
+               <Label layoutX="254.0" layoutY="14.0" text="Book Issuing" textFill="#fafafa">
+                  <font>
+                     <Font name="Constantia Bold" size="36.0" />
+                  </font>
+               </Label>
+               <Button layoutX="259.0" layoutY="450.0" mnemonicParsing="false" onAction="#onbtnissue" prefHeight="34.0" prefWidth="210.0" style="-fx-background-color: #007bff; -fx-cursor: hand;" text="Issue Book" textFill="WHITE">
+                  <font>
+                     <Font name="System Bold" size="14.0" />
+                  </font>
+               </Button>
+               <Label layoutX="48.0" layoutY="310.0" text="Book ID" textFill="#fafafa">
+                  <font>
+                     <Font name="Constantia Bold" size="18.0" />
+                  </font>
+               </Label>
+               <ImageView fx:id="bookimgfield" fitHeight="182.0" fitWidth="143.0" layoutX="293.0" layoutY="85.0" pickOnBounds="true">
+                  <image>
+                     <Image url="@../Images/1.jpg" />
+                  </image>
+               </ImageView>
+            </children>
+         </AnchorPane>
+      </children>
+   </AnchorPane>
+   <AnchorPane fx:id="Viewdetailspane" layoutX="287.0" layoutY="76.0" prefHeight="746.0" prefWidth="1090.0" styleClass="backimage" stylesheets="@../styles.css" visible="false">
+      <children>
+         <AnchorPane layoutX="166.0" layoutY="95.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="504.0" prefWidth="773.0" style="-fx-background-color: #8b4513;">
+            <children>
+               <Label layoutX="241.0" layoutY="6.0" text="Book Details" textFill="#fafafa">
+                  <font>
+                     <Font name="Constantia Bold" size="48.0" />
+                  </font>
+               </Label>
+               <Button fx:id="favbtn" layoutX="281.0" layoutY="410.0" mnemonicParsing="false" onAction="#handleFavourites" prefHeight="34.0" prefWidth="210.0" style="-fx-background-color: #007bff; -fx-cursor: hand;" text="Add to Favourites" textFill="WHITE">
+                  <font>
+                     <Font name="System Bold" size="14.0" />
+                  </font>
+               </Button>
+               <Label fx:id="detailbookid" layoutX="400.0" layoutY="117.0" text="Book ID:" textFill="#fafafa">
+                  <font>
+                     <Font name="Constantia Bold" size="14.0" />
+                  </font>
+               </Label>
+               <ImageView fx:id="detailimagefield" fitHeight="199.0" fitWidth="155.0" layoutX="230.0" layoutY="110.0" pickOnBounds="true">
+                  <image>
+                     <Image url="@../Images/1.jpg" />
+                  </image>
+               </ImageView>
+               <Label fx:id="detailgenre" layoutX="400.0" layoutY="170.0" text="Genre:" textFill="#fafafa">
+                  <font>
+                     <Font name="Constantia Bold" size="14.0" />
+                  </font>
+               </Label>
+               <Label fx:id="detailbookname" layoutX="400.0" layoutY="145.0" prefHeight="18.0" prefWidth="350.0" text="Book Name:" textFill="#fafafa" wrapText="true">
+                  <font>
+                     <Font name="Constantia Bold" size="14.0" />
+                  </font>
+               </Label>
+               <Label fx:id="detailstock" layoutX="400.0" layoutY="194.0" text="Current Stock:" textFill="#fafafa">
+                  <font>
+                     <Font name="Constantia Bold" size="14.0" />
+                  </font>
+               </Label>
+               <Label fx:id="detailauthorname" layoutX="400.0" layoutY="222.0" text="Author Name:" textFill="#fafafa">
+                  <font>
+                     <Font name="Constantia Bold" size="14.0" />
+                  </font>
+               </Label>
+               <Label fx:id="detailpublishername" layoutX="400.0" layoutY="250.0" text="Publisher Name:" textFill="#fafafa">
+                  <font>
+                     <Font name="Constantia Bold" size="14.0" />
+                  </font>
+               </Label>
+               <Label fx:id="detailbookdescription" layoutX="400.0" layoutY="278.0" prefWidth="350.0" text="Book Description: " textFill="#fafafa" wrapText="true">
+                  <font>
+                     <Font name="Constantia Bold" size="14.0" />
+                  </font>
+               </Label>
+            </children>
+         </AnchorPane>
       </children>
    </AnchorPane>
 </AnchorPane>

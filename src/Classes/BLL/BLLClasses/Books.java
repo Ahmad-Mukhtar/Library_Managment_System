@@ -9,7 +9,6 @@ import java.util.ArrayList;
 public class Books
 {
 
-
     private int id;
 
     private String Bookname;
@@ -28,10 +27,19 @@ public class Books
 
     private IBook books;
 
+    private ArrayList<Books> booksArrayList;
+
+    public Books() {
 
 
-    public Books() throws SQLException {
+    }
+
+    public Books(String username) throws SQLException {
+
         books=DataAccessFactory.getBookDal();
+
+        this.booksArrayList=books.getBooks();
+
     }
 
     public Books(Books books)
@@ -44,6 +52,10 @@ public class Books
         this.BookImageLink=books.BookImageLink;
         this.Authorname=books.Authorname;
         this.Publishername=books.Publishername;
+    }
+
+    public ArrayList<Books> getBooksArrayList() {
+        return booksArrayList;
     }
 
     public void setId(int id) {
@@ -110,9 +122,40 @@ public class Books
         return Publishername;
     }
 
-    public ArrayList<Books> getallBooks() throws SQLException
+    public boolean getBookStock(int bookid)
     {
-        return books.getBooks();
+        for (Books books :booksArrayList ) {
+            if (books.getId() == bookid) {
+                return books.getCurrentStock() > 0;
+            }
+        }
+
+        return true;
     }
+
+    public boolean checkbook(int bookid)
+    {
+        for (int i=0;i<booksArrayList.size();i++)
+        {
+            if(booksArrayList.get(i).getId()==bookid)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Books getbook(int bookid)
+    {
+        for (int i=0;i<booksArrayList.size();i++)
+        {
+            if(booksArrayList.get(i).getId()==bookid)
+            {
+                return booksArrayList.get(i);
+            }
+        }
+        return null;
+    }
+
 
 }
