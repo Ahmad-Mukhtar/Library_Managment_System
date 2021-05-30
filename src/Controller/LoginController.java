@@ -52,13 +52,16 @@ public class LoginController
 
     @FXML private AnchorPane Righpane;
 
+    private Login login;
+
+    public LoginController() throws SQLException {
+        login=new Login();
+    }
 
     //When User Clicks Login Click Validate the fields
     public void onLoginClick() throws SQLException {
 
         Errorlabel.setVisible(false);
-
-        Login login=new Login();
 
         if(Userfield.getPromptText().equals("Username"))
         {

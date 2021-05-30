@@ -1,7 +1,10 @@
 package Controller;
 
 import Classes.BLL.BLLClasses.Admin;
+import Classes.BLL.BLLClasses.Books;
 import Classes.BLL.BLLClasses.User;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -27,13 +30,17 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import javax.swing.*;
+import java.awt.print.Book;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
@@ -108,11 +115,37 @@ public class AdminController implements Initializable {
     @FXML
     private Button Addbookbtn;
 
+    @FXML
+    private TextField ChangepassField;
+
+    @FXML
+    private TextField addbookidfield;
+    @FXML
+    private TextField Booknamefield;
+
+    @FXML
+    private TextField Authornamefield;
+
+    @FXML
+    private TextField Publisherfield;
+
+    @FXML
+    private TextField CurrentStock;
+
+    @FXML
+    private TextField Genrefield;
+
+    @FXML
+    private TextArea BookDescriptionfield;
+
+    @FXML
+    private TextField Deleteidfield;
+
     private Admin admin;
 
+    private File Selectedfile;
 
 
-    //TODO Handle Filtering
     EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
         public void handle(ActionEvent e)
         {
@@ -120,6 +153,12 @@ public class AdminController implements Initializable {
             if (((CheckMenuItem) e.getSource()).isSelected()) {
                 Filtervalue = ((CheckMenuItem) e.getSource()).getText();
                 System.out.println(Filtervalue);
+                if (Filtervalue.equals("All")) {
+                    showBooks();
+                }
+                else {
+                        getBooksfromdatabase(admin.filterbyGenre(Filtervalue));
+                }
 
             }
             if(!Filtervalue.isEmpty()) {
@@ -136,28 +175,155 @@ public class AdminController implements Initializable {
     };
 
     //Restrict text Field to numeric Only
-   /*
+    @FXML
     private void restrictNumeric()
     {
-        Bookidfield.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    Bookidfield.setText(newValue.replaceAll("[^\\d]", ""));
-                }
+        addbookidfield.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                addbookidfield.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
-    }*/
+        CurrentStock.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                CurrentStock.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+        Deleteidfield.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                Deleteidfield.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+    }
+
+    @FXML
+    private void updateprofile() throws SQLException {
+        if(ChangepassField.getText().isEmpty())
+        {
+            JOptionPane.showMessageDialog(null,"Please Enter New Password");
+        }
+        else
+        {
+            if (admin.UpdateProfile(ChangepassField.getText()))
+            {
+                JOptionPane.showMessageDialog(null,"Password Changed SuccessFully");
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null,"Some Error Occurred");
+
+            }
+        }
+    }
+
+    @FXML
+    private void Onaddupdate() throws IOException, SQLException {
+        if(Addbookbtn.getText().equals("Add Book"))
+        {
+            if(addbookidfield.getText().isEmpty()||Booknamefield.getText().isEmpty()||Authornamefield.getText().isEmpty()||Publisherfield.getText().isEmpty()||CurrentStock.getText().isEmpty()||Genrefield.getText().isEmpty()||BookDescriptionfield.getText().isEmpty()||Selectedfile==null)
+            {
+                JOptionPane.showMessageDialog(null,"Each field is Required");
+            }
+            else
+                {
+                  String path="src/Images/";
+
+                  Files.copy(Selectedfile.toPath(),new File(path+Selectedfile.getName()).toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+                  path=path+Selectedfile.getName();
+
+                  if (admin.AddBooks(Integer.parseInt(addbookidfield.getText()),Booknamefield.getText(),BookDescriptionfield.getText(),path,Genrefield.getText(),Integer.parseInt(CurrentStock.getText()),Authornamefield.getText(),Publisherfield.getText()))
+                  {
+                      Selectedfile=null;
+                      Filenamelabel.setText("No File Choosen");
+                      JOptionPane.showMessageDialog(null,"Book added SuccessFully");
+                  }
+                  else
+                  {
+                      JOptionPane.showMessageDialog(null,"Book ID Already Taken");
+                  }
 
 
-    //TODO implement Search
+
+            }
+        }
+        else
+        {
+            if(addbookidfield.getText().isEmpty())
+            {
+                JOptionPane.showMessageDialog(null,"Book ID is Required");
+            }
+
+            else
+            {
+                if (Booknamefield.getText().isEmpty()&&Authornamefield.getText().isEmpty()&&Publisherfield.getText().isEmpty()&&CurrentStock.getText().isEmpty()&&Genrefield.getText().isEmpty()&&BookDescriptionfield.getText().isEmpty()&&Selectedfile==null)
+                {
+                    JOptionPane.showMessageDialog(null,"Atleast One Field Is Required");
+                }
+                else
+                {
+                    String path="";
+                    if(Selectedfile!=null)
+                    {
+                        path="src/Images/";
+
+                        Files.copy(Selectedfile.toPath(),new File(path+Selectedfile.getName()).toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+                        path=path+Selectedfile.getName();
+                    }
+
+                    int stock=0;
+                    if(!CurrentStock.getText().isEmpty())
+                    {
+                        stock=Integer.parseInt(CurrentStock.getText());
+                    }
+                    if (admin.UpdateBooks(Integer.parseInt(addbookidfield.getText()),Booknamefield.getText(),BookDescriptionfield.getText(),path,Genrefield.getText(),stock,Authornamefield.getText(),Publisherfield.getText()))
+                    {
+                        Selectedfile=null;
+                        Filenamelabel.setText("No File Choosen");
+
+                        JOptionPane.showMessageDialog(null,"Book Updated SuccessFully");
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(null,"Book ID Not Found");
+                    }
+
+                }
+            }
+        }
+    }
+
+    @FXML
+    private void DeleteBook() throws SQLException {
+        if (Deleteidfield.getText().isEmpty())
+        {
+            JOptionPane.showMessageDialog(null,"Enter Bookid");
+        }
+        else
+        {
+            if (admin.DeleteBook(Integer.parseInt(Deleteidfield.getText())))
+            {
+                JOptionPane.showMessageDialog(null,"Book Deleted SuccessFully");
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null,"Bookid Does not Exist or Some Error Occurred");
+            }
+        }
+    }
     @FXML
     private void searchBook()
     {
+
         String Searchvalue=SearchField.getText();
-        System.out.println(Searchvalue);
-        getBooksfromdatabase(true,false);
+        if (admin.getsearchResults(Searchvalue).size()>0) {
+            NotFoundPane.setVisible(false);
+            getBooksfromdatabase(admin.getsearchResults(Searchvalue));
+        }
+        else
+        {
+            NotFoundPane.setVisible(true);
+        }
     }
     //Sign Out User
     @FXML
@@ -190,41 +356,28 @@ public class AdminController implements Initializable {
     @FXML
     private void onNoificationsclick()
     {
-        NotifcationLabel.setVisible(false);
         Notificationslist.fire();
     }
-
     //Show all Books
     @FXML
     private void showBooks()
     {
         disableAllpanes();
         Scrollpane.setVisible(true);
-        getBooksfromdatabase(false,false);
+        getBooksfromdatabase(admin.getAllBooks());
 
     }
 
-    private void getBooksfromdatabase(Boolean Search,Boolean Filter)
+    private void getBooksfromdatabase(ArrayList<Books> books)
     {
         try {
             int i=0;
             int ri=0;
             int ci=0;
 
-            if(Search)
-            {
-                System.out.println("Search");
-                disableAllpanes();
-                NotFoundPane.setVisible(true);
-
-            }
-            else if (Filter)
-            {
-                System.out.println("Filter");
-            }
-            else {
-                while (i < 7) {
-                    File F = new File("src/Images/1.jpg");
+            Gridpane.getChildren().clear();
+                while (i < books.size()) {
+                    File F = new File(books.get(i).getBookImageLink());
                     FileInputStream input = new FileInputStream(F);
                     Image imj = new Image(input);
                     ImageView demoimj = new ImageView(imj);
@@ -246,14 +399,14 @@ public class AdminController implements Initializable {
                         }
                     }
 
-                    Button btn1 = new Button("View Details" + i);
+                    Button btn1 = new Button("View Details");
                     GridPane.setHalignment(demoimj, HPos.CENTER);
                     GridPane.setHalignment(btn1, HPos.CENTER);
                     GridPane.setMargin(demoimj, new Insets(-50, 0, 0, 0));
                     GridPane.setMargin(btn1, new Insets(180, 0, 0, 0));
                     Gridpane.setVgap(40);
-                    btn1.setAccessibleText("View" + i);
-                    btn1.setAccessibleText(String.valueOf(i));
+                    btn1.setAccessibleText("View");
+                    btn1.setAccessibleText(String.valueOf(books.get(i).getId()));
                     btn1.setFont(Searchbutton.getFont());
                     btn1.setStyle("-fx-background-color:  #76001c;-fx-cursor:Hand;");
                     btn1.setTextFill(Color.WHITE);
@@ -266,9 +419,6 @@ public class AdminController implements Initializable {
                     i++;
                     ci++;
                 }
-            }
-
-
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -295,7 +445,6 @@ public class AdminController implements Initializable {
 
     }
 
-    //TODO implement Search
     //If user Presses Enter On Search Field
     @FXML
     private void OnSearch(KeyEvent keyEvent)
@@ -303,7 +452,7 @@ public class AdminController implements Initializable {
         if(keyEvent.getCode().toString().equals("ENTER"))
         {
 
-            System.out.println(SearchField.getText());
+            searchBook();
         }
 
     }
@@ -379,6 +528,7 @@ public class AdminController implements Initializable {
     private void  openEditWindow()
     {
         disableAllpanes();
+        ChangepassField.clear();
         Editprofilepane.setVisible(true);
     }
 
@@ -386,6 +536,7 @@ public class AdminController implements Initializable {
     private void  openAddbookswindow() throws FileNotFoundException
     {
         disableAllpanes();
+        clearFields();
         File F = new File("src/Images/addbook.png");
         FileInputStream input = new FileInputStream(F);
         Image image = new Image(input);
@@ -396,36 +547,41 @@ public class AdminController implements Initializable {
         AddBookPane.setVisible(true);
     }
 
+    private void clearFields()
+    {
+        addbookidfield.clear();
+        Booknamefield.clear();
+        CurrentStock.clear();
+        Authornamefield.clear();
+        Publisherfield.clear();
+        CurrentStock.clear();
+        Genrefield.clear();
+        BookDescriptionfield.clear();
+        Filenamelabel.setText("No File Choosen");
+        Selectedfile=null;
+    }
     @FXML
     private void selectFile() throws IOException {
         FileChooser fileChooser=new FileChooser();
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("png files","*.png"),
                 new FileChooser.ExtensionFilter("jpg files","*.jpg"));
 
-        File Selectedfile=fileChooser.showOpenDialog(AdminpanelPane.getScene().getWindow());
-
-        if(Selectedfile!=null) {
-            //  String path="src/Images/";
-
-            //  Files.copy(Selectedfile.toPath(),new File(path+Selectedfile.getName()).toPath(), StandardCopyOption.REPLACE_EXISTING);
-
-            Filenamelabel.setText(Selectedfile.getName());
-        }
-
-
+         Selectedfile=fileChooser.showOpenDialog(AdminpanelPane.getScene().getWindow());
+         Filenamelabel.setText(Selectedfile.getName());
     }
 
     @FXML
     private void  openDeletebooksWindow()
     {
         disableAllpanes();
-
+        Deleteidfield.clear();
         DeleteBookPane.setVisible(true);
     }
 
     @FXML
     private void openUpdatebooksWindow() throws FileNotFoundException {
         disableAllpanes();
+        clearFields();
         File F = new File("src/Images/upimg.png");
         FileInputStream input = new FileInputStream(F);
         Image image = new Image(input);
@@ -460,6 +616,8 @@ public class AdminController implements Initializable {
                 showBooks();
 
                 checkCategory();
+
+                Selectedfile=null;
 
             }
             catch (FileNotFoundException | SQLException e) {

@@ -801,6 +801,7 @@ public class UserController  implements Initializable {
                     Issueidfeild.setText(reserveissuebtn.getAccessibleText());
                     try {
                         onbtnissue();
+                        user.returnReserveBook(Integer.parseInt(reserveissuebtn.getAccessibleText()));
                     } catch (SQLException exception) {
                         exception.printStackTrace();
                     }

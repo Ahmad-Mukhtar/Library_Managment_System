@@ -160,8 +160,8 @@
                      <Font name="Constantia Bold" size="18.0" />
                   </font>
                </Label>
-               <PasswordField layoutX="75.0" layoutY="239.0" prefHeight="34.0" prefWidth="220.0" promptText="Password" />
-               <Button layoutX="208.0" layoutY="334.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="210.0" style="-fx-background-color: #007bff;" text="Update" textFill="WHITE">
+               <PasswordField fx:id="ChangepassField" layoutX="75.0" layoutY="239.0" prefHeight="34.0" prefWidth="220.0" promptText="Password" />
+               <Button layoutX="208.0" layoutY="334.0" mnemonicParsing="false" onAction="#updateprofile" prefHeight="34.0" prefWidth="210.0" style="-fx-background-color: #007bff; -fx-cursor: hand;" text="Update" textFill="WHITE">
                   <font>
                      <Font name="System Bold" size="14.0" />
                   </font>
@@ -195,7 +195,7 @@
                      <Font name="Constantia Bold" size="24.0" />
                   </font>
                </Label>
-               <Button fx:id="Addbookbtn" layoutX="345.0" layoutY="633.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="210.0" style="-fx-background-color: #007bff;" text="Add Book" textFill="WHITE">
+               <Button fx:id="Addbookbtn" layoutX="345.0" layoutY="633.0" mnemonicParsing="false" onAction="#Onaddupdate" prefHeight="34.0" prefWidth="210.0" style="-fx-background-color: #007bff; -fx-cursor: hand;" text="Add Book" textFill="WHITE">
                   <font>
                      <Font name="System Bold" size="14.0" />
                   </font>
@@ -205,20 +205,20 @@
                      <Font name="System Bold" size="14.0" />
                   </font>
                </Label>
-               <TextField layoutX="90.0" layoutY="213.0" prefHeight="30.0" prefWidth="190.0" promptText="Book ID" />
+               <TextField fx:id="addbookidfield" layoutX="90.0" layoutY="213.0" onMouseClicked="#restrictNumeric" prefHeight="30.0" prefWidth="190.0" promptText="Book ID" />
                <Label layoutX="560.0" layoutY="184.0" text="Book Name" textFill="#f8f8f8">
                   <font>
                      <Font name="System Bold" size="14.0" />
                   </font>
                </Label>
-               <TextField layoutX="560.0" layoutY="213.0" prefHeight="30.0" prefWidth="246.0" promptText="Book Name" />
+               <TextField fx:id="Booknamefield" layoutX="560.0" layoutY="213.0" prefHeight="30.0" prefWidth="246.0" promptText="Book Name" />
                <Label layoutX="90.0" layoutY="278.0" text="Author Name" textFill="#f8f8f8">
                   <font>
                      <Font name="System Bold" size="14.0" />
                   </font>
                </Label>
-               <TextField layoutX="90.0" layoutY="303.0" prefHeight="30.0" prefWidth="300.0" promptText="Author Name" />
-               <TextField layoutX="560.0" layoutY="303.0" prefHeight="30.0" prefWidth="300.0" promptText="Publisher Name" />
+               <TextField fx:id="Authornamefield" layoutX="90.0" layoutY="303.0" prefHeight="30.0" prefWidth="300.0" promptText="Author Name" />
+               <TextField fx:id="Publisherfield" layoutX="560.0" layoutY="303.0" prefHeight="30.0" prefWidth="300.0" promptText="Publisher Name" />
                <Label layoutX="560.0" layoutY="278.0" text="Publisher Name" textFill="#f8f8f8">
                   <font>
                      <Font name="System Bold" size="14.0" />
@@ -229,20 +229,14 @@
                      <Font name="System Bold" size="14.0" />
                   </font>
                </Label>
-               <TextField layoutX="90.0" layoutY="381.0" prefHeight="30.0" prefWidth="190.0" promptText="Current Stock" />
-               <Label layoutX="393.0" layoutY="358.0" text="Actual Stock" textFill="#f8f8f8">
+               <TextField fx:id="CurrentStock" layoutX="90.0" layoutY="381.0" onMouseClicked="#restrictNumeric" prefHeight="30.0" prefWidth="300.0" promptText="Current Stock" />
+               <Label layoutX="560.0" layoutY="358.0" text="Genre" textFill="#f8f8f8">
                   <font>
                      <Font name="System Bold" size="14.0" />
                   </font>
                </Label>
-               <TextField layoutX="391.0" layoutY="381.0" prefHeight="30.0" prefWidth="190.0" promptText="Actual Stock" />
-               <Label layoutX="645.0" layoutY="358.0" text="Genre" textFill="#f8f8f8">
-                  <font>
-                     <Font name="System Bold" size="14.0" />
-                  </font>
-               </Label>
-               <TextField layoutX="645.0" layoutY="381.0" prefHeight="30.0" prefWidth="190.0" promptText="Genre" />
-               <TextArea layoutX="89.0" layoutY="462.0" prefHeight="78.0" prefWidth="793.0" promptText="Book Description" />
+               <TextField fx:id="Genrefield" layoutX="560.0" layoutY="381.0" prefHeight="30.0" prefWidth="300.0" promptText="Genre" />
+               <TextArea fx:id="BookDescriptionfield" layoutX="89.0" layoutY="462.0" prefHeight="78.0" prefWidth="793.0" promptText="Book Description" />
                <Label layoutX="86.0" layoutY="435.0" text="Book Description" textFill="#f8f8f8">
                   <font>
                      <Font name="System Bold" size="14.0" />
@@ -282,12 +276,12 @@
                      <Font name="Constantia Bold" size="18.0" />
                   </font>
                </Label>
-               <Button layoutX="208.0" layoutY="334.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="210.0" style="-fx-background-color: #007bff;" text="Delete" textFill="WHITE">
+               <Button layoutX="208.0" layoutY="334.0" mnemonicParsing="false" onAction="#DeleteBook" prefHeight="34.0" prefWidth="210.0" style="-fx-background-color: #007bff; -fx-cursor: hand;" text="Delete" textFill="WHITE">
                   <font>
                      <Font name="System Bold" size="14.0" />
                   </font>
                </Button>
-               <TextField layoutX="75.0" layoutY="239.0" prefHeight="34.0" prefWidth="220.0" promptText="Book ID" />
+               <TextField fx:id="Deleteidfield" layoutX="75.0" layoutY="239.0" onMouseClicked="#restrictNumeric" prefHeight="34.0" prefWidth="220.0" promptText="Book ID" />
             </children>
          </AnchorPane>
       </children>

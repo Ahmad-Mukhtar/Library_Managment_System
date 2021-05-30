@@ -3,6 +3,7 @@ package Classes.DAL;
 import Classes.BLL.BLLClasses.*;
 import Classes.BLL.Interfaces.*;
 
+import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -14,7 +15,9 @@ public class DAL implements ILogin, IRegisterUser, IBook, IUpdateProfile, IUseri
         try {
             connection = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=LibraryManagmentSystem;integratedSecurity=true");
         } catch (SQLException sqlException) {
+            JOptionPane.showMessageDialog(null,"Conection to Database failed Exiting....");
             System.out.println(sqlException.toString());
+            System.exit(0);
         }
     }
 
@@ -22,6 +25,10 @@ public class DAL implements ILogin, IRegisterUser, IBook, IUpdateProfile, IUseri
     public boolean validateLogin(String Username, String Password, String Usertype) throws SQLException {
 
         if (Usertype.equals("User")) {
+            if (connection==null)
+            {
+                return false;
+            }
             CallableStatement callableStatement = connection.prepareCall("{call signin(?,?,?)}");
 
             callableStatement.setString(1, Username);
@@ -690,22 +697,167 @@ public class DAL implements ILogin, IRegisterUser, IBook, IUpdateProfile, IUseri
     }
 
     @Override
-    public boolean changePassword(String Username, String Password) {
-        return false;
+    public boolean changePassword(String Username, String Password) throws SQLException {
+        if(connection.isClosed())
+        {
+            connection= DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=LibraryManagmentSystem;integratedSecurity=true");
+        }
+
+        PreparedStatement preparedStatement = connection.prepareStatement("Update  admininfo set adminpassword=? where username=?");
+
+        preparedStatement.setString(1, Password);
+
+        preparedStatement.setString(2, Username);
+
+        int Result=preparedStatement.executeUpdate();
+
+        preparedStatement.close();
+
+        connection.close();
+
+        return Result > 0;
+
+
     }
 
     @Override
-    public boolean addBook(int Bookid, String Bookname, String BookDescription, String Bookimglink, String Genre, int CurrentStock, String Authorname, String Publishername) {
-        return false;
+    public boolean addBook(int Bookid, String Bookname, String BookDescription, String Bookimglink, String Genre, int CurrentStock, String Authorname, String Publishername) throws SQLException {
+        if(connection.isClosed())
+        {
+            connection= DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=LibraryManagmentSystem;integratedSecurity=true");
+        }
+
+        PreparedStatement preparedStatement = connection.prepareStatement("Insert into bookinfo(bookid,Genre,Bookname,BookDescription,CurrentStock,Bookimagelink,Authorname,Publishername) values(?,?,?,?,?,?,?,?)");
+
+        preparedStatement.setInt(1,Bookid);
+
+        preparedStatement.setString(2,Genre);
+
+        preparedStatement.setString(3,Bookname);
+
+        preparedStatement.setString(4,BookDescription);
+
+        preparedStatement.setInt(5,CurrentStock);
+
+        preparedStatement.setString(6,Bookimglink);
+
+        preparedStatement.setString(7,Authorname);
+
+        preparedStatement.setString(8,Publishername);
+
+        int Result=preparedStatement.executeUpdate();
+
+        preparedStatement.close();
+
+        connection.close();
+
+        return Result > 0;
     }
 
     @Override
-    public boolean removeBook(int Bookid) {
+    public boolean removeBook(int Bookid) throws SQLException {
+
+        if(connection.isClosed())
+        {
+            connection= DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=LibraryManagmentSystem;integratedSecurity=true");
+        }
+
+        PreparedStatement preparedStatement = connection.prepareStatement("Select * from Bookissue where Bookid=?");
+
+        preparedStatement.setInt(1,Bookid);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        ArrayList<String> IssuedUsers=new ArrayList<>();
+
+        ArrayList<String> ReservedUsers=new ArrayList<>();
+
+        while (resultSet.next())
+        {
+            IssuedUsers.add(resultSet.getString("username"));
+        }
+
+        preparedStatement = connection.prepareStatement("Select * from Bookreservation where Bookid=?");
+
+        preparedStatement.setInt(1,Bookid);
+
+        resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next())
+        {
+            ReservedUsers.add(resultSet.getString("username"));
+        }
+
+
+        preparedStatement = connection.prepareStatement("Delete from bookinfo where Bookid=?");
+
+        preparedStatement.setInt(1,Bookid );
+
+       int Result= preparedStatement.executeUpdate();
+
+       if(Result>0) {
+           preparedStatement = connection.prepareStatement("update Member set NoofBooksIssued=NoofBooksIssued-1 where username=?");
+
+           for (String user:IssuedUsers)
+           {
+               preparedStatement.setString(1, user);
+
+               preparedStatement.executeUpdate();
+           }
+
+           preparedStatement = connection.prepareStatement("update Member set NoofBooksReserved=NoofBooksReserved-1 where username=?");
+
+           for (String user:ReservedUsers)
+           {
+               preparedStatement.setString(1, user);
+
+               preparedStatement.executeUpdate();
+           }
+
+           preparedStatement.close();
+
+           connection.close();
+
+           return true;
+       }
+
         return false;
+
     }
 
     @Override
-    public boolean updateBook(int Bookid, String Bookname, String BookDescription, String Bookimglink, String Genre, int CurrentStock, String Authorname, String Publishername) {
-        return false;
+    public boolean updateBook(int Bookid, String Bookname, String BookDescription, String Bookimglink, String Genre, int CurrentStock, String Authorname, String Publishername) throws SQLException {
+
+        if(connection.isClosed())
+        {
+            connection= DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=LibraryManagmentSystem;integratedSecurity=true");
+        }
+
+        PreparedStatement preparedStatement = connection.prepareStatement("Update bookinfo set Genre=?,Bookname=?,BookDescription=?,CurrentStock=?,Bookimagelink=?,Authorname=?,Publishername=? where bookid=?");
+
+
+        preparedStatement.setString(1,Genre);
+
+        preparedStatement.setString(2,Bookname);
+
+        preparedStatement.setString(3,BookDescription);
+
+        preparedStatement.setInt(4,CurrentStock);
+
+        preparedStatement.setString(5,Bookimglink);
+
+        preparedStatement.setString(6,Authorname);
+
+        preparedStatement.setString(7,Publishername);
+
+        preparedStatement.setInt(8,Bookid);
+
+        int Result=preparedStatement.executeUpdate();
+
+        preparedStatement.close();
+
+        connection.close();
+
+        return Result > 0;
     }
 }

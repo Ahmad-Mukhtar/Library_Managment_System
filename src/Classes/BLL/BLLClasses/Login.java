@@ -12,10 +12,10 @@ public class Login
     {
         login=DataAccessFactory.getLogindal();
     }
-
     public boolean Login(String Username, String Password,String usertype) throws SQLException {
 
         return login.validateLogin(Username,Password,usertype);
 
     }
+
 }

@@ -54,6 +54,7 @@ public class RegistrationController {
     private Register register;
 
     public RegistrationController() throws SQLException {
+
         register = new Register();
     }
 
