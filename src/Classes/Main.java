@@ -13,7 +13,6 @@ public class Main extends Application {
         primaryStage.setTitle("Log In");
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setScene(new Scene(root, 600, 420));
-       // primaryStage.setScene(new Scene(root, 1366, 810));
         primaryStage.show();
     }
 
