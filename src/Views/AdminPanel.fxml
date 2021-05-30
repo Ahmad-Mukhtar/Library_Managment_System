@@ -286,6 +286,59 @@
          </AnchorPane>
       </children>
    </AnchorPane>
+   <AnchorPane fx:id="Viewdetailspane" layoutX="277.0" layoutY="66.0" prefHeight="746.0" prefWidth="1090.0" styleClass="backimage" stylesheets="@../styles.css" visible="false">
+      <children>
+         <AnchorPane layoutX="166.0" layoutY="95.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="421.0" prefWidth="774.0" style="-fx-background-color: #762b00;">
+            <children>
+               <Label layoutX="241.0" layoutY="6.0" text="Book Details" textFill="#fafafa">
+                  <font>
+                     <Font name="Constantia Bold" size="48.0" />
+                  </font>
+               </Label>
+               <Label fx:id="detailbookid" layoutX="400.0" layoutY="117.0" text="Book ID:" textFill="#fafafa">
+                  <font>
+                     <Font name="Constantia Bold" size="14.0" />
+                  </font>
+               </Label>
+               <ImageView fx:id="detailimagefield" fitHeight="199.0" fitWidth="155.0" layoutX="230.0" layoutY="110.0" pickOnBounds="true">
+                  <image>
+                     <Image url="@../Images/1.jpg" />
+                  </image>
+               </ImageView>
+               <Label fx:id="detailgenre" layoutX="400.0" layoutY="170.0" text="Genre:" textFill="#fafafa">
+                  <font>
+                     <Font name="Constantia Bold" size="14.0" />
+                  </font>
+               </Label>
+               <Label fx:id="detailbookname" layoutX="400.0" layoutY="145.0" prefHeight="18.0" prefWidth="350.0" text="Book Name:" textFill="#fafafa" wrapText="true">
+                  <font>
+                     <Font name="Constantia Bold" size="14.0" />
+                  </font>
+               </Label>
+               <Label fx:id="detailstock" layoutX="400.0" layoutY="194.0" text="Current Stock:" textFill="#fafafa">
+                  <font>
+                     <Font name="Constantia Bold" size="14.0" />
+                  </font>
+               </Label>
+               <Label fx:id="detailauthorname" layoutX="400.0" layoutY="222.0" text="Author Name:" textFill="#fafafa">
+                  <font>
+                     <Font name="Constantia Bold" size="14.0" />
+                  </font>
+               </Label>
+               <Label fx:id="detailpublishername" layoutX="400.0" layoutY="250.0" text="Publisher Name:" textFill="#fafafa">
+                  <font>
+                     <Font name="Constantia Bold" size="14.0" />
+                  </font>
+               </Label>
+               <Label fx:id="detailbookdescription" layoutX="400.0" layoutY="278.0" prefWidth="350.0" text="Book Description: " textFill="#fafafa" wrapText="true">
+                  <font>
+                     <Font name="Constantia Bold" size="14.0" />
+                  </font>
+               </Label>
+            </children>
+         </AnchorPane>
+      </children>
+   </AnchorPane>
 
 
 

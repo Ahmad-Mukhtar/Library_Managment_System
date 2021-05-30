@@ -187,4 +187,8 @@ public class Admin
         }
     }
 
+    public Books getBook(int Bookid)
+    {
+        return books.getbook(Bookid);
+    }
 }

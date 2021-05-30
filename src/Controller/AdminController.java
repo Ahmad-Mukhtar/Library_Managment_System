@@ -141,6 +141,33 @@ public class AdminController implements Initializable {
     @FXML
     private TextField Deleteidfield;
 
+    @FXML
+    private AnchorPane Viewdetailspane;
+
+    @FXML
+    private ImageView detailimagefield;
+
+    @FXML
+    private Label detailbookid;
+
+    @FXML
+    private Label detailbookname;
+
+    @FXML
+    private Label detailgenre;
+
+    @FXML
+    private Label detailstock;
+
+    @FXML
+    private Label detailauthorname;
+
+    @FXML
+    private Label detailpublishername;
+
+    @FXML
+    private Label detailbookdescription;
+
     private Admin admin;
 
     private File Selectedfile;
@@ -411,7 +438,26 @@ public class AdminController implements Initializable {
                     btn1.setStyle("-fx-background-color:  #76001c;-fx-cursor:Hand;");
                     btn1.setTextFill(Color.WHITE);
                     btn1.setOnAction(event -> {
-                        System.out.println(btn1.getAccessibleText());
+                        disableAllpanes();
+                        Books books1 = admin.getBook(Integer.parseInt(btn1.getAccessibleText()));
+                        File file1 = new File(books1.getBookImageLink());
+                        FileInputStream fileInputStream = null;
+                        try {
+                            fileInputStream = new FileInputStream(file1);
+                        } catch (FileNotFoundException fileNotFoundException) {
+                            fileNotFoundException.printStackTrace();
+                        }
+                        assert fileInputStream != null;
+                        Image image1 = new Image(fileInputStream);
+                        detailimagefield.setImage(image1);
+                        detailbookid.setText("Book ID:  " + books1.getId());
+                        detailbookname.setText("Book Name:  " + books1.getBookname());
+                        detailgenre.setText("Genre:  " + books1.getGenre());
+                        detailstock.setText("CurrentStock: " + books1.getCurrentStock());
+                        detailauthorname.setText("Author Name:  " + books1.getAuthorname());
+                        detailpublishername.setText("Publisher Name:  " + books1.getPublishername());
+                        detailbookdescription.setText("Book Description:  " + books1.getBookDescription());
+                        Viewdetailspane.setVisible(true);
                     });
 
                     Gridpane.add(demoimj, ci, ri);
@@ -436,12 +482,12 @@ public class AdminController implements Initializable {
     //Disable all Visible Layouts
     private void disableAllpanes()
     {
-            //TODO
         Scrollpane.setVisible(false);
         Editprofilepane.setVisible(false);
         NotFoundPane.setVisible(false);
         AddBookPane.setVisible(false);
         DeleteBookPane.setVisible(false);
+        Viewdetailspane.setVisible(false);
 
     }
 
@@ -567,7 +613,9 @@ public class AdminController implements Initializable {
                 new FileChooser.ExtensionFilter("jpg files","*.jpg"));
 
          Selectedfile=fileChooser.showOpenDialog(AdminpanelPane.getScene().getWindow());
-         Filenamelabel.setText(Selectedfile.getName());
+         if (Selectedfile!=null) {
+             Filenamelabel.setText(Selectedfile.getName());
+         }
     }
 
     @FXML
