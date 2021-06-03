@@ -1,5 +1,5 @@
 # Library_Managment_System
-A Simple Library Managment System built in java using javafx by following Solid Sesign Principles.
+A Simple Library Managment System built in java using javafx by following Solid design Principles.
 
 Functionlites:
 
