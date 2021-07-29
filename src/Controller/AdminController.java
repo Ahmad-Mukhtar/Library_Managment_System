@@ -184,6 +184,8 @@ public class AdminController implements Initializable {
                     showBooks();
                 }
                 else {
+                        disableAllpanes();
+                        Scrollpane.setVisible(true);
                         getBooksfromdatabase(admin.filterbyGenre(Filtervalue));
                 }
 
@@ -345,6 +347,8 @@ public class AdminController implements Initializable {
         String Searchvalue=SearchField.getText();
         if (admin.getsearchResults(Searchvalue).size()>0) {
             NotFoundPane.setVisible(false);
+            disableAllpanes();
+            Scrollpane.setVisible(true);
             getBooksfromdatabase(admin.getsearchResults(Searchvalue));
         }
         else
@@ -390,6 +394,7 @@ public class AdminController implements Initializable {
     private void showBooks()
     {
         disableAllpanes();
+        NotifcationLabel.setText(String.valueOf(admin.getAllBooks().size()));
         Scrollpane.setVisible(true);
         getBooksfromdatabase(admin.getAllBooks());
 
@@ -607,7 +612,7 @@ public class AdminController implements Initializable {
         Selectedfile=null;
     }
     @FXML
-    private void selectFile() throws IOException {
+    private void selectFile() {
         FileChooser fileChooser=new FileChooser();
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("png files","*.png"),
                 new FileChooser.ExtensionFilter("jpg files","*.jpg"));

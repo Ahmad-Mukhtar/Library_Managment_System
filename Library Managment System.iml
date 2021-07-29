@@ -7,8 +7,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="javafx" level="application" />
     <orderEntry type="library" name="mssql-jdbc-9.2.1.jre11" level="application" />
+    <orderEntry type="library" name="javafx" level="application" />
     <orderEntry type="library" name="fontawesomefx-8.2" level="application" />
   </component>
 </module>

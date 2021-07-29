@@ -172,7 +172,7 @@
       </font>
    </Button>
    <Line endX="127.07986450195312" endY="33.34606170654297" layoutX="206.0" layoutY="50.0" rotate="90.0" startX="-17.879093170166016" startY="32.279388427734375" stroke="#f5f5f5" />
-   <FontAwesomeIcon fill="WHITE" glyphName="BELL" layoutX="1269.0" layoutY="38.0" size="20">
+   <FontAwesomeIcon fill="WHITE" glyphName="BOOK" layoutX="1269.0" layoutY="38.0" size="20">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor></FontAwesomeIcon>

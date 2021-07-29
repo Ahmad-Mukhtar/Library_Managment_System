@@ -5,6 +5,7 @@ import Classes.BLL.Interfaces.IUserinfo;
 
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
@@ -188,7 +189,7 @@ public class User
 
         for (Books b:books.getBooksArrayList()) {
             Books books=new Books(b);
-            if (books.getBookname().contains(Searchvalue))
+            if (books.getBookname().contains(Searchvalue)||books.getAuthorname().contains(Searchvalue))
             {
                 SearchResults.add(books);
             }
@@ -445,18 +446,22 @@ public class User
 
     }
 
-    public int renewBook(int Bookid) throws SQLException {
+    public int renewBook(int Bookid) throws SQLException, ParseException {
         for (IssueBook issuedBook : issueBook.getIssuedBooks()) {
             if (issuedBook.getBookid() == Bookid)
             {
                 Date currentDate = new Date();
 
                 Calendar c = Calendar.getInstance();
+                SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
 
-                c.add(Calendar.DATE, 15);
+                c.setTime(sdf.parse(issuedBook.getDueDate()));
+
+                c.add(Calendar.DATE, 6);
 
                 if(issueBook.RenewBook(Bookid,Username,currentDate.toString(),c.getTime().toString()))
                 {
+                    issuedBook.setDueDate(c.getTime().toString());
                     return 0;
                 }
                 else

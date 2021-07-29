@@ -1,8 +1,6 @@
 package Controller;
 
-import Classes.BLL.BLLClasses.Admin;
 import Classes.BLL.BLLClasses.Login;
-import Classes.BLL.BLLClasses.User;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -66,28 +64,12 @@ public class LoginController
         if(Userfield.getPromptText().equals("Username"))
         {
 
-            if(login.Login(Userfield.getText(),Passwordfield.getText(),"User"))
-            {
-                playTransition(true);
-            }
-            else
-            {
-                playTransition(false);
-
-            }
+            playTransition(login.Login(Userfield.getText(), Passwordfield.getText(), "User"));
         }
         else if (Userfield.getPromptText().equals("AdminUsername"))
         {
 
-            if(login.Login(Userfield.getText(),Passwordfield.getText(),"Admin"))
-            {
-                playTransition(true);
-            }
-            else
-            {
-                playTransition(false);
-
-            }
+            playTransition(login.Login(Userfield.getText(), Passwordfield.getText(), "Admin"));
 
         }
     }
@@ -235,7 +217,7 @@ public class LoginController
 
                     Errorlabel.setVisible(true);
 
-                    System.out.println(exception.toString());
+
                 }
 
             }

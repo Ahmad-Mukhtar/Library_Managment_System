@@ -44,7 +44,7 @@ public class Admin
 
         for (Books b:books.getBooksArrayList()) {
             Books books=new Books(b);
-            if (books.getBookname().contains(Searchvalue))
+            if (books.getBookname().contains(Searchvalue)||books.getAuthorname().contains(Searchvalue))
             {
                 SearchResults.add(books);
             }

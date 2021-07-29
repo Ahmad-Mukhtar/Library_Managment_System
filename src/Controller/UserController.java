@@ -48,6 +48,9 @@ public class UserController  implements Initializable {
     private Pane Scrollpane;
 
     @FXML
+    private Label NotifcationLabel;
+
+    @FXML
     private Button Viewbooksbutton;
 
     @FXML
@@ -267,7 +270,7 @@ public class UserController  implements Initializable {
 
     //Renew Book
     @FXML
-    private void renewBook() throws SQLException {
+    private void renewBook() throws SQLException, ParseException {
         if (Renewfield.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please Enter Book Id");
         }
@@ -921,10 +924,11 @@ public class UserController  implements Initializable {
     private void penaltyPrice()
     {
 
-        if(user.getPenaltyPrice()>0) {
+        int price =user.getPenaltyPrice();
+        if(price>0) {
             PenlaltyLabel.setStyle("-fx-text-fill: #721c24;-fx-background-color: #f8d7da;");
 
-            PenlaltyLabel.setText("Please Pay Your Fine of RS " + user.getPenaltyPrice());
+            PenlaltyLabel.setText("Please Pay Your Fine of RS " + price);
         }
     }
 
@@ -1053,6 +1057,7 @@ public class UserController  implements Initializable {
     private void showBooks()
     {
         disableAllpanes();
+        NotifcationLabel.setText(String.valueOf(user.getBooksArrayList().size()));
         DynamicscrollPane=createScrollpane(user.getBooksArrayList());
         DynamicscrollPane.setVisible(true);
         UserpanelPane.getChildren().add(DynamicscrollPane);
@@ -1260,6 +1265,8 @@ public class UserController  implements Initializable {
                 user=new User(data);
 
                 myObj.delete();
+
+
 
                 showBooks();
 

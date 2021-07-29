@@ -2,6 +2,8 @@ create database LibraryManagmentSystem
 
 use LibraryManagmentSystem
 
+
+
 create table admininfo
 (
 
@@ -38,6 +40,8 @@ primary key(Bookid,username),
 Foreign key (Bookid) References Bookinfo(Bookid) on Update cascade on Delete cascade,
 Foreign key (username) References Member(username) on Update cascade on Delete cascade
 )
+
+
 create table bookinfo
 (
 Genre varchar(10),
@@ -78,7 +82,8 @@ create table Bookreservation
  Foreign key (username) References Member(username) on Update cascade on Delete cascade,
  Foreign key (Bookid) References Bookinfo(Bookid) on Update cascade on Delete cascade
  )
- 
+
+
 select * from admininfo
 Select * from Member
 Select * from Bookissue
@@ -87,6 +92,19 @@ Select * from History
 Select * from Favourites
 Select * from Penalty
 Select * from Bookreservation
+
+insert into bookinfo(Genre,Bookid,Bookname,BookDescription,CurrentStock,Bookimagelink,Authorname,Publishername)
+values('Fantasy',1,'The Hobbit','Nice Book',10,'src\Images\1.jpg','Auditore','C2C'),
+('Action',2,'War','Nice Book',12,'src\Images\2.jpg','meditore','Bones'),
+('Adventure',3,'Mobi','Nice Book',11,'src\Images\3.jpg','laditore','Aniplex'),
+('Action',4,'George 1984','Nice Book',14,'src\Images\4.jpg','Vaditore','Mappa'),
+('Horror',5,'Dracula','Nice Book',17,'src\Images\5.jpg','Ichigo','Wit'),
+('Drama',6,'The Hunger Games','Nice Book',5,'src\Images\6.jpg','Kurosaki','Mad House'),
+('Fiction',7,'Narnia','Nice Book',13,'src\Images\7.jpg','Rias','Kyoto Animation'),
+('Comedy',8,'Diary of a Wimpy Kid','Nice Book',8,'src\Images\8.jpg','Gremory','Flourite'),
+('Fiction',9,'OOAD','Nice Book',7,'src\Images\9.jpg','lelouch','ViVi')
+
+
 
 create procedure signup
 @mempass varchar(20),
